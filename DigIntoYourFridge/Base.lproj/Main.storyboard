@@ -121,6 +121,14 @@
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eA7-Ko-3cU">
+                                                <rect key="frame" x="101" y="721" width="188" height="34.333333333333371"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="Continue with Google"/>
+                                                <connections>
+                                                    <action selector="ggBtnAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z7I-yS-Ebr"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -133,6 +141,8 @@
                                             <constraint firstItem="xlw-d2-Rdu" firstAttribute="top" secondItem="IfO-hh-YbR" secondAttribute="bottom" constant="30" id="MoO-Ml-1ic"/>
                                             <constraint firstItem="D1k-O2-O8I" firstAttribute="centerX" secondItem="Vao-gn-p5A" secondAttribute="centerX" id="Nkl-Fa-KpV"/>
                                             <constraint firstAttribute="height" constant="1200" id="XwS-3m-HcY"/>
+                                            <constraint firstItem="eA7-Ko-3cU" firstAttribute="top" secondItem="7es-rH-Fkk" secondAttribute="bottom" constant="20" id="nQ1-lB-IP0"/>
+                                            <constraint firstItem="eA7-Ko-3cU" firstAttribute="centerX" secondItem="Vao-gn-p5A" secondAttribute="centerX" id="o8K-xr-b2s"/>
                                             <constraint firstItem="AP0-3b-PXz" firstAttribute="top" secondItem="Vao-gn-p5A" secondAttribute="top" constant="50" id="oHP-aq-3ib"/>
                                             <constraint firstItem="AP0-3b-PXz" firstAttribute="centerX" secondItem="Vao-gn-p5A" secondAttribute="centerX" id="vQj-iq-5rI"/>
                                             <constraint firstItem="IfO-hh-YbR" firstAttribute="centerX" secondItem="Vao-gn-p5A" secondAttribute="centerX" id="xVG-SX-HBZ"/>
@@ -162,6 +172,8 @@
                     <connections>
                         <outlet property="AppName" destination="AP0-3b-PXz" id="0hp-jP-NZg"/>
                         <outlet property="contentView" destination="Vao-gn-p5A" id="R98-TB-cJi"/>
+                        <outlet property="divider" destination="7es-rH-Fkk" id="WGe-af-wQp"/>
+                        <outlet property="googleLoginBtn" destination="eA7-Ko-3cU" id="asb-DI-8RH"/>
                         <outlet property="imgFood" destination="IfO-hh-YbR" id="zmG-QW-w9E"/>
                         <outlet property="lbSub" destination="D1k-O2-O8I" id="SO6-ht-wgk"/>
                     </connections>

@@ -25,9 +25,12 @@
 		844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9EB92916D02E00ABE852 /* homeVC.swift */; };
 		844E9EBD2916EC8400ABE852 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E9EBC2916EC8400ABE852 /* FacebookCore */; };
 		844E9EBF2916EC8400ABE852 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 844E9EBE2916EC8400ABE852 /* FacebookLogin */; };
+		84C5880329171C1C000F50DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84C5880229171C1C000F50DB /* GoogleService-Info.plist */; };
+		8D1B6FD23CC26EAA074AF696 /* Pods_DigIntoYourFridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0093B2F942C391FD79694C26 /* Pods_DigIntoYourFridge.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0093B2F942C391FD79694C26 /* Pods_DigIntoYourFridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DigIntoYourFridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		844E9E842916BA7F00ABE852 /* DigIntoYourFridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DigIntoYourFridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844E9E872916BA7F00ABE852 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844E9E892916BA7F00ABE852 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +49,9 @@
 		844E9EA82916BAB500ABE852 /* SF-Compact-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Bold.otf"; sourceTree = "<group>"; };
 		844E9EA92916BAB500ABE852 /* SF-Compact-Rounded-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Thin.otf"; sourceTree = "<group>"; };
 		844E9EB92916D02E00ABE852 /* homeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
+		84C5880229171C1C000F50DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		89E3277E4956254589226989 /* Pods-DigIntoYourFridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DigIntoYourFridge.debug.xcconfig"; path = "Target Support Files/Pods-DigIntoYourFridge/Pods-DigIntoYourFridge.debug.xcconfig"; sourceTree = "<group>"; };
+		E8BDF8FEB15A18854B8A7814 /* Pods-DigIntoYourFridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DigIntoYourFridge.release.xcconfig"; path = "Target Support Files/Pods-DigIntoYourFridge/Pods-DigIntoYourFridge.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,17 +61,29 @@
 			files = (
 				844E9EBF2916EC8400ABE852 /* FacebookLogin in Frameworks */,
 				844E9EBD2916EC8400ABE852 /* FacebookCore in Frameworks */,
+				8D1B6FD23CC26EAA074AF696 /* Pods_DigIntoYourFridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65FF00577F868F4BF68BB9E3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				89E3277E4956254589226989 /* Pods-DigIntoYourFridge.debug.xcconfig */,
+				E8BDF8FEB15A18854B8A7814 /* Pods-DigIntoYourFridge.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		844E9E7B2916BA7F00ABE852 = {
 			isa = PBXGroup;
 			children = (
 				844E9E862916BA7F00ABE852 /* DigIntoYourFridge */,
 				844E9E852916BA7F00ABE852 /* Products */,
+				65FF00577F868F4BF68BB9E3 /* Pods */,
+				CB7DAB1AD0AB4DA6C674853B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +98,7 @@
 		844E9E862916BA7F00ABE852 /* DigIntoYourFridge */ = {
 			isa = PBXGroup;
 			children = (
+				84C5880229171C1C000F50DB /* GoogleService-Info.plist */,
 				844E9E9C2916BAB500ABE852 /* Fonts */,
 				844E9E872916BA7F00ABE852 /* AppDelegate.swift */,
 				844E9E892916BA7F00ABE852 /* SceneDelegate.swift */,
@@ -109,6 +128,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		CB7DAB1AD0AB4DA6C674853B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0093B2F942C391FD79694C26 /* Pods_DigIntoYourFridge.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -116,9 +143,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 844E9E982916BA8000ABE852 /* Build configuration list for PBXNativeTarget "DigIntoYourFridge" */;
 			buildPhases = (
+				0D474C190974B40920DACDE9 /* [CP] Check Pods Manifest.lock */,
 				844E9E802916BA7F00ABE852 /* Sources */,
 				844E9E812916BA7F00ABE852 /* Frameworks */,
 				844E9E822916BA7F00ABE852 /* Resources */,
+				2AF9276E03A886FBE3DFCFB6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C5880329171C1C000F50DB /* GoogleService-Info.plist in Resources */,
 				844E9EB22916BAB600ABE852 /* SF-Compact-Rounded-Regular.otf in Resources */,
 				844E9E942916BA8000ABE852 /* LaunchScreen.storyboard in Resources */,
 				844E9EAB2916BAB600ABE852 /* SF-Compact-Rounded-Medium.otf in Resources */,
@@ -190,6 +220,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D474C190974B40920DACDE9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DigIntoYourFridge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2AF9276E03A886FBE3DFCFB6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DigIntoYourFridge/Pods-DigIntoYourFridge-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DigIntoYourFridge/Pods-DigIntoYourFridge-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DigIntoYourFridge/Pods-DigIntoYourFridge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		844E9E802916BA7F00ABE852 /* Sources */ = {
@@ -341,6 +413,7 @@
 		};
 		844E9E992916BA8000ABE852 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89E3277E4956254589226989 /* Pods-DigIntoYourFridge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -369,6 +442,7 @@
 		};
 		844E9E9A2916BA8000ABE852 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8BDF8FEB15A18854B8A7814 /* Pods-DigIntoYourFridge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
