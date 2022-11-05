@@ -15,10 +15,6 @@
 		844E9E942916BA8000ABE852 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844E9E922916BA8000ABE852 /* LaunchScreen.storyboard */; };
 		844E9EAB2916BAB600ABE852 /* SF-Compact-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9E9D2916BAB500ABE852 /* SF-Compact-Rounded-Medium.otf */; };
 		844E9EAC2916BAB600ABE852 /* SF-Compact-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9E9E2916BAB500ABE852 /* SF-Compact-Rounded-Heavy.otf */; };
-		844E9EAD2916BAB600ABE852 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9E9F2916BAB500ABE852 /* SF-Pro-Display-Regular.otf */; };
-		844E9EAE2916BAB600ABE852 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA02916BAB500ABE852 /* SF-Pro-Display-Bold.otf */; };
-		844E9EAF2916BAB600ABE852 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA12916BAB500ABE852 /* SF-Pro-Display-Medium.otf */; };
-		844E9EB02916BAB600ABE852 /* SF-Pro-Display-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA22916BAB500ABE852 /* SF-Pro-Display-Heavy.otf */; };
 		844E9EB12916BAB600ABE852 /* SF-Compact-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA32916BAB500ABE852 /* SF-Compact-Rounded-Light.otf */; };
 		844E9EB22916BAB600ABE852 /* SF-Compact-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA42916BAB500ABE852 /* SF-Compact-Rounded-Regular.otf */; };
 		844E9EB32916BAB600ABE852 /* SF-Compact-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA52916BAB500ABE852 /* SF-Compact-Rounded-Ultralight.otf */; };
@@ -26,7 +22,9 @@
 		844E9EB52916BAB600ABE852 /* SF-Compact-Rounded-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA72916BAB500ABE852 /* SF-Compact-Rounded-Black.otf */; };
 		844E9EB62916BAB600ABE852 /* SF-Compact-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA82916BAB500ABE852 /* SF-Compact-Rounded-Bold.otf */; };
 		844E9EB72916BAB600ABE852 /* SF-Compact-Rounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EA92916BAB500ABE852 /* SF-Compact-Rounded-Thin.otf */; };
-		844E9EB82916BAB600ABE852 /* SF-Pro-Display-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 844E9EAA2916BAB500ABE852 /* SF-Pro-Display-Black.otf */; };
+		844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9EB92916D02E00ABE852 /* homeVC.swift */; };
+		844E9EBD2916EC8400ABE852 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E9EBC2916EC8400ABE852 /* FacebookCore */; };
+		844E9EBF2916EC8400ABE852 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 844E9EBE2916EC8400ABE852 /* FacebookLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,10 +38,6 @@
 		844E9E952916BA8000ABE852 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		844E9E9D2916BAB500ABE852 /* SF-Compact-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Medium.otf"; sourceTree = "<group>"; };
 		844E9E9E2916BAB500ABE852 /* SF-Compact-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Heavy.otf"; sourceTree = "<group>"; };
-		844E9E9F2916BAB500ABE852 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
-		844E9EA02916BAB500ABE852 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
-		844E9EA12916BAB500ABE852 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
-		844E9EA22916BAB500ABE852 /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; };
 		844E9EA32916BAB500ABE852 /* SF-Compact-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Light.otf"; sourceTree = "<group>"; };
 		844E9EA42916BAB500ABE852 /* SF-Compact-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Regular.otf"; sourceTree = "<group>"; };
 		844E9EA52916BAB500ABE852 /* SF-Compact-Rounded-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Ultralight.otf"; sourceTree = "<group>"; };
@@ -51,7 +45,7 @@
 		844E9EA72916BAB500ABE852 /* SF-Compact-Rounded-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Black.otf"; sourceTree = "<group>"; };
 		844E9EA82916BAB500ABE852 /* SF-Compact-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Bold.otf"; sourceTree = "<group>"; };
 		844E9EA92916BAB500ABE852 /* SF-Compact-Rounded-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Thin.otf"; sourceTree = "<group>"; };
-		844E9EAA2916BAB500ABE852 /* SF-Pro-Display-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Black.otf"; sourceTree = "<group>"; };
+		844E9EB92916D02E00ABE852 /* homeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844E9EBF2916EC8400ABE852 /* FacebookLogin in Frameworks */,
+				844E9EBD2916EC8400ABE852 /* FacebookCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +84,7 @@
 				844E9E872916BA7F00ABE852 /* AppDelegate.swift */,
 				844E9E892916BA7F00ABE852 /* SceneDelegate.swift */,
 				844E9E8B2916BA7F00ABE852 /* ViewController.swift */,
+				844E9EB92916D02E00ABE852 /* homeVC.swift */,
 				844E9E8D2916BA7F00ABE852 /* Main.storyboard */,
 				844E9E902916BA8000ABE852 /* Assets.xcassets */,
 				844E9E922916BA8000ABE852 /* LaunchScreen.storyboard */,
@@ -101,10 +98,6 @@
 			children = (
 				844E9E9D2916BAB500ABE852 /* SF-Compact-Rounded-Medium.otf */,
 				844E9E9E2916BAB500ABE852 /* SF-Compact-Rounded-Heavy.otf */,
-				844E9E9F2916BAB500ABE852 /* SF-Pro-Display-Regular.otf */,
-				844E9EA02916BAB500ABE852 /* SF-Pro-Display-Bold.otf */,
-				844E9EA12916BAB500ABE852 /* SF-Pro-Display-Medium.otf */,
-				844E9EA22916BAB500ABE852 /* SF-Pro-Display-Heavy.otf */,
 				844E9EA32916BAB500ABE852 /* SF-Compact-Rounded-Light.otf */,
 				844E9EA42916BAB500ABE852 /* SF-Compact-Rounded-Regular.otf */,
 				844E9EA52916BAB500ABE852 /* SF-Compact-Rounded-Ultralight.otf */,
@@ -112,7 +105,6 @@
 				844E9EA72916BAB500ABE852 /* SF-Compact-Rounded-Black.otf */,
 				844E9EA82916BAB500ABE852 /* SF-Compact-Rounded-Bold.otf */,
 				844E9EA92916BAB500ABE852 /* SF-Compact-Rounded-Thin.otf */,
-				844E9EAA2916BAB500ABE852 /* SF-Pro-Display-Black.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -133,6 +125,10 @@
 			dependencies = (
 			);
 			name = DigIntoYourFridge;
+			packageProductDependencies = (
+				844E9EBC2916EC8400ABE852 /* FacebookCore */,
+				844E9EBE2916EC8400ABE852 /* FacebookLogin */,
+			);
 			productName = DigIntoYourFridge;
 			productReference = 844E9E842916BA7F00ABE852 /* DigIntoYourFridge.app */;
 			productType = "com.apple.product-type.application";
@@ -161,6 +157,9 @@
 				Base,
 			);
 			mainGroup = 844E9E7B2916BA7F00ABE852;
+			packageReferences = (
+				844E9EBB2916EC8400ABE852 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+			);
 			productRefGroup = 844E9E852916BA7F00ABE852 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -175,23 +174,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				844E9EAF2916BAB600ABE852 /* SF-Pro-Display-Medium.otf in Resources */,
 				844E9EB22916BAB600ABE852 /* SF-Compact-Rounded-Regular.otf in Resources */,
 				844E9E942916BA8000ABE852 /* LaunchScreen.storyboard in Resources */,
 				844E9EAB2916BAB600ABE852 /* SF-Compact-Rounded-Medium.otf in Resources */,
 				844E9E912916BA8000ABE852 /* Assets.xcassets in Resources */,
 				844E9EAC2916BAB600ABE852 /* SF-Compact-Rounded-Heavy.otf in Resources */,
 				844E9EB62916BAB600ABE852 /* SF-Compact-Rounded-Bold.otf in Resources */,
-				844E9EAE2916BAB600ABE852 /* SF-Pro-Display-Bold.otf in Resources */,
-				844E9EAD2916BAB600ABE852 /* SF-Pro-Display-Regular.otf in Resources */,
 				844E9EB32916BAB600ABE852 /* SF-Compact-Rounded-Ultralight.otf in Resources */,
 				844E9EB12916BAB600ABE852 /* SF-Compact-Rounded-Light.otf in Resources */,
 				844E9EB52916BAB600ABE852 /* SF-Compact-Rounded-Black.otf in Resources */,
 				844E9EB42916BAB600ABE852 /* SF-Compact-Rounded-Semibold.otf in Resources */,
 				844E9EB72916BAB600ABE852 /* SF-Compact-Rounded-Thin.otf in Resources */,
 				844E9E8F2916BA7F00ABE852 /* Main.storyboard in Resources */,
-				844E9EB82916BAB600ABE852 /* SF-Pro-Display-Black.otf in Resources */,
-				844E9EB02916BAB600ABE852 /* SF-Pro-Display-Heavy.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				844E9E8C2916BA7F00ABE852 /* ViewController.swift in Sources */,
+				844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */,
 				844E9E882916BA7F00ABE852 /* AppDelegate.swift in Sources */,
 				844E9E8A2916BA7F00ABE852 /* SceneDelegate.swift in Sources */,
 			);
@@ -422,6 +417,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		844E9EBB2916EC8400ABE852 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		844E9EBC2916EC8400ABE852 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 844E9EBB2916EC8400ABE852 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		844E9EBE2916EC8400ABE852 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 844E9EBB2916EC8400ABE852 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 844E9E7C2916BA7F00ABE852 /* Project object */;
 }
