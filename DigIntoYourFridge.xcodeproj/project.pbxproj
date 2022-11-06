@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8403DC662917FF1400B49087 /* signupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403DC652917FF1400B49087 /* signupVC.swift */; };
 		844E9E882916BA7F00ABE852 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9E872916BA7F00ABE852 /* AppDelegate.swift */; };
 		844E9E8A2916BA7F00ABE852 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9E892916BA7F00ABE852 /* SceneDelegate.swift */; };
 		844E9E8C2916BA7F00ABE852 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9E8B2916BA7F00ABE852 /* ViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0093B2F942C391FD79694C26 /* Pods_DigIntoYourFridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DigIntoYourFridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8403DC652917FF1400B49087 /* signupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signupVC.swift; sourceTree = "<group>"; };
 		844E9E842916BA7F00ABE852 /* DigIntoYourFridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DigIntoYourFridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844E9E872916BA7F00ABE852 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844E9E892916BA7F00ABE852 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				844E9E892916BA7F00ABE852 /* SceneDelegate.swift */,
 				844E9E8B2916BA7F00ABE852 /* ViewController.swift */,
 				844E9EB92916D02E00ABE852 /* homeVC.swift */,
+				8403DC652917FF1400B49087 /* signupVC.swift */,
 				844E9E8D2916BA7F00ABE852 /* Main.storyboard */,
 				844E9E902916BA8000ABE852 /* Assets.xcassets */,
 				844E9E922916BA8000ABE852 /* LaunchScreen.storyboard */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				844E9E8C2916BA7F00ABE852 /* ViewController.swift in Sources */,
+				8403DC662917FF1400B49087 /* signupVC.swift in Sources */,
 				844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */,
 				844E9E882916BA7F00ABE852 /* AppDelegate.swift in Sources */,
 				844E9E8A2916BA7F00ABE852 /* SceneDelegate.swift in Sources */,

@@ -7,6 +7,8 @@
 
 import UIKit
 import FacebookLogin
+import FacebookCore
+
 import FirebaseCore
 import GoogleSignIn
 import FirebaseAuth
@@ -38,6 +40,8 @@ func hexStringToUIColor(hex: String) -> UIColor {
 var myYellow = hexStringToUIColor(hex: "FFF8CB")
 var myOrange = hexStringToUIColor(hex: "F98E71")
 var lightPink = hexStringToUIColor(hex: "FFC5A5")
+var fbBlue = hexStringToUIColor(hex: "#3b5998")
+var myWhite = hexStringToUIColor(hex: "#ffffff")
 
 class ViewController: UIViewController { 
 
@@ -52,7 +56,7 @@ class ViewController: UIViewController {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let config = GIDConfiguration(clientID: clientID)
         
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { user, error in
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [self] user, error in
                             guard error == nil else { return }
             // 인증을 해도 계정은 따로 등록 필요
             // 구글 인증 토큰 받기 -> 사용자 정보 토큰 생성 -> 파이어베이스 인증에 등록
@@ -65,7 +69,31 @@ class ViewController: UIViewController {
             
             Auth.auth().signIn(with: credential) { _, _ in
             }
-            // If logged in successfully, display the app's main content view -> move to the main page 
+            // If logged in successfully, display the app's main content view -> move to the main page
+            print("Helloooooo")
+            //self.fbBtn.isHidden = true
+        }
+    }
+    
+    @IBOutlet weak var fbBtn: UIButton!
+    @IBAction func fbBtnClicked(_ sender: Any) {
+        let fbLoginManager = LoginManager()
+        fbLoginManager.logIn(permissions: ["public_profile"], from: self) {
+            result, error in
+            if let error = error {
+                print("Encountered Error: \(error)")
+            } else if let result = result, result.isCancelled {
+                // user cancelled to login
+                print("Cancelled")
+            } else {
+                // logged in successfully
+                //print("Logged In")
+                Profile.loadCurrentProfile { profile, error in
+                    if let firstName = profile?.firstName {
+                        print("Hello, \(firstName)")
+                    }
+                }
+            }
         }
     }
     
@@ -78,40 +106,51 @@ class ViewController: UIViewController {
         imgFood.image = UIImage(named: "Food on Table")
         
         // check Facebook Login status
-        if let token = AccessToken.current,
-           !token.isExpired {
-            print("logged in")
-        }
-        else { // not logged in
-            print("not logged in")
-            
-        }
-        
-        // Facebook Login Button customize + auto layout
-        let fbLoginBtn = FBLoginButton()
-        contentView.addSubview(fbLoginBtn)
-        fbLoginBtn.translatesAutoresizingMaskIntoConstraints = false // should be set to false to use auto layout
-        
-        fbLoginBtn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        fbLoginBtn.bottomAnchor.constraint(equalTo: divider.bottomAnchor, constant: 100).isActive = true
-        
-        fbLoginBtn.widthAnchor.constraint(equalToConstant: 270).isActive = true
-        fbLoginBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        if let token = AccessToken.current,
+//           !token.isExpired {
+//            print("logged in")
+//        }
+//        else { // not logged in
+//            print("not logged in")
+//
+//        }
         
         // Google Login Button
-        let ggLoginBtn = GIDSignInButton()
-        contentView.addSubview(ggLoginBtn)
+        googleLoginBtn.backgroundColor = myWhite
+        googleLoginBtn.translatesAutoresizingMaskIntoConstraints = false
         
+        googleLoginBtn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        googleLoginBtn.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 50).isActive = true
         
-//        ggLoginBtn.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        ggLoginBtn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-//        ggLoginBtn.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -250).isActive = true
-//        
-//        ggLoginBtn.widthAnchor.constraint(equalToConstant: 270).isActive = true
-//        ggLoginBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        googleLoginBtn.widthAnchor.constraint(equalToConstant: 270).isActive = true
+        googleLoginBtn.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        googleLoginBtn.setTitle("Continue with Google", for: .normal)
+        googleLoginBtn.titleLabel?.font =  UIFont(name: "Noteworthy", size: 17)
+        
+        // Facebook Login Button customize + auto layout
+        fbBtn.backgroundColor = fbBlue
+        fbBtn.translatesAutoresizingMaskIntoConstraints = false // should be set to false to use auto layout
+        
+        fbBtn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        fbBtn.topAnchor.constraint(equalTo: googleLoginBtn.bottomAnchor, constant: 20).isActive = true
+        
+        fbBtn.widthAnchor.constraint(equalToConstant: 270).isActive = true
+        fbBtn.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        fbBtn.titleLabel?.font = UIFont(name: "Noteworthy", size: 17)
+        fbBtn.setTitle("Continue with Facebook", for: .normal)
+        
     }
-
 
 }
 
+
+// 로그아웃 기능 구현 시 참고!! 원하는 곳(예를 들어 IBAction)에 아래 코드 작성.
+
+//let firebaseAuth = Auth.auth()
+//do {
+//    try firebaseAuth.signOut()
+//} catch let signOutError as NSError {
+//    print("로그아웃 Error발생:", signOutError)
+//}

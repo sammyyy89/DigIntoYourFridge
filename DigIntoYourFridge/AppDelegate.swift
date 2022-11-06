@@ -9,7 +9,7 @@ import UIKit
 import FacebookCore
 import FirebaseCore
 import GoogleSignIn
-import FirebaseAuth
+
 
 //@main
 //class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -52,6 +52,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        
+            // print font names
+        UIFont.familyNames.forEach({ name in
+            for font_name in UIFont.fontNames(forFamilyName: name) {
+                print("\n\(font_name)")
+                
+            }
+        })
+        
         // Google login
         FirebaseApp.configure()
         
