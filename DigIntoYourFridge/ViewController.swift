@@ -50,6 +50,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var imgFood: UIImageView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var tfEmail: UITextField!
     
     @IBOutlet weak var googleLoginBtn: UIButton!
     @IBAction func ggBtnAction(_ sender: GIDSignInButton) {
@@ -142,8 +143,15 @@ class ViewController: UIViewController {
         fbBtn.setTitle("Continue with Facebook", for: .normal)
         
     }
-
+    
+    // keyboard
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tfEmail.becomeFirstResponder()
+    }
 }
+
+
 
 
 // 로그아웃 기능 구현 시 참고!! 원하는 곳(예를 들어 IBAction)에 아래 코드 작성.
