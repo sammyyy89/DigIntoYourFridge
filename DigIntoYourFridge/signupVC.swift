@@ -106,19 +106,8 @@ class signupVC: UIViewController {
         signIn.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20).isActive = true
         signIn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
-        if FirebaseAuth.Auth.auth().currentUser != nil { // if current user exists            
-            lbSignedIn.isHidden = false
-            
-            lbName.isHidden = true
-            tfName.isHidden = true
-            lbEmail.isHidden = true
-            tfEmail.isHidden = true
-            lbPassword.isHidden = true
-            tfPassword.isHidden = true
-            createBtn.isHidden = true
-            signIn.isHidden = true
-            // show sign out button so that a logged in user can sign out
-            signOutBtn.isHidden = false 
+        if FirebaseAuth.Auth.auth().currentUser != nil { // if current user exists
+            userLoggedIn()
         } else {
             lbSignedIn.isHidden = true
             signOutBtn.isHidden = true
@@ -136,18 +125,7 @@ class signupVC: UIViewController {
         super.viewWillAppear(animated)
         if FirebaseAuth.Auth.auth().currentUser != nil { // user logged in
             print("user tapped back button")
-            lbName.isHidden = true
-            tfName.isHidden = true
-            lbEmail.isHidden = true
-            tfEmail.isHidden = true
-            lbPassword.isHidden = true
-            tfPassword.isHidden = true
-            createBtn.isHidden = true
-            signIn.isHidden = true
-            
-            // show sign out button so that a logged in user can sign out
-            lbSignedIn.isHidden = false
-            signOutBtn.isHidden = false
+            userLoggedIn()
         } else {
             lbSignedIn.isHidden = true
             signOutBtn.isHidden = true
@@ -180,16 +158,7 @@ class signupVC: UIViewController {
             print("You have signed in")
             strongSelf.goToViewController(where: "mainPage")
             
-            strongSelf.lbSignup.isHidden = true
-            strongSelf.imgCake.isHidden = true
-            strongSelf.lbName.isHidden = true
-            strongSelf.tfName.isHidden = true
-            strongSelf.lbEmail.isHidden = true
-            strongSelf.tfEmail.isHidden = true
-            strongSelf.lbPassword.isHidden = true
-            strongSelf.tfPassword.isHidden = true
-            strongSelf.createBtn.isHidden = true
-            strongSelf.signIn.isHidden = true
+            strongSelf.userLoggedIn()
             
             strongSelf.tfEmail.resignFirstResponder()
             strongSelf.tfPassword.resignFirstResponder()
@@ -222,6 +191,19 @@ class signupVC: UIViewController {
     func goToViewController(where: String) {
         let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
         self.navigationController?.pushViewController(pushVC!, animated: true)
+    }
+    
+    func userLoggedIn() {
+        lbSignup.isHidden = false
+        imgCake.isHidden = false
+        lbName.isHidden = true
+        tfName.isHidden = true
+        lbEmail.isHidden = true
+        tfEmail.isHidden = true
+        lbPassword.isHidden = true
+        tfPassword.isHidden = true
+        lbSignedIn.isHidden = false
+        signOutBtn.isHidden = false
     }
     
     func showCreateAccount(email: String, password: String) {

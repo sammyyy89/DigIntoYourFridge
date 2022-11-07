@@ -43,6 +43,7 @@ var myOrange = hexStringToUIColor(hex: "F98E71")
 var lightPink = hexStringToUIColor(hex: "FFC5A5")
 var fbBlue = hexStringToUIColor(hex: "#3b5998")
 var myWhite = hexStringToUIColor(hex: "#ffffff")
+var ggRed = hexStringToUIColor(hex: "DB4437")
 
 class ViewController: UIViewController {
     
@@ -140,46 +141,42 @@ class ViewController: UIViewController {
     @IBOutlet weak var fbBtn: UIButton!
     @IBAction func fbBtnClicked(_ sender: Any) {
         let fbLoginManager = LoginManager()
-        fbLoginManager.logIn(permissions: ["public_profile"], from: self) {
-            result, error in
+        fbLoginManager.logIn(permissions: ["public_profile", "email"], from: self) { result, error in
             if let error = error {
                 print("Encountered Error: \(error.localizedDescription)")
-            } else if let result = result, result.isCancelled {
-                // user cancelled to login
-                print("Cancelled")
-            } else {
-                // logged in successfully
-                self.goToViewController(where: "mainPage")
-
-                self.stackView.isHidden = true
-                self.divider.isHidden = true
-                self.lbOr.isHidden = true
-                self.googleLoginBtn.isHidden = true
-                self.fbBtn.isHidden = true
-                self.lbSignedIn.isHidden = false
-                self.signOutBtn.isHidden = false
+                return
+            }
+                guard let accessToken = AccessToken.current else {
+                    print("Failed to get access token")
+                    return
+                }
                 
-                let facebookToken = AccessToken.current!.tokenString
-                let fbCredential = FacebookAuthProvider.credential(withAccessToken: facebookToken)
-                Auth.auth().signIn(with: fbCredential) { (result, error) in
+                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+                
+                // Perform login by calling Firebase APIs
+                Auth.auth().signIn(with: credential, completion: { (user, error) in
                     if let error = error {
                         print("Firebase auth fails with error: \(error.localizedDescription)")
                     } else if let result = result {
-                        print("Firebase loign succeeds: \(result)")
+                        print("Login success: \(result)")
+                        
+                        self.goToViewController(where: "mainPage")
+                        self.stackView.isHidden = true
+                        self.divider.isHidden = true
+                        self.lbOr.isHighlighted = true
+                        self.googleLoginBtn.isHidden = true
+                        self.fbBtn.isHidden = true
+                        self.lbSignedIn.isHidden = false
+                        self.signOutBtn.isHidden = false
                     }
-                }
-
-                Profile.loadCurrentProfile { profile, error in
-                    if let firstName = profile?.firstName {
-                        print("Hello, \(firstName)")
-                    }
-                }
+                })
+                
             }
         }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         self.view.backgroundColor = myYellow // set background color
         AppName.textColor = myOrange
@@ -187,7 +184,7 @@ class ViewController: UIViewController {
         imgFood.image = UIImage(named: "Food on Table")
         
         // Google Login Button
-        googleLoginBtn.backgroundColor = myWhite
+        googleLoginBtn.backgroundColor = ggRed
         googleLoginBtn.translatesAutoresizingMaskIntoConstraints = false
         
         googleLoginBtn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -238,7 +235,6 @@ class ViewController: UIViewController {
             lbSignedIn.isHidden = false
             signOutBtn.isHidden = false
         } else {
-            print("NOT LOGGED IN")
             lbSignedIn.isHidden = true
             signOutBtn.isHidden = true
             
