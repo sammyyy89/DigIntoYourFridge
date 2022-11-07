@@ -9,6 +9,7 @@ import UIKit
 import FacebookLogin
 import FacebookCore
 
+import Firebase
 import FirebaseCore
 import GoogleSignIn
 import FirebaseAuth
@@ -43,14 +44,62 @@ var lightPink = hexStringToUIColor(hex: "FFC5A5")
 var fbBlue = hexStringToUIColor(hex: "#3b5998")
 var myWhite = hexStringToUIColor(hex: "#ffffff")
 
-class ViewController: UIViewController { 
-
+class ViewController: UIViewController {
+    
+    
+    @IBOutlet weak var lbSignedIn: UILabel!
+    
     @IBOutlet weak var AppName: UILabel!
     @IBOutlet weak var lbSub: UILabel!
     @IBOutlet weak var imgFood: UIImageView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var divider: UIView!
     @IBOutlet weak var tfEmail: UITextField!
+    @IBOutlet weak var tfPassword: UITextField!
+    
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var lbOr: UILabel!
+    
+    @IBOutlet weak var loginBtn: UIButton!
+    @IBAction func loginTapped(_ sender: UIButton) {
+        guard let email = tfEmail.text, !email.isEmpty,
+              let password = tfPassword.text, !password.isEmpty else {
+                // if there are missing fields, show alert
+                let alert = UIAlertController(title: "Required Fields Missing", message: "Please enter your email address and password.", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(ok)
+                present(alert, animated: true, completion: nil)
+                return
+        }
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { result, error in
+            guard error == nil else {
+                let errMsg = error?.localizedDescription ?? "Error occurred"
+                
+                let errAlert = UIAlertController(title: "Login Failed", message: errMsg, preferredStyle: .alert)
+                let confirmed = UIAlertAction(title: "OK", style: .default, handler: nil)
+                errAlert.addAction(confirmed)
+                
+                self.present(errAlert, animated: true, completion: nil)
+                
+                self.tfEmail.text = ""
+                self.tfPassword.text = ""
+                
+                return
+            }
+            // signed in successfully
+            self.goToViewController(where: "mainPage")
+            
+            self.stackView.isHidden = true
+            self.divider.isHidden = true
+            self.lbOr.isHidden = true
+            self.googleLoginBtn.isHidden = true
+            self.fbBtn.isHidden = true
+            self.lbSignedIn.isHidden = false
+            self.signOutBtn.isHidden = false
+        })
+    }
+    
+    @IBOutlet weak var signOutBtn: UIButton!
     
     @IBOutlet weak var googleLoginBtn: UIButton!
     @IBAction func ggBtnAction(_ sender: GIDSignInButton) {
@@ -58,7 +107,7 @@ class ViewController: UIViewController {
         let config = GIDConfiguration(clientID: clientID)
         
         GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [self] user, error in
-                            guard error == nil else { return }
+            guard error == nil else { return }
             // 인증을 해도 계정은 따로 등록 필요
             // 구글 인증 토큰 받기 -> 사용자 정보 토큰 생성 -> 파이어베이스 인증에 등록
             guard let authentication = user?.authentication,
@@ -68,11 +117,23 @@ class ViewController: UIViewController {
             }
             let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
             
-            Auth.auth().signIn(with: credential) { _, _ in
+            Auth.auth().signIn(with: credential) { (result, error) in
+                if let error = error {
+                    print("Firebase auth fails with error: \(error.localizedDescription)")
+                } else if let result = result {
+                    print("Login success: \(result)")
+                    // If logged in successfully, display the app's main content view -> move to the main page
+                    self.goToViewController(where: "mainPage")
+                    
+                    self.stackView.isHidden = true
+                    self.divider.isHidden = true
+                    self.lbOr.isHidden = true
+                    self.googleLoginBtn.isHidden = true
+                    self.fbBtn.isHidden = true
+                    self.lbSignedIn.isHidden = false
+                    self.signOutBtn.isHidden = false
+                }
             }
-            // If logged in successfully, display the app's main content view -> move to the main page
-            print("Helloooooo")
-            //self.fbBtn.isHidden = true
         }
     }
     
@@ -82,13 +143,32 @@ class ViewController: UIViewController {
         fbLoginManager.logIn(permissions: ["public_profile"], from: self) {
             result, error in
             if let error = error {
-                print("Encountered Error: \(error)")
+                print("Encountered Error: \(error.localizedDescription)")
             } else if let result = result, result.isCancelled {
                 // user cancelled to login
                 print("Cancelled")
             } else {
                 // logged in successfully
-                //print("Logged In")
+                self.goToViewController(where: "mainPage")
+
+                self.stackView.isHidden = true
+                self.divider.isHidden = true
+                self.lbOr.isHidden = true
+                self.googleLoginBtn.isHidden = true
+                self.fbBtn.isHidden = true
+                self.lbSignedIn.isHidden = false
+                self.signOutBtn.isHidden = false
+                
+                let facebookToken = AccessToken.current!.tokenString
+                let fbCredential = FacebookAuthProvider.credential(withAccessToken: facebookToken)
+                Auth.auth().signIn(with: fbCredential) { (result, error) in
+                    if let error = error {
+                        print("Firebase auth fails with error: \(error.localizedDescription)")
+                    } else if let result = result {
+                        print("Firebase loign succeeds: \(result)")
+                    }
+                }
+
                 Profile.loadCurrentProfile { profile, error in
                     if let firstName = profile?.firstName {
                         print("Hello, \(firstName)")
@@ -105,16 +185,6 @@ class ViewController: UIViewController {
         AppName.textColor = myOrange
         lbSub.textColor = .black
         imgFood.image = UIImage(named: "Food on Table")
-        
-        // check Facebook Login status
-//        if let token = AccessToken.current,
-//           !token.isExpired {
-//            print("logged in")
-//        }
-//        else { // not logged in
-//            print("not logged in")
-//
-//        }
         
         // Google Login Button
         googleLoginBtn.backgroundColor = myWhite
@@ -142,12 +212,96 @@ class ViewController: UIViewController {
         fbBtn.titleLabel?.font = UIFont(name: "Noteworthy", size: 17)
         fbBtn.setTitle("Continue with Facebook", for: .normal)
         
+        lbSignedIn.text = "You're already signed in!"
+        lbSignedIn.font = UIFont(name: "Noteworthy", size: 20)
+        lbSignedIn.translatesAutoresizingMaskIntoConstraints = false
+        lbSignedIn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        lbSignedIn.topAnchor.constraint(equalTo: imgFood.bottomAnchor, constant: 30).isActive = true
+        
+        signOutBtn.translatesAutoresizingMaskIntoConstraints = false
+        signOutBtn.setTitle("Sign Out", for: .normal)
+        signOutBtn.titleLabel?.font = UIFont(name: "Noteworthy", size: 20)
+        signOutBtn.backgroundColor = myOrange
+        signOutBtn.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        signOutBtn.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        signOutBtn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        signOutBtn.topAnchor.constraint(equalTo: lbSignedIn.bottomAnchor, constant: 15).isActive = true
+        signOutBtn.addTarget(self, action: #selector(signOutBtnClicked), for: .touchUpInside)
+        
+        if FirebaseAuth.Auth.auth().currentUser != nil { // user logged in
+            print("user logged in")
+            stackView.isHidden = true
+            divider.isHidden = true
+            lbOr.isHidden = true
+            googleLoginBtn.isHidden = true
+            self.fbBtn.isHidden = true
+            lbSignedIn.isHidden = false
+            signOutBtn.isHidden = false
+        } else {
+            print("NOT LOGGED IN")
+            lbSignedIn.isHidden = true
+            signOutBtn.isHidden = true
+            
+        }
+        
+        
+        
+        // check Facebook Login status
+//        if let token = AccessToken.current,
+//           !token.isExpired {
+//            print("logged in")
+//        }
+//        else { // not logged in
+//            print("not logged in")
+//
+//        }
+    }
+    
+    @objc private func signOutBtnClicked() {
+        do {
+            try FirebaseAuth.Auth.auth().signOut()
+            stackView.isHidden = false
+            divider.isHidden = false
+            lbOr.isHidden = false
+            googleLoginBtn.isHidden = false
+            fbBtn.isHidden = false
+            lbSignedIn.isHidden = true
+            
+            signOutBtn.isHidden = true
+            tfEmail.text = ""
+            tfPassword.text = ""
+        }
+        catch {
+            print("An error occurred")
+        }
     }
     
     // keyboard
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tfEmail.becomeFirstResponder()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if FirebaseAuth.Auth.auth().currentUser != nil { // user logged in
+            print("user logged in & tapped back button")
+            stackView.isHidden = true
+            divider.isHidden = true
+            lbOr.isHidden = true
+            googleLoginBtn.isHidden = true
+            self.fbBtn.isHidden = true
+            lbSignedIn.isHidden = false
+            signOutBtn.isHidden = false
+        } else {
+            lbSignedIn.isHidden = true
+            signOutBtn.isHidden = true
+        }
+    }
+    
+    func goToViewController(where: String) {
+        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
+        self.navigationController?.pushViewController(pushVC!, animated: true)
     }
 }
 

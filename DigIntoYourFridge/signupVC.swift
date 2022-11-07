@@ -27,16 +27,15 @@ class signupVC: UIViewController {
     @IBOutlet weak var createBtn: UIButton!
     
     @IBOutlet weak var signIn: UIButton!
+    @IBOutlet weak var lbSignedIn: UILabel!
     
     @IBOutlet weak var signOutBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        signOutBtn.isHidden = true
-        
         self.view.backgroundColor = myYellow // set background color
-        contentView.backgroundColor = myYellow
+        contentView.backgroundColor = myYellow // set content view color
         
         lbSignup.text = "Sign Up"
         lbSignup.font = UIFont(name: "Noteworthy", size: 35)
@@ -85,6 +84,12 @@ class signupVC: UIViewController {
         createBtn.backgroundColor = myOrange
         createBtn.addTarget(self, action: #selector(createBtnClicked), for: .touchUpInside)
         
+        lbSignedIn.text = "You're already signed in!"
+        lbSignedIn.font = UIFont(name: "Noteworthy", size: 20)
+        lbSignedIn.translatesAutoresizingMaskIntoConstraints = false
+        lbSignedIn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        lbSignedIn.topAnchor.constraint(equalTo: imgCake.bottomAnchor, constant: 30).isActive = true
+        
         signOutBtn.translatesAutoresizingMaskIntoConstraints = false
         signOutBtn.setTitle("Sign Out", for: .normal)
         signOutBtn.titleLabel?.font = UIFont(name: "Noteworthy", size: 20)
@@ -95,17 +100,15 @@ class signupVC: UIViewController {
         signOutBtn.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         signOutBtn.addTarget(self, action: #selector(signOutBtnClicked), for: .touchUpInside)
         
-        
         signIn.setTitle("Already a member? Sign in", for: .normal)
         signIn.titleLabel?.font = UIFont(name: "Noteworthy", size: 15)
-        
         signIn.translatesAutoresizingMaskIntoConstraints = false
         signIn.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20).isActive = true
         signIn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         
-        if FirebaseAuth.Auth.auth().currentUser != nil {
-            lbSignup.isHidden = true
-            imgCake.isHidden = true
+        if FirebaseAuth.Auth.auth().currentUser != nil { // if current user exists            
+            lbSignedIn.isHidden = false
+            
             lbName.isHidden = true
             tfName.isHidden = true
             lbEmail.isHidden = true
@@ -114,10 +117,12 @@ class signupVC: UIViewController {
             tfPassword.isHidden = true
             createBtn.isHidden = true
             signIn.isHidden = true
-            
+            // show sign out button so that a logged in user can sign out
             signOutBtn.isHidden = false 
+        } else {
+            lbSignedIn.isHidden = true
+            signOutBtn.isHidden = true
         }
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -127,25 +132,39 @@ class signupVC: UIViewController {
         }
     }
     
-    @objc private func createBtnClicked() {
-        guard let userEmail = tfEmail.text, !userEmail.isEmpty,
-            let userPassword = tfPassword.text, !userPassword.isEmpty else {
-                print("Missing field data")
-                return
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if FirebaseAuth.Auth.auth().currentUser != nil { // user logged in
+            print("user tapped back button")
+            lbName.isHidden = true
+            tfName.isHidden = true
+            lbEmail.isHidden = true
+            tfEmail.isHidden = true
+            lbPassword.isHidden = true
+            tfPassword.isHidden = true
+            createBtn.isHidden = true
+            signIn.isHidden = true
+            
+            // show sign out button so that a logged in user can sign out
+            lbSignedIn.isHidden = false
+            signOutBtn.isHidden = false
+        } else {
+            lbSignedIn.isHidden = true
+            signOutBtn.isHidden = true
         }
-        
-        
-        // Get auth instance
-        
-        // attempt sign in
-        
-        // if failure, present alert to create account
-        
-        // if user continues, create account
-        
-        // check sign in on app launch
-        
-        // allow user to sign out with button
+    }
+    
+    @objc private func createBtnClicked() {
+        guard let userName = tfName.text, !userName.isEmpty,
+            let userEmail = tfEmail.text, !userEmail.isEmpty,
+            let userPassword = tfPassword.text, !userPassword.isEmpty else {
+                // if there are missing fields, show alert
+                let alert = UIAlertController(title: "Required Fields Missing", message: "There are missing required fields!", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(ok)
+                present(alert, animated: true, completion: nil)
+                return
+            }
         
         FirebaseAuth.Auth.auth().signIn(withEmail: userEmail, password: userPassword, completion: { [weak self] result, error in
             guard let strongSelf = self else {
@@ -159,6 +178,8 @@ class signupVC: UIViewController {
             }
             
             print("You have signed in")
+            strongSelf.goToViewController(where: "mainPage")
+            
             strongSelf.lbSignup.isHidden = true
             strongSelf.imgCake.isHidden = true
             strongSelf.lbName.isHidden = true
@@ -177,6 +198,7 @@ class signupVC: UIViewController {
     
     @objc private func signOutBtnClicked() {
         do {
+            // 로그아웃 확인 컨펌 받는 알럿
             try FirebaseAuth.Auth.auth().signOut()
             lbSignup.isHidden = false
             imgCake.isHidden = false
@@ -192,26 +214,48 @@ class signupVC: UIViewController {
             signOutBtn.isHidden = true
         }
         catch {
+            // 로그아웃 실패 시 
             print("An error occurred")
         }
+    }
+    
+    func goToViewController(where: String) {
+        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
+        self.navigationController?.pushViewController(pushVC!, animated: true)
     }
     
     func showCreateAccount(email: String, password: String) {
         let alert = UIAlertController(title: "Create Account", message: "Would you like to create an account?",
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: {_ in
+            
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { [weak self] result, error in
+                
                 guard let strongSelf = self else {
                     return
                 }
                 
                 guard error == nil else {
-                    // show account creation
+                    // show account creation - If account creation fails, show why with an alert
                     print("Account creation failed")
+    
+                    let errMsg = error?.localizedDescription ?? "Error occurred"
+                    
+                    let errAlert = UIAlertController(title: "Account Creation Failed", message: errMsg, preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    errAlert.addAction(ok)
+                    
+                    self?.present(errAlert, animated: true, completion: nil)
+                    
+                    self?.tfName.text = ""
+                    self?.tfEmail.text = ""
+                    self?.tfPassword.text = ""
+                    
                     return
                 }
                 
-                print("You have signed in")
+                print("User signed in")
+                strongSelf.goToViewController(where: "mainPage")
                 strongSelf.lbSignup.isHidden = true
                 strongSelf.imgCake.isHidden = true
                 strongSelf.lbName.isHidden = true

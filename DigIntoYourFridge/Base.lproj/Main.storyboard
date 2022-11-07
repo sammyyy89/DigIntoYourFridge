@@ -11,13 +11,13 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginPage" id="BYZ-38-t0r" customClass="ViewController" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="1143"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mCW-yW-kQk">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="1143"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vao-gn-p5A" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
@@ -74,7 +74,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QqG-H8-oPQ">
                                                         <rect key="frame" x="0.0" y="184" width="300" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SS5-E7-qhp">
                                                         <rect key="frame" x="0.0" y="228.00000000000006" width="300" height="36.666666666666686"/>
@@ -91,6 +91,9 @@
                                                             <fontDescription key="titleFontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="20"/>
                                                             <color key="baseBackgroundColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4wq-6x-AOb"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QAx-K7-Hhl">
                                                         <rect key="frame" x="0.0" y="330.66666666666669" width="300" height="38"/>
@@ -153,6 +156,21 @@
                                                     <action selector="fbBtnClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lB9-Ga-3lo"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="signed in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-Bv-v9L">
+                                                <rect key="frame" x="185" y="855" width="69" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNY-A1-eQa">
+                                                <rect key="frame" x="185" y="902" width="75" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="sign out">
+                                                    <color key="titleColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -204,8 +222,14 @@
                         <outlet property="fbBtn" destination="hxg-IL-yfJ" id="BTN-wt-vEr"/>
                         <outlet property="googleLoginBtn" destination="eA7-Ko-3cU" id="asb-DI-8RH"/>
                         <outlet property="imgFood" destination="IfO-hh-YbR" id="zmG-QW-w9E"/>
+                        <outlet property="lbOr" destination="eZs-zH-AFI" id="chH-7U-ifB"/>
+                        <outlet property="lbSignedIn" destination="5HR-Bv-v9L" id="deD-GF-pSG"/>
                         <outlet property="lbSub" destination="D1k-O2-O8I" id="SO6-ht-wgk"/>
+                        <outlet property="loginBtn" destination="kOh-Rc-mWp" id="YCg-6f-sGz"/>
+                        <outlet property="signOutBtn" destination="jNY-A1-eQa" id="lio-kF-E7x"/>
+                        <outlet property="stackView" destination="xlw-d2-Rdu" id="Cb9-W9-fK1"/>
                         <outlet property="tfEmail" destination="yY0-mX-Hts" id="UJH-vV-A28"/>
+                        <outlet property="tfPassword" destination="QqG-H8-oPQ" id="Rsr-pk-y7d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -215,13 +239,13 @@
         <!--SignupVC-->
         <scene sceneID="Zrv-tY-4dA">
             <objects>
-                <viewController id="Wdd-Bd-zSs" customClass="signupVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signupPage" id="Wdd-Bd-zSs" customClass="signupVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eL9-cQ-sL8">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="943"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NrZ-4v-rP8">
-                                <rect key="frame" x="0.0" y="91" width="390" height="909"/>
+                                <rect key="frame" x="0.0" y="47" width="390" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aJO-UN-I2v" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="1000"/>
@@ -262,7 +286,7 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xry-Gx-mZa">
-                                                        <rect key="frame" x="0.0" y="168.66666666666669" width="46" height="20.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="168.66666666666666" width="46" height="20.333333333333343"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -286,6 +310,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <segue destination="BYZ-38-t0r" kind="show" id="rYW-5r-ImE"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWO-UQ-pUL" userLabel="signOutBtn">
                                                 <rect key="frame" x="150" y="701" width="75" height="30"/>
@@ -295,6 +322,13 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrf-ZQ-vwk">
+                                                <rect key="frame" x="35" y="628" width="42" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -331,6 +365,7 @@
                         <outlet property="lbEmail" destination="fFH-Kb-CfR" id="thw-FL-2di"/>
                         <outlet property="lbName" destination="Yc0-B8-lnL" id="dxB-po-Un9"/>
                         <outlet property="lbPassword" destination="Xry-Gx-mZa" id="dcD-2A-jnc"/>
+                        <outlet property="lbSignedIn" destination="Rrf-ZQ-vwk" id="pIg-m3-uWm"/>
                         <outlet property="lbSignup" destination="QvK-vd-iQj" id="xGb-Qu-f2s"/>
                         <outlet property="signIn" destination="1Wt-Wx-1tV" id="ypV-rQ-jis"/>
                         <outlet property="signOutBtn" destination="SWO-UQ-pUL" id="UyT-NV-vAG"/>
@@ -347,13 +382,13 @@
         <!--HomeVC-->
         <scene sceneID="3Ej-dA-dh1">
             <objects>
-                <viewController id="3ST-6A-CjE" customClass="homeVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainPage" id="3ST-6A-CjE" customClass="homeVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KQh-9h-TcJ">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="1143"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SKh-4Y-Jin">
-                                <rect key="frame" x="0.0" y="91" width="390" height="1075"/>
+                                <rect key="frame" x="0.0" y="47" width="390" height="1096"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1X-HW-JQk" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
@@ -370,7 +405,7 @@
                                                         </buttonConfiguration>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you feel like?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nL1-Xz-II3">
-                                                        <rect key="frame" x="0.0" y="49.666666666666657" width="300" height="51.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="49.666666666666671" width="300" height="51.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="32"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -393,6 +428,13 @@
                                                     <constraint firstAttribute="width" constant="300" id="OC8-SY-0ul"/>
                                                 </constraints>
                                             </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkJ-Vl-X8G">
+                                                <rect key="frame" x="295" y="247" width="42" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -427,11 +469,13 @@
                         <outlet property="UV" destination="Q1X-HW-JQk" id="znW-sd-Arc"/>
                         <outlet property="lbMain" destination="nL1-Xz-II3" id="5ig-8r-Jav"/>
                         <outlet property="searchBar" destination="RAZ-8H-J0S" id="AUQ-Ji-lde"/>
+                        <outlet property="signinBtn" destination="ezW-K5-WiA" id="sPS-Jo-Hez"/>
+                        <outlet property="userEmail" destination="OkJ-Vl-X8G" id="Fbb-Ta-Mpf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1bd-vR-emv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1903" y="-462"/>
+            <point key="canvasLocation" x="1901.5384615384614" y="-462.08530805687201"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NSU-cL-UMT">
@@ -452,6 +496,9 @@
             <point key="canvasLocation" x="124.61538461538461" y="-28.436018957345969"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="rYW-5r-ImE"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
