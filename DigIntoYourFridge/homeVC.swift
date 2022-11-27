@@ -22,7 +22,7 @@ class homeVC: UIViewController {
     
     private let screenSize = UIScreen.main.bounds
     private var cellSize: CGSize!
-    private var recipes = [Recipes]()
+    private var recipeData = [Recipes]()
     
     fileprivate func prepareCellSize() {
         let width = ((screenSize.width-32)/2) * 0.9
@@ -34,19 +34,23 @@ class homeVC: UIViewController {
         super.viewDidLoad()
         
         prepareCellSize()
-        
-        fetchData { (posts) in
-            
-            for post in posts {
-                print("ID: \(post.id!)")
-                print("Dish: \(post.title)")
-                print("image: \(post.image)")
-                print("Image Type: \(post.imageType)")
-                print("Used ingredients: \(post.usedIngredientCount)")
-                print("Missed ingredients: \(post.missedIngredientCount)")
-            
-            }
+        fetchData {
+            self.collectionView.reloadData()
+            print("Success")
         }
+        
+//        fetchData { (posts) in
+//
+//            for post in posts {
+//                print("ID: \(post.id!)")
+//                print("Dish: \(post.title)")
+//                print("image: \(post.image)")
+//                print("Image Type: \(post.imageType)")
+//                print("Used ingredients: \(post.usedIngredientCount)")
+//                print("Missed ingredients: \(post.missedIngredientCount)")
+//            }
+//
+//        }
         
         self.view.backgroundColor = myYellow // set background color
         UV.backgroundColor = myYellow
@@ -68,38 +72,38 @@ class homeVC: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        let recipe = Recipes(title: "Some Dish Name here", image: "https://spoonacular.com/cdn/ingredients_100x100/apple.jpg", usedIngredientCount: 2, missedIngredientCount: 0)
-        recipes.append(recipe)
-        recipes.append(recipe)
+
     }
     
-    func fetchData(completionHandler: @escaping ([Recipes]) -> Void) {
-        
+    func fetchData(completed: @escaping () -> ()) {
+
         let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=apples%2Cflour%2Csugar&number=5&ignorePantry=true&ranking=1")
-        
+
         guard url != nil else {
                         print("Error creating url object")
                         return
                 }
-        
+
         var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy,
                                          timeoutInterval: 10.0)
-        
+
         let header = ["X-RapidAPI-Key": "20a6998a90msh0516f8821cc4954p199178jsnf78c2b51a123",
                               "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"]
-        
+
         request.allHTTPHeaderFields = header
         request.httpMethod = "GET"
-        
+
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
-            
+
             guard let data = data else { return }
-            
+
             do {
-                let recipeData = try JSONDecoder().decode([Recipes].self, from: data)
+                self.recipeData = try JSONDecoder().decode([Recipes].self, from: data)
                 
-                completionHandler(recipeData)
+                DispatchQueue.main.async {
+                    completed()
+                }
             }
             catch {
                 let error = error
@@ -134,16 +138,13 @@ extension homeVC: UICollectionViewDelegate {
 
 extension homeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipes.count
+        return recipeData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
-        
-//        cell.lbDishName.text = "Dish Name"
-//        cell.lbNumofUsed.text = "Used: 1"
-//        cell.lbNumofMissed.text = "Missed: 0"
-        cell.recipe = recipes[indexPath.row]
+    
+        cell.recipe = recipeData[indexPath.row]
         return cell
     }
 }

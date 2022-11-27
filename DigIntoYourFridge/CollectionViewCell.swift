@@ -23,8 +23,8 @@ class CollectionViewCell: UICollectionViewCell {
                 lbNumofMissed.text = "\(String(recipe.missedIngredientCount)) ingredients missed"
             } else {
                 lbNumofMissed.text = "\(String(recipe.missedIngredientCount)) ingredient missed"
-            }
-            
+            } 
+        
             guard let url = URL(string: recipe.image)
                 else {
                 return

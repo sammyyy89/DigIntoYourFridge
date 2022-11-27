@@ -20,7 +20,7 @@ struct Recipes: Decodable {
     var likes: Int!
 }
 
-struct Ingredients: Codable {
+struct Ingredients: Decodable {
     var name: String!
     var image: String!
 }
