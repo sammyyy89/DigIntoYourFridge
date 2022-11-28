@@ -21,6 +21,6 @@ struct Recipes: Decodable {
 }
 
 struct Ingredients: Decodable {
-    var name: String!
-    var image: String!
+    var name: String
+    var image: String
 }

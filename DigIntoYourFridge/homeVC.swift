@@ -13,7 +13,6 @@ class homeVC: UIViewController {
     
     @IBOutlet weak var UV: UIView!
     @IBOutlet weak var lbMain: UILabel!
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var signinBtn: UIButton!
     @IBOutlet weak var userEmail: UILabel!
     @IBOutlet weak var btnGo: UIButton!
@@ -55,7 +54,6 @@ class homeVC: UIViewController {
         self.view.backgroundColor = myYellow // set background color
         UV.backgroundColor = myYellow
         lbMain.textColor = lightPink
-        searchBar.barTintColor = myYellow
         
         userEmail.text = ""
         userEmail.font = UIFont(name: "Noteworthy", size: 14)

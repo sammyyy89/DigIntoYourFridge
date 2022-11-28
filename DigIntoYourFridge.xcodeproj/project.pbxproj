@@ -30,6 +30,7 @@
 		8495C40129288599006FA047 /* searchIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8495C40029288599006FA047 /* searchIngredientsVC.swift */; };
 		84A3FBC52932E2630029E875 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3FBC42932E2630029E875 /* CollectionViewCell.swift */; };
 		84A3FBCA2933D99D0029E875 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 84A3FBC92933D99D0029E875 /* Kingfisher */; };
+		84A3FBD029342E600029E875 /* IG_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3FBCF29342E600029E875 /* IG_CollectionViewCell.swift */; };
 		84C5880329171C1C000F50DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84C5880229171C1C000F50DB /* GoogleService-Info.plist */; };
 		8D1B6FD23CC26EAA074AF696 /* Pods_DigIntoYourFridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0093B2F942C391FD79694C26 /* Pods_DigIntoYourFridge.framework */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		8478B05F29232C0D00CA6CC9 /* post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = post.swift; sourceTree = "<group>"; };
 		8495C40029288599006FA047 /* searchIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchIngredientsVC.swift; sourceTree = "<group>"; };
 		84A3FBC42932E2630029E875 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		84A3FBCF29342E600029E875 /* IG_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IG_CollectionViewCell.swift; sourceTree = "<group>"; };
 		84C5880229171C1C000F50DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		89E3277E4956254589226989 /* Pods-DigIntoYourFridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DigIntoYourFridge.debug.xcconfig"; path = "Target Support Files/Pods-DigIntoYourFridge/Pods-DigIntoYourFridge.debug.xcconfig"; sourceTree = "<group>"; };
 		E8BDF8FEB15A18854B8A7814 /* Pods-DigIntoYourFridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DigIntoYourFridge.release.xcconfig"; path = "Target Support Files/Pods-DigIntoYourFridge/Pods-DigIntoYourFridge.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				8478B05F29232C0D00CA6CC9 /* post.swift */,
 				8403DC652917FF1400B49087 /* signupVC.swift */,
 				844E9E8D2916BA7F00ABE852 /* Main.storyboard */,
+				84A3FBCF29342E600029E875 /* IG_CollectionViewCell.swift */,
 				84A3FBC42932E2630029E875 /* CollectionViewCell.swift */,
 				844E9E902916BA8000ABE852 /* Assets.xcassets */,
 				844E9E922916BA8000ABE852 /* LaunchScreen.storyboard */,
@@ -289,6 +292,7 @@
 				84A3FBC52932E2630029E875 /* CollectionViewCell.swift in Sources */,
 				844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */,
 				8478B06029232C0D00CA6CC9 /* post.swift in Sources */,
+				84A3FBD029342E600029E875 /* IG_CollectionViewCell.swift in Sources */,
 				844E9E882916BA7F00ABE852 /* AppDelegate.swift in Sources */,
 				8495C40129288599006FA047 /* searchIngredientsVC.swift in Sources */,
 				844E9E8A2916BA7F00ABE852 /* SceneDelegate.swift in Sources */,

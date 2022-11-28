@@ -17,32 +17,47 @@ import FirebaseAuth
 import Foundation
 
 class searchIngredientsVC: UIViewController {
+    private let screenSize = UIScreen.main.bounds
+    private var cellSize: CGSize!
+    private var ingredientData = [Ingredients]()
+    
+    private var userInput = ""
+    
+    fileprivate func prepareCellSize() {
+        let width = ((screenSize.width-32)/2) * 0.6
+        let height = width * 1.2
+        cellSize = CGSize(width: width, height: height)
+    }
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var lbMain: UILabel!
     @IBOutlet weak var lbSub: UILabel!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UITextField!
     @IBOutlet weak var btnGo: UIButton!
-    @IBOutlet weak var lbIntolerances: UILabel!
+    
+    @IBAction func btnClicked(_ sender: Any) {
+        userInput = searchBar.text ?? ""
+        
+        fetchData {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData { (posts) in
-            
-            for post in posts {
-                print("Name: \(post.name!)")
-                print("image: \(post.image!)") // https://spoonacular.com/food-api/docs#Show-Images
-            }
-        }
+        
+        prepareCellSize()
         
         self.view.backgroundColor = myYellow // set background color
         contentView.backgroundColor = myYellow
         lbMain.textColor = lightPink
-        searchBar.barTintColor = myYellow
+        
         
         lbMain.translatesAutoresizingMaskIntoConstraints = false
         lbMain.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        lbMain.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 80).isActive = true
+        lbMain.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30).isActive = true
         
         lbSub.translatesAutoresizingMaskIntoConstraints = false
         lbSub.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -56,10 +71,9 @@ class searchIngredientsVC: UIViewController {
 //        btnGo.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
 //        btnGo.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: 5).isActive = true
         
-        lbIntolerances.translatesAutoresizingMaskIntoConstraints = false
-        lbIntolerances.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        lbIntolerances.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10).isActive = true 
-        
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+    
         
         if FirebaseAuth.Auth.auth().currentUser != nil { // if user is logged in
             //currentUserName()
@@ -67,9 +81,9 @@ class searchIngredientsVC: UIViewController {
         }
     }
     
-    func fetchData(completionHandler: @escaping ([Ingredients]) -> Void) {
+    func fetchData(completed: @escaping () -> ()) {
         
-        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/autocomplete?query=apple&number=10&intolerances=egg")
+        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/autocomplete?query=\(self.userInput)&number=100&intolerances=apple")
         
         guard url != nil else {
                         print("Error creating url object")
@@ -91,14 +105,15 @@ class searchIngredientsVC: UIViewController {
             guard let data = data else { return }
             
             do {
-                let recipeData = try JSONDecoder().decode([Ingredients].self, from: data)
+                self.ingredientData = try JSONDecoder().decode([Ingredients].self, from: data)
                 
-                completionHandler(recipeData)
+                DispatchQueue.main.async {
+                    completed()
+                }
             }
             catch {
                 let error = error
                 print(String(describing: error))
-                //print("Error: \(error.localizedDescription)")
             }
         }.resume()
     }
@@ -120,4 +135,27 @@ class searchIngredientsVC: UIViewController {
 //    }
 }
 
+extension searchIngredientsVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("you clicked on me")
+    }
+}
 
+extension searchIngredientsVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return ingredientData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! IG_CollectionViewCell
+        //cell.lbIngredientName.text = "Spam"
+        cell.ingredient = ingredientData[indexPath.row]
+        return cell
+    }
+}
+
+extension searchIngredientsVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return cellSize 
+    }
+}
