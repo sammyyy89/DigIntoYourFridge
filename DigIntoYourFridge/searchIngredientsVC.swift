@@ -5,16 +5,10 @@
 //  Created by Saemi An on 11/18/22.
 //
 
-//
-//  homeVC.swift
-//  DigIntoYourFridge
-//
-//  Created by Saemi An on 11/5/22.
-//
-
 import UIKit
 import FirebaseAuth
 import Foundation
+import RealmSwift
 
 class searchIngredientsVC: UIViewController {
     private let screenSize = UIScreen.main.bounds
@@ -22,6 +16,7 @@ class searchIngredientsVC: UIViewController {
     private var ingredientData = [Ingredients]()
     
     private var userInput = ""
+    private var intolerances = ""
     
     fileprivate func prepareCellSize() {
         let width = ((screenSize.width-32)/2) * 0.6
@@ -34,6 +29,8 @@ class searchIngredientsVC: UIViewController {
     @IBOutlet weak var lbSub: UILabel!
     @IBOutlet weak var searchBar: UITextField!
     @IBOutlet weak var btnGo: UIButton!
+    
+    @IBOutlet weak var lbNoResults: UILabel!
     
     @IBAction func btnClicked(_ sender: Any) {
         userInput = searchBar.text ?? ""
@@ -48,6 +45,7 @@ class searchIngredientsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        lbNoResults.isHidden = true
         prepareCellSize()
         
         self.view.backgroundColor = myYellow // set background color
@@ -73,7 +71,6 @@ class searchIngredientsVC: UIViewController {
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-    
         
         if FirebaseAuth.Auth.auth().currentUser != nil { // if user is logged in
             //currentUserName()
@@ -83,7 +80,7 @@ class searchIngredientsVC: UIViewController {
     
     func fetchData(completed: @escaping () -> ()) {
         
-        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/autocomplete?query=\(self.userInput)&number=100&intolerances=apple")
+        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/autocomplete?query=\(self.userInput)&number=100&intolerances=\(self.intolerances)")
         
         guard url != nil else {
                         print("Error creating url object")
@@ -107,8 +104,21 @@ class searchIngredientsVC: UIViewController {
             do {
                 self.ingredientData = try JSONDecoder().decode([Ingredients].self, from: data)
                 
-                DispatchQueue.main.async {
-                    completed()
+                if self.ingredientData.count > 0 {
+                    DispatchQueue.main.async {
+                        self.collectionView.isHidden = false
+                        self.lbNoResults.isHidden = true
+                        completed()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.collectionView.isHidden = true
+                        self.lbNoResults.translatesAutoresizingMaskIntoConstraints = false
+                        self.lbNoResults.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+                        self.lbNoResults.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor, constant: 20).isActive = true
+                        self.lbNoResults.isHidden = false
+                        self.lbNoResults.text = "No Results"
+                    }
                 }
             }
             catch {
@@ -117,6 +127,7 @@ class searchIngredientsVC: UIViewController {
             }
         }.resume()
     }
+    
     
 //    func currentUserName() {
 //        if let currentUser = Auth.auth().currentUser {
@@ -137,7 +148,46 @@ class searchIngredientsVC: UIViewController {
 
 extension searchIngredientsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("you clicked on me")
+        let selectedName = ingredientData[indexPath.item].name
+        // let selectedImage = ingredientData[indexPath.item].image
+        
+        let alert = UIAlertController(title: "Add ingredient", message: "Do you want to add this ingredient to your fridge?", preferredStyle: .alert)
+        let yes = UIAlertAction(title: "Yes", style: .default) { (action: UIAlertAction!) in
+            let realm = try! Realm()
+            let db = User()
+            let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
+            
+            let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+            print(user)
+            let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
+            
+            if exist == nil {
+                print("User not found")
+            } else {
+                try! realm.write {
+                    user.ingredientsArray.append(selectedName)
+                    realm.add(db, update: .all)
+                }
+                let addedAlert = UIAlertController(title: "Success", message: "Successfully added to your fridge!", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                    print("ingredient added")
+                }
+                addedAlert.addAction(okAction)
+                self.present(addedAlert, animated: false, completion: nil)
+                self.searchBar.text = ""
+            }
+        }
+        alert.addAction(yes)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive) { (action: UIAlertAction!) in
+            print("Cancel")
+            let db = User() 
+            print(db)
+        }
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+        // if clicked "yes" -> Add this ingredient to user's db
     }
 }
 
@@ -158,4 +208,25 @@ extension searchIngredientsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return cellSize 
     }
+}
+
+class User: Object {
+    @objc dynamic var userEmail: String = ""
+    @objc dynamic var ingredient: String? = ""
+    @objc dynamic var intolerance: String? = ""
+    let ingredientsArray = List<String>()
+    let intolerancesArray = List<String>()
+    
+    override static func primaryKey() -> String? {
+        return "userEmail"
+    }
+  
+// usage example
+//    let realm = try! Realm()
+//    let bob = realm.objects(Students.self).filter("name = 'Bob'").first!
+//
+//    try! realm.write {
+//        bob.testScores.append(95)
+//        bob.testScores.append(100)
+//    }
 }

@@ -14,6 +14,8 @@ import FirebaseCore
 import GoogleSignIn
 import FirebaseAuth
 
+import RealmSwift
+
 // MARK: - Body
 
 func hexStringToUIColor(hex: String) -> UIColor {
@@ -46,7 +48,6 @@ var myWhite = hexStringToUIColor(hex: "#ffffff")
 var ggRed = hexStringToUIColor(hex: "DB4437")
 
 class ViewController: UIViewController {
-    
     
     @IBOutlet weak var lbSignedIn: UILabel!
     
@@ -88,6 +89,23 @@ class ViewController: UIViewController {
                 return
             }
             // signed in successfully
+            
+            // add user email to db if it doesn't exist
+            let realm = try! Realm()
+            let db = User()
+            
+            if db.userEmail.contains(email) {
+                print("added")
+                db.userEmail = email
+                
+                try! realm.write {
+                    realm.add(db)
+                }
+            }
+            else {
+                print("already exists")
+            }
+            
             self.goToViewController(where: "mainPage")
             
             self.stackView.isHidden = true
@@ -123,6 +141,25 @@ class ViewController: UIViewController {
                     print("Firebase auth fails with error: \(error.localizedDescription)")
                 } else if let result = result {
                     print("Login success: \(result)")
+                    
+                    // add user email to db if it doesn't exist
+                    let realm = try! Realm()
+                    let db = User()
+                    
+                    let email = String(FirebaseAuth.Auth.auth().currentUser!.email ?? "")
+                    db.userEmail = email
+                    
+                    let exist = realm.object(ofType: User.self, forPrimaryKey: email) // the result will be nil if the user does not exist
+                    
+                    if exist == nil {
+                        try! realm.write {
+                            realm.add(db)
+                        }
+                    } else {
+                        print("User already exists")
+                        print("db: \(db)")
+                    }
+                    
                     // If logged in successfully, display the app's main content view -> move to the main page
                     self.goToViewController(where: "mainPage")
                     
@@ -160,6 +197,25 @@ class ViewController: UIViewController {
                     } else if let result = result {
                         print("Login success: \(result)")
                         
+                        // add user email to db if it doesn't exist
+                        let realm = try! Realm()
+                        let db = User()
+                        
+                        let email = String(FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found")
+                        db.userEmail = email
+                        
+                        let exist = realm.object(ofType: User.self, forPrimaryKey: email) // the result will be nil if the user does not exist
+                        
+                        if exist == nil {
+                            try! realm.write {
+                                realm.add(db)
+                            }
+                            print("added: \(db)")
+                        } else {
+                            print("User already exists")
+                            print("db: \(db)")
+                        }
+                        
                         self.goToViewController(where: "mainPage")
                         self.stackView.isHidden = true
                         self.divider.isHidden = true
@@ -176,7 +232,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.view.backgroundColor = myYellow // set background color
         AppName.textColor = myOrange

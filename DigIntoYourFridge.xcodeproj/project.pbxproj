@@ -27,6 +27,8 @@
 		844E9EBD2916EC8400ABE852 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E9EBC2916EC8400ABE852 /* FacebookCore */; };
 		844E9EBF2916EC8400ABE852 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 844E9EBE2916EC8400ABE852 /* FacebookLogin */; };
 		8478B06029232C0D00CA6CC9 /* post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478B05F29232C0D00CA6CC9 /* post.swift */; };
+		8487DF45293590F40086A914 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 8487DF44293590F40086A914 /* Realm */; };
+		8487DF47293590F40086A914 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8487DF46293590F40086A914 /* RealmSwift */; };
 		8495C40129288599006FA047 /* searchIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8495C40029288599006FA047 /* searchIngredientsVC.swift */; };
 		84A3FBC52932E2630029E875 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3FBC42932E2630029E875 /* CollectionViewCell.swift */; };
 		84A3FBCA2933D99D0029E875 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 84A3FBC92933D99D0029E875 /* Kingfisher */; };
@@ -70,10 +72,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8487DF47293590F40086A914 /* RealmSwift in Frameworks */,
 				84A3FBCA2933D99D0029E875 /* Kingfisher in Frameworks */,
 				844E9EBF2916EC8400ABE852 /* FacebookLogin in Frameworks */,
 				844E9EBD2916EC8400ABE852 /* FacebookCore in Frameworks */,
 				8D1B6FD23CC26EAA074AF696 /* Pods_DigIntoYourFridge.framework in Frameworks */,
+				8487DF45293590F40086A914 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +179,8 @@
 				844E9EBC2916EC8400ABE852 /* FacebookCore */,
 				844E9EBE2916EC8400ABE852 /* FacebookLogin */,
 				84A3FBC92933D99D0029E875 /* Kingfisher */,
+				8487DF44293590F40086A914 /* Realm */,
+				8487DF46293590F40086A914 /* RealmSwift */,
 			);
 			productName = DigIntoYourFridge;
 			productReference = 844E9E842916BA7F00ABE852 /* DigIntoYourFridge.app */;
@@ -207,6 +213,7 @@
 			packageReferences = (
 				844E9EBB2916EC8400ABE852 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				84A3FBC82933D99D0029E875 /* XCRemoteSwiftPackageReference "kingfisher" */,
+				8487DF43293590F40086A914 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 844E9E852916BA7F00ABE852 /* Products */;
 			projectDirPath = "";
@@ -525,6 +532,14 @@
 				minimumVersion = 15.0.0;
 			};
 		};
+		8487DF43293590F40086A914 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.32.3;
+			};
+		};
 		84A3FBC82933D99D0029E875 /* XCRemoteSwiftPackageReference "kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/kingfisher.git";
@@ -545,6 +560,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 844E9EBB2916EC8400ABE852 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookLogin;
+		};
+		8487DF44293590F40086A914 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8487DF43293590F40086A914 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		8487DF46293590F40086A914 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8487DF43293590F40086A914 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		84A3FBC92933D99D0029E875 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

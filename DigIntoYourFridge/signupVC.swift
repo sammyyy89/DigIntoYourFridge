@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import RealmSwift
 
 class signupVC: UIViewController {
 
@@ -152,6 +153,16 @@ class signupVC: UIViewController {
             guard error == nil else {
                 // show account creation
                 strongSelf.showCreateAccount(email: userEmail, password: userPassword)
+                
+                // add user email to db
+                let realm = try! Realm()
+                let db = User()
+                db.userEmail = userEmail
+                
+                try! realm.write {
+                    realm.add(db)
+                }
+                
                 return
             }
             
