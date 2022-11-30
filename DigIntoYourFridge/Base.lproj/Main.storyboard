@@ -14,11 +14,11 @@
             <objects>
                 <viewController storyboardIdentifier="loginPage" id="BYZ-38-t0r" customClass="ViewController" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="1143"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mCW-yW-kQk">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="1143"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vao-gn-p5A" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
@@ -172,6 +172,15 @@
                                                     <color key="titleColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SG0-C0-Ssc">
+                                                <rect key="frame" x="185" y="960" width="75" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                                <connections>
+                                                    <segue destination="3ST-6A-CjE" kind="show" id="jlj-uH-9aF"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -242,11 +251,11 @@
             <objects>
                 <viewController storyboardIdentifier="signupPage" id="Wdd-Bd-zSs" customClass="signupVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eL9-cQ-sL8">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="943"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NrZ-4v-rP8">
-                                <rect key="frame" x="0.0" y="91" width="390" height="909"/>
+                                <rect key="frame" x="0.0" y="47" width="390" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aJO-UN-I2v" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="1000"/>
@@ -287,7 +296,7 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xry-Gx-mZa">
-                                                        <rect key="frame" x="0.0" y="168.66666666666669" width="46" height="20.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="168.66666666666666" width="46" height="20.333333333333343"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -385,11 +394,11 @@
             <objects>
                 <viewController storyboardIdentifier="mainPage" id="3ST-6A-CjE" customClass="homeVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KQh-9h-TcJ">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="1143"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="1086"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SKh-4Y-Jin">
-                                <rect key="frame" x="0.0" y="91" width="390" height="1018"/>
+                                <rect key="frame" x="0.0" y="47" width="390" height="1039"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1X-HW-JQk" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="1200"/>
@@ -409,7 +418,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkJ-Vl-X8G">
-                                                        <rect key="frame" x="0.0" y="49.666666666666657" width="300" height="20.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="49.666666666666671" width="300" height="20.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -427,7 +436,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGM-UA-Qwn">
-                                                        <rect key="frame" x="0.0" y="173.66666666666669" width="300" height="38"/>
+                                                        <rect key="frame" x="0.0" y="173.66666666666666" width="300" height="38"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="Bbu-O1-vFw"/>
                                                             <constraint firstAttribute="width" constant="300" id="VCe-dd-QxS"/>
@@ -565,11 +574,11 @@
             <objects>
                 <viewController id="fWa-Zt-rZN" customClass="searchIngredientsVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="seg-Xb-L6d">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="743"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="686"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bA6-hc-aGp">
-                                <rect key="frame" x="0.0" y="0.0" width="321" height="743"/>
+                                <rect key="frame" x="0.0" y="0.0" width="321" height="686"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xV7-UP-5Kd" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="321" height="800"/>
@@ -757,7 +766,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="omF-cA-8hD"/>
+        <segue reference="ANf-AY-BMv"/>
+        <segue reference="Zcz-vY-AVg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

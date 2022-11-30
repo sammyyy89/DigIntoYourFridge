@@ -154,13 +154,21 @@ class signupVC: UIViewController {
                 // show account creation
                 strongSelf.showCreateAccount(email: userEmail, password: userPassword)
                 
-                // add user email to db
+                // add user email to db if it doesn't exist
                 let realm = try! Realm()
                 let db = User()
+                
                 db.userEmail = userEmail
                 
-                try! realm.write {
-                    realm.add(db)
+                let exist = realm.object(ofType: User.self, forPrimaryKey: userEmail) // the result will be nil if the user does not exist
+                
+                if exist == nil {
+                    try! realm.write {
+                        realm.add(db)
+                    }
+                } else {
+                    print("User already exists")
+                    print("db: \(db)")
                 }
                 
                 return
@@ -194,7 +202,7 @@ class signupVC: UIViewController {
             signOutBtn.isHidden = true
         }
         catch {
-            // 로그아웃 실패 시 
+            // 로그아웃 실패 시
             print("An error occurred")
         }
     }

@@ -84,6 +84,12 @@ class searchIngredientsVC: UIViewController {
         
         guard url != nil else {
                         print("Error creating url object")
+                        let error = UIAlertController(title: "Error", message: "Error occured. Try again with a different ingredient", preferredStyle: .alert)
+                        let okay = UIAlertAction(title: "OK", style: .default) { _ in
+                
+            }
+                        error.addAction(okay)
+                        self.present(error, animated: false, completion: nil)
                         return
                 }
         

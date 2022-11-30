@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import Foundation
+import RealmSwift
 
 class homeVC: UIViewController {
     
@@ -74,9 +75,23 @@ class homeVC: UIViewController {
     }
     
     func fetchData(completed: @escaping () -> ()) {
-
-        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=apples%2Cflour%2Csugar&number=5&ignorePantry=true&ranking=1")
-
+        
+        let strEncoded = self.urlEncode(encodedString: "apple,flour,sugar")
+        
+        let currentUser = Auth.auth().currentUser?.email ?? "Not found"
+        let realm = try! Realm()
+        let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+        let userHas = data.ingredientsArray
+        
+//        var test = [String]()
+//        for ig in userHas {
+//            test.append(ig)
+//        }
+        
+        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=\(strEncoded)&number=50&ignorePantry=true&ranking=1")
+        // ignorePantry = Whether to ignore pantry ingredients such as water, salt, flour, etc.
+        // comma = %2C, space = %20
+        
         guard url != nil else {
                         print("Error creating url object")
                         return
@@ -126,6 +141,11 @@ class homeVC: UIViewController {
             }
         }
     }
+    
+    func urlEncode(encodedString: String) -> String {
+        let allowedChars = encodedString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "\"#%/<>?@,\\^`{|} ").inverted) ?? ""
+        return allowedChars
+    }
 }
 
 extension homeVC: UICollectionViewDelegate {
@@ -152,4 +172,7 @@ extension homeVC: UICollectionViewDelegateFlowLayout {
         return cellSize
     }
 }
+
+
+   
 
