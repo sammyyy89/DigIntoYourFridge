@@ -74,24 +74,29 @@ class homeVC: UIViewController {
 
     }
     
-    func fetchData(completed: @escaping () -> ()) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        let strEncoded = self.urlEncode(encodedString: "apple,flour,sugar")
+        currentUserName()
+        fetchData {
+            self.collectionView.reloadData()
+            print("page reloaded")
+        }
+    }
+    
+    func fetchData(completed: @escaping () -> ()) {
         
         let currentUser = Auth.auth().currentUser?.email ?? "Not found"
         let realm = try! Realm()
         let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
         let userHas = data.ingredientsArray
+        let joined = userHas.joined(separator: ",")
         
-//        var test = [String]()
-//        for ig in userHas {
-//            test.append(ig)
-//        }
+        let strEncoded = self.urlEncode(encodedString: "\(joined)") // comma = %2C, blank = %20
         
-        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=\(strEncoded)&number=50&ignorePantry=true&ranking=1")
+        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=\(strEncoded)&number=50&ignorePantry=false&ranking=2")
         // ignorePantry = Whether to ignore pantry ingredients such as water, salt, flour, etc.
-        // comma = %2C, space = %20
-        
+        // ranking = maximize used ingredients = 1, minimze missing ingredients = 2
         guard url != nil else {
                         print("Error creating url object")
                         return

@@ -164,7 +164,7 @@ extension searchIngredientsVC: UICollectionViewDelegate {
             let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
             
             let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
-            print(user)
+           
             let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
             
             if exist == nil {
@@ -220,8 +220,9 @@ class User: Object {
     @objc dynamic var userEmail: String = ""
     @objc dynamic var ingredient: String? = ""
     @objc dynamic var intolerance: String? = ""
+    @objc dynamic var diet: String = "" // possible values: escetarian, lacto vegetarian, ovo vegetarian, vegan, paleo, primal, and vegetarian
     let ingredientsArray = List<String>()
-    let intolerancesArray = List<String>()
+    let intolerancesArray = List<String>() // possible values: dairy, egg, gluten, peanut, sesame, seafood, shellfish, soy, sulfite, tree nut, and wheat
     
     override static func primaryKey() -> String? {
         return "userEmail"
