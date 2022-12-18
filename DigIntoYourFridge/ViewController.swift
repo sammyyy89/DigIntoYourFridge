@@ -14,6 +14,8 @@ import FirebaseCore
 import GoogleSignIn
 import FirebaseAuth
 
+import GoogleSignInSwift
+
 import RealmSwift
 
 // MARK: - Body
@@ -353,6 +355,10 @@ class ViewController: UIViewController {
     func goToViewController(where: String) {
         let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
         self.navigationController?.pushViewController(pushVC!, animated: true)
+    }
+    
+    func uploadToCloud() {
+        print("cloud")
     }
 }
 
