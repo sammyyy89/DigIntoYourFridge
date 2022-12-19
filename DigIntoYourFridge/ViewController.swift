@@ -14,8 +14,6 @@ import FirebaseCore
 import GoogleSignIn
 import FirebaseAuth
 
-import GoogleSignInSwift
-
 import RealmSwift
 
 // MARK: - Body
@@ -50,6 +48,8 @@ var myWhite = hexStringToUIColor(hex: "#ffffff")
 var ggRed = hexStringToUIColor(hex: "DB4437")
 
 class ViewController: UIViewController {
+    
+    var refUser: DatabaseReference!
     
     @IBOutlet weak var lbSignedIn: UILabel!
     
@@ -95,11 +95,11 @@ class ViewController: UIViewController {
             // add user email to db if it doesn't exist
             let realm = try! Realm()
             let db = User()
-            
+
             if db.userEmail.contains(email) {
                 print("added")
                 db.userEmail = email
-                
+
                 try! realm.write {
                     realm.add(db)
                 }
@@ -147,12 +147,12 @@ class ViewController: UIViewController {
                     // add user email to db if it doesn't exist
                     let realm = try! Realm()
                     let db = User()
-                    
+
                     let email = String(FirebaseAuth.Auth.auth().currentUser!.email ?? "")
                     db.userEmail = email
-                    
+
                     let exist = realm.object(ofType: User.self, forPrimaryKey: email) // the result will be nil if the user does not exist
-                    
+
                     if exist == nil {
                         try! realm.write {
                             realm.add(db)
@@ -202,12 +202,12 @@ class ViewController: UIViewController {
                         // add user email to db if it doesn't exist
                         let realm = try! Realm()
                         let db = User()
-                        
+
                         let email = String(FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found")
                         db.userEmail = email
-                        
+
                         let exist = realm.object(ofType: User.self, forPrimaryKey: email) // the result will be nil if the user does not exist
-                        
+
                         if exist == nil {
                             try! realm.write {
                                 realm.add(db)
@@ -294,10 +294,7 @@ class ViewController: UIViewController {
         } else {
             lbSignedIn.isHidden = true
             signOutBtn.isHidden = true
-            
         }
-        
-        
         
         // check Facebook Login status
 //        if let token = AccessToken.current,
@@ -355,10 +352,6 @@ class ViewController: UIViewController {
     func goToViewController(where: String) {
         let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
         self.navigationController?.pushViewController(pushVC!, animated: true)
-    }
-    
-    func uploadToCloud() {
-        print("cloud")
     }
 }
 

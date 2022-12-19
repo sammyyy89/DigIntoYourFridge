@@ -66,7 +66,17 @@ class homeVC: UIViewController {
         userEmail.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         if FirebaseAuth.Auth.auth().currentUser != nil { // if user is logged in
+            self.UV.isHidden = false 
             currentUserName()
+        } else {
+                self.UV.isHidden = true
+                let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
+                let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
+                    self.goToViewController(where: "loginPage")
+                })
+                
+                alert.addAction(okay)
+                present(alert, animated: true, completion: nil)
         }
         
         collectionView.delegate = self
@@ -77,23 +87,41 @@ class homeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        currentUserName()
-        fetchData {
-            self.collectionView.reloadData()
-            print("page reloaded")
+        let currUser = FirebaseAuth.Auth.auth().currentUser?.email
+        
+        self.view.backgroundColor = myYellow // set background color
+        if currUser == nil {
+            self.UV.isHidden = true
+            let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
+                self.goToViewController(where: "loginPage")
+            })
+            
+            alert.addAction(okay)
+            present(alert, animated: true, completion: nil)
         }
+        else {
+            self.UV.isHidden = false
+            currentUserName()
+            fetchData {
+                self.collectionView.reloadData()
+                print("page reloaded")
+            }
+        }
+        
     }
     
     func fetchData(completed: @escaping () -> ()) {
         
         let currentUser = Auth.auth().currentUser?.email ?? "Not found"
+        
         let realm = try! Realm()
         let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
         let userHas = data.ingredientsArray
         let joined = userHas.joined(separator: ",")
-        
+
         let strEncoded = self.urlEncode(encodedString: "\(joined)") // comma = %2C, blank = %20
-        
+
         let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=\(strEncoded)&number=50&ignorePantry=false&ranking=2")
         // ignorePantry = Whether to ignore pantry ingredients such as water, salt, flour, etc.
         // ranking = maximize used ingredients = 1, minimze missing ingredients = 2
@@ -118,7 +146,7 @@ class homeVC: UIViewController {
 
             do {
                 self.recipeData = try JSONDecoder().decode([Recipes].self, from: data)
-                
+
                 DispatchQueue.main.async {
                     completed()
                 }
@@ -150,6 +178,11 @@ class homeVC: UIViewController {
     func urlEncode(encodedString: String) -> String {
         let allowedChars = encodedString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "\"#%/<>?@,\\^`{|} ").inverted) ?? ""
         return allowedChars
+    }
+    
+    func goToViewController(where: String) {
+        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
+        self.navigationController?.pushViewController(pushVC!, animated: true)
     }
 }
 
