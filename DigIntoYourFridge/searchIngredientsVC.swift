@@ -204,7 +204,7 @@ extension searchIngredientsVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! IG_CollectionViewCell
-        //cell.lbIngredientName.text = "Spam"
+        
         cell.ingredient = ingredientData[indexPath.row]
         return cell
     }
@@ -227,13 +227,5 @@ class User: Object {
     override static func primaryKey() -> String? {
         return "userEmail"
     }
-  
-// usage example
-//    let realm = try! Realm()
-//    let bob = realm.objects(Students.self).filter("name = 'Bob'").first!
-//
-//    try! realm.write {
-//        bob.testScores.append(95)
-//        bob.testScores.append(100)
-//    }
+
 }

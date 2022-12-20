@@ -15,13 +15,17 @@ import RealmSwift
 class myFridgeVC: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var lbMain: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionView.isHidden = false
         let currUser = FirebaseAuth.Auth.auth().currentUser?.email
         
         self.view.backgroundColor = myYellow // set background color
         if currUser == nil {
+            self.lbMain.isHidden = true
+            self.collectionView.isHidden = true
             let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
             let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
                 self.goToViewController(where: "loginPage")
@@ -31,6 +35,8 @@ class myFridgeVC: UIViewController {
             present(alert, animated: true, completion: nil)
         }
         else {
+            self.collectionView.isHidden = false
+            self.lbMain.isHidden = false
             loadData()
         }
         
@@ -44,6 +50,8 @@ class myFridgeVC: UIViewController {
         super.viewWillAppear(animated)
         let currUser = FirebaseAuth.Auth.auth().currentUser?.email
         if currUser == nil {
+            self.lbMain.isHidden = true
+            self.collectionView.isHidden = true
             let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
             let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
                 self.goToViewController(where: "loginPage")
@@ -53,6 +61,8 @@ class myFridgeVC: UIViewController {
             present(alert, animated: true, completion: nil)
         }
         else {
+            self.lbMain.isHidden = false 
+            self.collectionView.isHidden = false
             loadData()
         }
     }

@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import Foundation
 import RealmSwift
+import Kingfisher
 
 class homeVC: UIViewController {
     
@@ -69,14 +70,15 @@ class homeVC: UIViewController {
             self.UV.isHidden = false 
             currentUserName()
         } else {
-                self.UV.isHidden = true
-                let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
-                let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
-                    self.goToViewController(where: "loginPage")
-                })
-                
-                alert.addAction(okay)
-                present(alert, animated: true, completion: nil)
+            self.goToViewController(where: "regularRecipesPage")
+//                self.UV.isHidden = true
+//                let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
+//                let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
+//                    self.goToViewController(where: "loginPage")
+//                })
+//
+//                alert.addAction(okay)
+//                present(alert, animated: true, completion: nil)
         }
         
         collectionView.delegate = self
@@ -91,14 +93,15 @@ class homeVC: UIViewController {
         
         self.view.backgroundColor = myYellow // set background color
         if currUser == nil {
-            self.UV.isHidden = true
-            let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
-            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
-                self.goToViewController(where: "loginPage")
-            })
-            
-            alert.addAction(okay)
-            present(alert, animated: true, completion: nil)
+            self.goToViewController(where: "regularRecipesPage")
+//            self.UV.isHidden = true
+//            let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
+//            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
+//                self.goToViewController(where: "loginPage")
+//            })
+//
+//            alert.addAction(okay)
+//            present(alert, animated: true, completion: nil)
         }
         else {
             self.UV.isHidden = false
@@ -184,11 +187,21 @@ class homeVC: UIViewController {
         let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
         self.navigationController?.pushViewController(pushVC!, animated: true)
     }
+    
 }
 
 extension homeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("section: \(indexPath.section) row: \(indexPath.row)")
+        print("id: \(String(recipeData[indexPath.row].id))") // 해당 레시피 아이디를 상세 정보 페이지로 넘겨서 url에 포함시켜 띄워줌
+        print("title: \(recipeData[indexPath.row].title)")
+        print("image url: \(recipeData[indexPath.row].image)")
+        
+        //let selectedData = recipeData[indexPath.item]
+        let destVC = storyboard?.instantiateViewController(withIdentifier: "detailInstructionsVC") as? detailInstructionsVC
+        destVC?.name = recipeData[indexPath.row].title
+        destVC?.foodImgUrl = recipeData[indexPath.row].image
+        self.navigationController?.pushViewController(destVC!, animated: true)
     }
 }
 

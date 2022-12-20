@@ -20,6 +20,8 @@ class settingsVC: UIViewController {
     @IBOutlet weak var btnSelectDiet: UIButton!
     //var myOptionBG = hexStringToUIColor(hex: "#FFC5A5")
     
+    @IBOutlet weak var lbMain: UILabel!
+    
     let transparentView = UIView()
     let tableView = UITableView()
     
@@ -45,23 +47,43 @@ class settingsVC: UIViewController {
         }
         addedAlert.addAction(okAction)
         self.present(addedAlert, animated: false, completion: nil)
+        
+        //self.view.layoutIfNeeded()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = myYellow // set background color
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CellClass.self, forCellReuseIdentifier: "Cell")
         
-        let realm = try! Realm()
-        let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
-        let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+        let currentUser = FirebaseAuth.Auth.auth().currentUser?.email
         
-        self.view.backgroundColor = myYellow // set background color
-        if user.diet == nil {
-            //btnSelectDiet.setTitle("Select Diet", for: .normal)
-        } else {
-            btnSelectDiet.setTitle(user.diet, for: .normal)
+        if !(currentUser == nil) {
+            self.lbMain.isHidden = false
+            self.btnSelectDiet.isHidden = false
+            self.btnSave1.isHidden = false
+            let realm = try! Realm()
+            let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+            
+            if user.diet == "" {
+                btnSelectDiet.setTitle("Diet: \(user.diet)", for: .normal)
+            } else {
+                self.lbMain.isHidden = true
+                self.btnSelectDiet.isHidden = true
+                self.btnSave1.isHidden = true
+                btnSelectDiet.setTitle(user.diet, for: .normal)
+            }
+        } else { // anonymous user
+            let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
+                self.goToViewController(where: "loginPage")
+            })
+            
+            alert.addAction(okay)
+            present(alert, animated: true, completion: nil)
         }
     }
     
@@ -104,15 +126,31 @@ class settingsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let realm = try! Realm()
-        let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
-        let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+        let currentUser = FirebaseAuth.Auth.auth().currentUser?.email
         
-        self.view.backgroundColor = myYellow // set background color
-        if user.diet == nil {
-            //btnSelectDiet.setTitle("Select Diet", for: .normal)
-        } else {
-            btnSelectDiet.setTitle(user.diet, for: .normal)
+        if !(currentUser == nil) {
+            self.lbMain.isHidden = false
+            self.btnSelectDiet.isHidden = false
+            self.btnSave1.isHidden = false
+            let realm = try! Realm()
+            let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+            
+            if user.diet == "" {
+                btnSelectDiet.setTitle("Select Diet", for: .normal)
+            } else {
+                btnSelectDiet.setTitle("Diet: \(user.diet)", for: .normal)
+            }
+        } else { // anonymous user
+            self.lbMain.isHidden = true
+            self.btnSelectDiet.isHidden = true
+            self.btnSave1.isHidden = true
+            let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
+                self.goToViewController(where: "loginPage")
+            })
+            
+            alert.addAction(okay)
+            present(alert, animated: true, completion: nil)
         }
     }
     

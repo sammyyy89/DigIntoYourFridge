@@ -24,3 +24,8 @@ struct Ingredients: Decodable {
     var name: String
     var image: String
 }
+
+struct Instructions: Decodable {
+    var name: String 
+    var steps: [String]!
+}
