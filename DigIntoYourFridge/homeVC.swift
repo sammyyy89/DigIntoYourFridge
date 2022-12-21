@@ -192,13 +192,12 @@ class homeVC: UIViewController {
 
 extension homeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("section: \(indexPath.section) row: \(indexPath.row)")
         print("id: \(String(recipeData[indexPath.row].id))") // 해당 레시피 아이디를 상세 정보 페이지로 넘겨서 url에 포함시켜 띄워줌
         print("title: \(recipeData[indexPath.row].title)")
         print("image url: \(recipeData[indexPath.row].image)")
         
-        //let selectedData = recipeData[indexPath.item]
         let destVC = storyboard?.instantiateViewController(withIdentifier: "detailInstructionsVC") as? detailInstructionsVC
+        destVC?.id = String(recipeData[indexPath.row].id)
         destVC?.name = recipeData[indexPath.row].title
         destVC?.foodImgUrl = recipeData[indexPath.row].image
         self.navigationController?.pushViewController(destVC!, animated: true)

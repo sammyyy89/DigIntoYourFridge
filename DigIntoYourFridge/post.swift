@@ -14,9 +14,6 @@ struct Recipes: Decodable {
     var imageType: String!
     var usedIngredientCount: Int
     var missedIngredientCount: Int
-//    var missedIngredients: [String]!
-//    var usedIngredients: [String]!
-//    var unusedIngredients: [String]!
     var likes: Int!
 }
 
@@ -25,7 +22,12 @@ struct Ingredients: Decodable {
     var image: String
 }
 
+struct Step: Decodable {
+    var number: Int?
+    var step: String?
+}
+
 struct Instructions: Decodable {
-    var name: String 
-    var steps: [String]!
+    var name: String?
+    var steps: [Step]?
 }
