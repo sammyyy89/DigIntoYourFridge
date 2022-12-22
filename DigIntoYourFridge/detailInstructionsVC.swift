@@ -103,6 +103,11 @@ class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
             do {
                 self.instructionData = try JSONDecoder().decode([Instructions].self, from: data)
                 
+                for item in self.instructionData[0].steps {
+                    print("Step \(item.number)")
+                    print("Instruction: \(item.step)")
+                }
+                
                 if self.instructionData.count > 0 {
                     DispatchQueue.main.async {
                         completed()
@@ -130,12 +135,16 @@ class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "instCell", for: indexPath) as! instCell
         
-        cell.stepNo.text = "Step \(String(instructionData[(indexPath.row)].steps[indexPath.row].number))"
-        print("Number: \(String(instructionData[indexPath.row].steps[indexPath.row].number))")
-        cell.step.text = instructionData[indexPath.row].steps[indexPath.row].step
+        for item in self.instructionData[indexPath.row].steps {
+            cell.stepNo.text = "Step \(item.number)"
+            cell.step.text = "\(item.step)"
+        }
+//        cell.stepNo.text = "Step \(String(instructionData[(indexPath.row)].steps[indexPath.row].number))"
+//        print("Number: \(String(instructionData[indexPath.row].steps[indexPath.row].number))")
+//        cell.step.text = "Equipment: \(instructionData[indexPath.row].steps[indexPath.row].equipment[indexPath.row].localizedName)\n\n\(instructionData[indexPath.row].steps[indexPath.row].step)"
         cell.step.isEditable = false
         cell.step.backgroundColor = myYellow
-        print("step: \(instructionData[indexPath.row].steps[indexPath.row].step)")
+        print("step: \(instructionData[indexPath.row].steps[indexPath.row].step) \n \(instructionData[indexPath.row].steps[indexPath.row].equipment[0].localizedName)")
         
         return cell
     }

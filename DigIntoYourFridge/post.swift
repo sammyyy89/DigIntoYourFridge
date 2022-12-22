@@ -44,5 +44,4 @@ struct Step: Decodable {
 struct Instructions: Decodable {
     var name: String?
     var steps: [Step]
-    
 }
