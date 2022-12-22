@@ -8,15 +8,14 @@
 import UIKit
 import Kingfisher
 
-class detailInstructionsVC: UIViewController {
-    
-    var data = [Instructions]()
-    
+class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
+
     private var instructionData = [Instructions]()
+    private var stepData = [Step]()
     
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var img: UIImageView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var id = ""
     var foodImgUrl = ""
@@ -24,12 +23,8 @@ class detailInstructionsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.backgroundColor = UIColor.red
-        
+         
+        self.collectionView.dataSource = self
         print("id: \(id)")
         lbTitle.text = "\(name)"
         lbTitle.numberOfLines = 0
@@ -73,7 +68,7 @@ class detailInstructionsVC: UIViewController {
 //        dataTask.resume()
         
         fetchData {
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
     
@@ -111,12 +106,13 @@ class detailInstructionsVC: UIViewController {
                 if self.instructionData.count > 0 {
                     DispatchQueue.main.async {
                         completed()
-                        self.tableView.reloadData()
+                        //self.collectionView.reloadData()
                         print("results: \(self.instructionData)")
                     }
                 } else {
                     DispatchQueue.main.async {
                         self.lbTitle.text = "No data"
+                        // add alert
                     }
                 }
             }
@@ -126,22 +122,45 @@ class detailInstructionsVC: UIViewController {
             }
         }.resume()
     }
-
-}
-
-extension detailInstructionsVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return instructionData.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "instCell", for: indexPath) as! instCell
-
-        cell.stepNo.text = "Hiiii"//"Name: \(data[indexPath.row].name)"
-        cell.step.text = "Inst: \(data[indexPath.row].steps)"
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "instCell", for: indexPath) as! instCell
+        
+        cell.stepNo.text = "Step \(String(instructionData[(indexPath.row)].steps[indexPath.row].number))"
+        print("Number: \(String(instructionData[indexPath.row].steps[indexPath.row].number))")
+        cell.step.text = instructionData[indexPath.row].steps[indexPath.row].step
+        cell.step.isEditable = false
+        cell.step.backgroundColor = myYellow
+        print("step: \(instructionData[indexPath.row].steps[indexPath.row].step)")
         
         return cell
     }
+
 }
+
+//extension detailInstructionsVC: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return instructionData.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        //let model = self.instructionData[indexPath.section].steps[indexPath.row]
+//        let model = self.instructionData[indexPath.row].steps[indexPath.row]
+//        print("row: \(indexPath.row), section: \(indexPath.section), item: \(indexPath.item), count: \(indexPath.count)")
+//
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "instCell", for: indexPath) as! instCell
+//
+//        cell.stepNo.text = "Name: \(model.step)"
+//        print("step: \(model.step)")
+//        cell.step.text = "Inst: \(model.number)"
+//        print("Step No. \(model.number)")
+//
+//        return cell
+//    }
+//}
 
 
