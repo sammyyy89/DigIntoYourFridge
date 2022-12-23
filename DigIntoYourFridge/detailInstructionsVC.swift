@@ -1,17 +1,10 @@
-//
-//  detailInstructionsVC.swift
-//  DigIntoYourFridge
-//
-//  Created by Saemi An on 12/19/22.
-//
-
 import UIKit
 import Kingfisher
 
 class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
 
-    private var instructionData = [Instructions]()
-    private var stepData = [Step]()
+    //private var instructionData = [Instructions]()
+    private var instructionData = [Step]()
     
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var img: UIImageView!
@@ -101,12 +94,14 @@ class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
             guard let data = data else { return }
 
             do {
-                self.instructionData = try JSONDecoder().decode([Instructions].self, from: data)
+                //self.instructionData = try JSONDecoder().decode([Instructions].self, from: data)
+                let response = try JSONDecoder().decode([Instructions].self, from: data)
+                self.instructionData = response.first?.steps ?? []
                 
-                for item in self.instructionData[0].steps {
-                    print("Step \(item.number)")
-                    print("Instruction: \(item.step)")
-                }
+//                for item in self.instructionData[0].steps {
+//                    print("Step \(item.number)")
+//                    print("Instruction: \(item.step)")
+//                }
                 
                 if self.instructionData.count > 0 {
                     DispatchQueue.main.async {
@@ -135,16 +130,20 @@ class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "instCell", for: indexPath) as! instCell
         
-        for item in self.instructionData[indexPath.row].steps {
-            cell.stepNo.text = "Step \(item.number)"
-            cell.step.text = "\(item.step)"
-        }
+        cell.stepNo.text = "Step \(instructionData[indexPath.row].number)"
+        cell.step.text = "\(instructionData[indexPath.row].step)"
+
+//        for item in self.instructionData[indexPath.row].steps {
+//            cell.stepNo.text = "Step \(item.number)"
+//            cell.step.text = "\(item.step)"
+//        }
+        
 //        cell.stepNo.text = "Step \(String(instructionData[(indexPath.row)].steps[indexPath.row].number))"
 //        print("Number: \(String(instructionData[indexPath.row].steps[indexPath.row].number))")
 //        cell.step.text = "Equipment: \(instructionData[indexPath.row].steps[indexPath.row].equipment[indexPath.row].localizedName)\n\n\(instructionData[indexPath.row].steps[indexPath.row].step)"
         cell.step.isEditable = false
         cell.step.backgroundColor = myYellow
-        print("step: \(instructionData[indexPath.row].steps[indexPath.row].step) \n \(instructionData[indexPath.row].steps[indexPath.row].equipment[0].localizedName)")
+        //print("step: \(instructionData[indexPath.row].steps[indexPath.row].step) \n \(instructionData[indexPath.row].steps[indexPath.row].equipment[0].localizedName)")
         
         return cell
     }

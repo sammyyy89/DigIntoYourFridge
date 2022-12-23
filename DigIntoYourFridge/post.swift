@@ -22,26 +22,26 @@ struct Ingredients: Decodable {
     var image: String
 }
 
-struct Ingredient: Decodable {
-    var id: Int
-    var name: String
-    var localizedName: String
+struct Instructions: Codable {
+    var name: String?
+    var steps: [Step]
 }
 
-struct Equipments: Decodable {
-    var id: Int
-    var name: String
-    var localizedName: String
-}
-
-struct Step: Decodable {
+struct Step: Codable {
     var number: Int
     var step: String
     var ingredients: [Ingredient]
     var equipment: [Equipments]
 }
 
-struct Instructions: Decodable {
-    var name: String?
-    var steps: [Step]
+struct Ingredient: Codable {
+    var id: Int
+    var name: String
+    var localizedName: String
+}
+
+struct Equipments: Codable {
+    var id: Int
+    var name: String
+    var localizedName: String
 }
