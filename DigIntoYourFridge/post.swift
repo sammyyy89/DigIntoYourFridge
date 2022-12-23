@@ -7,17 +7,29 @@
 
 import Foundation
 
-struct Recipes: Decodable {
+struct Recipes: Codable {
     var id: Int!
     var title: String
     var image: String
     var imageType: String!
     var usedIngredientCount: Int
     var missedIngredientCount: Int
+    var missedIngredients: [Missed]
+    var usedIngredients: [Used]
     var likes: Int!
 }
 
-struct Ingredients: Decodable {
+struct Missed: Codable {
+    var id: Int
+    var name: String
+}
+
+struct Used: Codable {
+    var id: Int
+    var name: String
+}
+
+struct Ingredients: Codable {
     var name: String
     var image: String
 }
@@ -30,11 +42,11 @@ struct Instructions: Codable {
 struct Step: Codable {
     var number: Int
     var step: String
-    var ingredients: [Ingredient]
+    var ingredients: [IngredientsForInst]
     var equipment: [Equipments]
 }
 
-struct Ingredient: Codable {
+struct IngredientsForInst: Codable {
     var id: Int
     var name: String
     var localizedName: String

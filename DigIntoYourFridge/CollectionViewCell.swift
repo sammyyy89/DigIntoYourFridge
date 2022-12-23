@@ -21,6 +21,7 @@ class CollectionViewCell: UICollectionViewCell {
             
             if recipe.missedIngredientCount > 1 {
                 lbNumofMissed.text = "\(String(recipe.missedIngredientCount)) ingredients missed"
+                
             } else {
                 lbNumofMissed.text = "\(String(recipe.missedIngredientCount)) ingredient missed"
             } 
@@ -37,4 +38,5 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lbDishName: UILabel!
     @IBOutlet weak var lbNumofUsed: UILabel!
     @IBOutlet weak var lbNumofMissed: UILabel!
+    
 }

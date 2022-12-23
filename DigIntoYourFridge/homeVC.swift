@@ -24,6 +24,11 @@ class homeVC: UIViewController {
     private let screenSize = UIScreen.main.bounds
     private var cellSize: CGSize!
     private var recipeData = [Recipes]()
+    private var missedIgr = [Missed]()
+    private var usedIgr = [Used]()
+    
+    private var missed = [String]()
+    private var used = [String]()
     
     fileprivate func prepareCellSize() {
         let width = ((screenSize.width-32)/2) * 0.9
@@ -90,6 +95,7 @@ class homeVC: UIViewController {
         super.viewWillAppear(animated)
         
         let currUser = FirebaseAuth.Auth.auth().currentUser?.email
+        print(currUser)
         
         self.view.backgroundColor = myYellow // set background color
         if currUser == nil {
@@ -149,7 +155,7 @@ class homeVC: UIViewController {
 
             do {
                 self.recipeData = try JSONDecoder().decode([Recipes].self, from: data)
-
+                
                 DispatchQueue.main.async {
                     completed()
                 }
@@ -192,14 +198,31 @@ class homeVC: UIViewController {
 
 extension homeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("id: \(String(recipeData[indexPath.row].id))") // 해당 레시피 아이디를 상세 정보 페이지로 넘겨서 url에 포함시켜 띄워줌
-        print("title: \(recipeData[indexPath.row].title)")
-        print("image url: \(recipeData[indexPath.row].image)")
+//        print("id: \(String(recipeData[indexPath.row].id))") 
+//        print("title: \(recipeData[indexPath.row].title)")
+//        print("image url: \(recipeData[indexPath.row].image)")
+        
+        self.missed = [String]()
+        self.used = [String]()
+        
+        self.missedIgr = self.recipeData[indexPath.row].missedIngredients
+        for missed in self.missedIgr {
+            self.missed.append(missed.name)
+        }
+        
+        self.usedIgr = self.recipeData[indexPath.row].usedIngredients
+        for used in self.usedIgr {
+            self.used.append(used.name)
+        }
+        
+//        print("missed: \(self.missed)")
         
         let destVC = storyboard?.instantiateViewController(withIdentifier: "detailInstructionsVC") as? detailInstructionsVC
         destVC?.id = String(recipeData[indexPath.row].id)
         destVC?.name = recipeData[indexPath.row].title
         destVC?.foodImgUrl = recipeData[indexPath.row].image
+        destVC?.missedIgr = self.missed
+        destVC?.usedIgr = self.used
         self.navigationController?.pushViewController(destVC!, animated: true)
     }
 }
