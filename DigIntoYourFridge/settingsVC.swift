@@ -35,20 +35,25 @@ class settingsVC: UIViewController {
         let db = User()
         let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
         
-        let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+        let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first
         
-        try! realm.write {
-            user.diet = selectedValue
-            realm.add(db, update: .all)
+        if user == nil {
+            print("null user:")
+        } else {
+            try! realm.write {
+                user?.diet = selectedValue
+                realm.add(db, update: .all)
+            }
+            let addedAlert = UIAlertController(title: "Success", message: "Successfully saved!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                print("diet added")
+            }
+            addedAlert.addAction(okAction)
+            self.present(addedAlert, animated: false, completion: nil)
+            
+            //self.view.layoutIfNeeded()
         }
-        let addedAlert = UIAlertController(title: "Success", message: "Successfully saved!", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            print("diet added")
-        }
-        addedAlert.addAction(okAction)
-        self.present(addedAlert, animated: false, completion: nil)
         
-        //self.view.layoutIfNeeded()
     }
     
     override func viewDidLoad() {
@@ -59,32 +64,7 @@ class settingsVC: UIViewController {
         tableView.dataSource = self
         tableView.register(CellClass.self, forCellReuseIdentifier: "Cell")
         
-        let currentUser = FirebaseAuth.Auth.auth().currentUser?.email
-        
-        if !(currentUser == nil) {
-            self.lbMain.isHidden = false
-            self.btnSelectDiet.isHidden = false
-            self.btnSave1.isHidden = false
-            let realm = try! Realm()
-            let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
-            
-            if user.diet == "" {
-                btnSelectDiet.setTitle("Diet: \(user.diet)", for: .normal)
-            } else {
-                self.lbMain.isHidden = true
-                self.btnSelectDiet.isHidden = true
-                self.btnSave1.isHidden = true
-                btnSelectDiet.setTitle(user.diet, for: .normal)
-            }
-        } else { // anonymous user
-            let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
-            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
-                self.goToViewController(where: "loginPage")
-            })
-            
-            alert.addAction(okay)
-            present(alert, animated: true, completion: nil)
-        }
+        checkLoginStatus()
     }
     
     func addTransparentView(frames: CGRect) {
@@ -126,21 +106,13 @@ class settingsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let currentUser = FirebaseAuth.Auth.auth().currentUser?.email
+        checkLoginStatus()
+    }
+    
+    func checkLoginStatus() {
+        let currUser = FirebaseAuth.Auth.auth().currentUser?.email
         
-        if !(currentUser == nil) {
-            self.lbMain.isHidden = false
-            self.btnSelectDiet.isHidden = false
-            self.btnSave1.isHidden = false
-            let realm = try! Realm()
-            let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
-            
-            if user.diet == "" {
-                btnSelectDiet.setTitle("Select Diet", for: .normal)
-            } else {
-                btnSelectDiet.setTitle("🌱 Diet: \(user.diet)", for: .normal)
-            }
-        } else { // anonymous user
+        if currUser == nil {
             self.lbMain.isHidden = true
             self.btnSelectDiet.isHidden = true
             self.btnSave1.isHidden = true
@@ -151,6 +123,19 @@ class settingsVC: UIViewController {
             
             alert.addAction(okay)
             present(alert, animated: true, completion: nil)
+        } else {
+            self.lbMain.isHidden = false
+            self.btnSelectDiet.isHidden = false
+            self.btnSave1.isHidden = false
+            let realm = try! Realm()
+            let user = realm.objects(User.self).filter("userEmail == %@", currUser).first
+            
+            if (user?.diet == "") || (user?.diet == nil) {
+                btnSelectDiet.setTitle("🌱 Select Diet", for: .normal)
+            } else {
+                btnSelectDiet.setTitle("🌱 Diet: \(user?.diet ?? "")", for: .normal)
+            }
+
         }
     }
     

@@ -16,6 +16,7 @@ class myFridgeVC: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var lbMain: UILabel!
+    @IBOutlet weak var moveBtn: UIButton!
     
     var userHas = List<String>()
     var saved_images = List<String>()
@@ -50,6 +51,7 @@ class myFridgeVC: UIViewController {
         if currUser == nil { // anonymous user
             self.lbMain.isHidden = true
             self.collectionView.isHidden = true
+            self.moveBtn.isHidden = true
             let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
             let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
                 self.goToViewController(where: "loginPage")
@@ -60,13 +62,14 @@ class myFridgeVC: UIViewController {
         } else {
             self.lbMain.isHidden = false
             self.collectionView.isHidden = false
+            self.moveBtn.isHidden = false 
             loadData()
         }
     }
     
     func loadData() {
             let currentUser = Auth.auth().currentUser?.email ?? "Not found"
-            
+    
             let realm = try! Realm()
             let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first! // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
             self.userHas = data.ingredientsArray
@@ -135,7 +138,7 @@ extension myFridgeVC: UICollectionViewDataSource {
         } else {
             print("no image")
         }
-        return cell 
+        return cell
     }
 }
 

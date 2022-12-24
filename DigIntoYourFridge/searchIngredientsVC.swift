@@ -201,7 +201,7 @@ extension searchIngredientsVC: UICollectionViewDataSource {
 
 extension searchIngredientsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return cellSize 
+        return cellSize
     }
 }
 

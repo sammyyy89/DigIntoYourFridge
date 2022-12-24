@@ -93,21 +93,21 @@ class ViewController: UIViewController {
                 return
             }
             // signed in successfully
-            
-            // add user email to db if it doesn't exist
+
             let realm = try! Realm()
             let db = User()
-
-            if db.userEmail.contains(email) {
-                print("added")
-                db.userEmail = email
-
+            
+            let loginWith = String(FirebaseAuth.Auth.auth().currentUser!.email ?? "")
+            db.userEmail = loginWith
+            
+            let exist = realm.object(ofType: User.self, forPrimaryKey: loginWith)
+            
+            if exist == nil {
                 try! realm.write {
                     realm.add(db)
                 }
-            }
-            else {
-                print("already exists")
+            } else {
+                print("User already exists")
             }
             
             self.goToViewController(where: "mainPage")
@@ -370,15 +370,3 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(pushVC!, animated: true)
     }
 }
-
-
-
-
-// 로그아웃 기능 구현 시 참고!! 원하는 곳(예를 들어 IBAction)에 아래 코드 작성.
-
-//let firebaseAuth = Auth.auth()
-//do {
-//    try firebaseAuth.signOut()
-//} catch let signOutError as NSError {
-//    print("로그아웃 Error발생:", signOutError)
-//}

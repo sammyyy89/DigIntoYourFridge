@@ -427,16 +427,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Fridge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23l-LQ-sXQ">
-                                <rect key="frame" x="133.33333333333326" y="121" width="124" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Fridge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23l-LQ-sXQ">
+                                <rect key="frame" x="133" y="121" width="124" height="52"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="32"/>
                                 <color key="textColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SJl-Se-Kxm">
-                                <rect key="frame" x="0.0" y="222.33333333333331" width="390" height="528.66666666666674"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SJl-Se-Kxm">
+                                <rect key="frame" x="0.0" y="242.33333333333334" width="390" height="508.66666666666663"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NN9-JB-P7a">
                                     <size key="itemSize" width="150" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -493,14 +491,43 @@
                                     <outlet property="delegate" destination="G1y-5z-DEg" id="xcx-RE-18q"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpy-Gw-Wrb">
+                                <rect key="frame" x="20" y="181" width="350" height="41.333333333333343"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="😋 Show me the recipes I can cook now">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </backgroundConfiguration>
+                                    <fontDescription key="titleFontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="17"/>
+                                    <color key="baseForegroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="3ST-6A-CjE" kind="show" id="7J4-G1-FP0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ygF-K4-De4"/>
                         <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ygF-K4-De4" firstAttribute="trailing" secondItem="mpy-Gw-Wrb" secondAttribute="trailing" constant="20" id="28u-J2-lXh"/>
+                            <constraint firstItem="mpy-Gw-Wrb" firstAttribute="top" secondItem="23l-LQ-sXQ" secondAttribute="bottom" constant="8" id="48W-BJ-MI8"/>
+                            <constraint firstItem="SJl-Se-Kxm" firstAttribute="trailing" secondItem="ygF-K4-De4" secondAttribute="trailing" id="9qm-cN-CaH"/>
+                            <constraint firstItem="SJl-Se-Kxm" firstAttribute="leading" secondItem="ygF-K4-De4" secondAttribute="leading" id="GPo-7t-zZ2"/>
+                            <constraint firstItem="SJl-Se-Kxm" firstAttribute="trailing" secondItem="ygF-K4-De4" secondAttribute="trailing" id="L0q-Ub-Ijf"/>
+                            <constraint firstItem="mpy-Gw-Wrb" firstAttribute="leading" secondItem="ygF-K4-De4" secondAttribute="leading" constant="20" id="Vh0-Ha-id5"/>
+                            <constraint firstItem="SJl-Se-Kxm" firstAttribute="top" secondItem="mpy-Gw-Wrb" secondAttribute="bottom" constant="20" id="Xjx-di-NK5"/>
+                            <constraint firstItem="SJl-Se-Kxm" firstAttribute="top" secondItem="mpy-Gw-Wrb" secondAttribute="bottom" constant="20" id="aB0-WI-3P4"/>
+                            <constraint firstItem="23l-LQ-sXQ" firstAttribute="top" secondItem="ygF-K4-De4" secondAttribute="top" constant="30" id="cMZ-o1-QA1"/>
+                            <constraint firstItem="23l-LQ-sXQ" firstAttribute="centerX" secondItem="kNC-9a-Zqy" secondAttribute="centerX" id="coI-VS-yBr"/>
+                            <constraint firstItem="SJl-Se-Kxm" firstAttribute="leading" secondItem="ygF-K4-De4" secondAttribute="leading" id="gWI-92-5jg"/>
+                            <constraint firstItem="ygF-K4-De4" firstAttribute="bottom" secondItem="SJl-Se-Kxm" secondAttribute="bottom" constant="10" id="kWl-8Q-fG1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="K6j-5i-4Ei"/>
                     <connections>
                         <outlet property="collectionView" destination="SJl-Se-Kxm" id="rwt-OB-y3x"/>
                         <outlet property="lbMain" destination="23l-LQ-sXQ" id="0LS-Up-qBf"/>
+                        <outlet property="moveBtn" destination="mpy-Gw-Wrb" id="QNS-zm-Vmv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pxm-DQ-lCL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1152,6 +1179,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="7J4-G1-FP0"/>
         <segue reference="Zcz-vY-AVg"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -66,7 +66,7 @@ class homeVC: UIViewController {
     
     func checkLoginStatus() {
         let currUser = FirebaseAuth.Auth.auth().currentUser?.email
-       
+
         if currUser == nil { // anonymous user
             self.UV.isHidden = true
             self.goToViewController(where: "regularRecipesPage")
@@ -82,49 +82,53 @@ class homeVC: UIViewController {
     func fetchData(completed: @escaping () -> ()) {
         
         let currentUser = Auth.auth().currentUser?.email ?? "Not found"
-        
+
         let realm = try! Realm()
-        let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
-        let userHas = data.ingredientsArray
-        let joined = userHas.joined(separator: ",")
+        let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first
+        if data == nil {
+            print("no data to display")
+        } else {
+            let userHas = data?.ingredientsArray
+            let joined = userHas?.joined(separator: ",")
 
-        let strEncoded = self.urlEncode(encodedString: "\(joined)") // comma = %2C, blank = %20
+            let strEncoded = self.urlEncode(encodedString: "\(joined)") // comma = %2C, blank = %20
 
-        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=\(strEncoded)&number=50&ignorePantry=false&ranking=2")
-        // ignorePantry = Whether to ignore pantry ingredients such as water, salt, flour, etc.
-        // ranking = maximize used ingredients = 1, minimze missing ingredients = 2
-        guard url != nil else {
-                        print("Error creating url object")
-                        return
+            let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=\(strEncoded)&number=50&ignorePantry=false&ranking=2")
+            // ignorePantry = Whether to ignore pantry ingredients such as water, salt, flour, etc.
+            // ranking = maximize used ingredients = 1, minimze missing ingredients = 2
+            guard url != nil else {
+                            print("Error creating url object")
+                            return
+                    }
+
+            var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy,
+                                             timeoutInterval: 10.0)
+
+            let header = ["X-RapidAPI-Key": "20a6998a90msh0516f8821cc4954p199178jsnf78c2b51a123",
+                                  "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"]
+
+            request.allHTTPHeaderFields = header
+            request.httpMethod = "GET"
+
+            let session = URLSession.shared
+            let task = session.dataTask(with: request) { (data, response, error) in
+
+                guard let data = data else { return }
+
+                do {
+                    self.recipeData = try JSONDecoder().decode([Recipes].self, from: data)
+
+                    DispatchQueue.main.async {
+                        completed()
+                    }
                 }
-
-        var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy,
-                                         timeoutInterval: 10.0)
-
-        let header = ["X-RapidAPI-Key": "20a6998a90msh0516f8821cc4954p199178jsnf78c2b51a123",
-                              "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"]
-
-        request.allHTTPHeaderFields = header
-        request.httpMethod = "GET"
-
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { (data, response, error) in
-
-            guard let data = data else { return }
-
-            do {
-                self.recipeData = try JSONDecoder().decode([Recipes].self, from: data)
-                
-                DispatchQueue.main.async {
-                    completed()
+                catch {
+                    let error = error
+                    print(String(describing: error))
+                    //print("Error: \(error.localizedDescription)")
                 }
-            }
-            catch {
-                let error = error
-                print(String(describing: error))
-                //print("Error: \(error.localizedDescription)")
-            }
-        }.resume()
+            }.resume()
+        }
     }
     
     func currentUserName() {
