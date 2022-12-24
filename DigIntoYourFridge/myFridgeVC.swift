@@ -19,7 +19,7 @@ class myFridgeVC: UIViewController {
     @IBOutlet var lbMain: UILabel!
     
     var userHas = List<String>()
-    var igData = [Ingredients]()
+    var saved_images = List<String>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +56,7 @@ class myFridgeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.collectionView.reloadData()
         let currUser = FirebaseAuth.Auth.auth().currentUser?.email
         if currUser == nil {
             self.lbMain.isHidden = true
@@ -81,9 +82,12 @@ class myFridgeVC: UIViewController {
         let realm = try! Realm()
         let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first! // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
         self.userHas = data.ingredientsArray
+        self.saved_images = data.imgUrlArray
         let joined = userHas.joined(separator: ", ")
+        let img_joined = saved_images.joined(separator: ", ")
     
         print("User has: \(joined)")
+        print("imgs: \(img_joined)")
         
     }
     
@@ -138,14 +142,21 @@ class myFridgeVC: UIViewController {
 
 extension myFridgeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.userHas.count
+        return self.saved_images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mfCell", for: indexPath) as! myFridgeCollectionViewCell
         
         cell.ingredientName.text = self.userHas[indexPath.row]
-        
+                
+        let cellImage = self.saved_images[indexPath.row]
+                
+        if let url = URL(string: "https://spoonacular.com/cdn/ingredients_100x100/\(cellImage)") {
+            cell.ingredientImg.kf.setImage(with: url)
+        } else {
+            print("no image")
+        }
         return cell 
     }
 }

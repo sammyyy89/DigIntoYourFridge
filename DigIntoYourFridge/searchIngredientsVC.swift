@@ -147,7 +147,7 @@ class searchIngredientsVC: UIViewController {
 extension searchIngredientsVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedName = ingredientData[indexPath.item].name
-        // let selectedImage = ingredientData[indexPath.item].image
+        let selectedImage = ingredientData[indexPath.item].image
         
         let alert = UIAlertController(title: "Add ingredient", message: "Do you want to add this ingredient to your fridge?", preferredStyle: .alert)
         let yes = UIAlertAction(title: "Yes", style: .default) { (action: UIAlertAction!) in
@@ -162,25 +162,30 @@ extension searchIngredientsVC: UICollectionViewDelegate {
             if exist == nil {
                 print("User not found")
             } else {
-                try! realm.write {
-                    user.ingredientsArray.append(selectedName)
-                    realm.add(db, update: .all)
+                if user.ingredientsArray.contains(selectedName) {
+                    print("Already exists!")
+                    // add alert
+                } else {
+                    try! realm.write {
+                        user.ingredientsArray.append(selectedName)
+                        user.imgUrlArray.append(selectedImage)
+                        realm.add(db, update: .all)
+                    }
+                    let addedAlert = UIAlertController(title: "Success", message: "Successfully added to your fridge!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                        //print("ingredient added")
+                    }
+                    addedAlert.addAction(okAction)
+                    self.present(addedAlert, animated: false, completion: nil)
+                    self.searchBar.text = ""
                 }
-                let addedAlert = UIAlertController(title: "Success", message: "Successfully added to your fridge!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                    print("ingredient added")
+
                 }
-                addedAlert.addAction(okAction)
-                self.present(addedAlert, animated: false, completion: nil)
-                self.searchBar.text = ""
-            }
         }
         alert.addAction(yes)
         
         let cancel = UIAlertAction(title: "Cancel", style: .destructive) { (action: UIAlertAction!) in
             print("Cancel")
-            let db = User() 
-            print(db)
         }
         alert.addAction(cancel)
         
@@ -214,6 +219,7 @@ class User: Object {
     @objc dynamic var intolerance: String? = ""
     @objc dynamic var diet: String = "" // possible values: escetarian, lacto vegetarian, ovo vegetarian, vegan, paleo, primal, and vegetarian
     var ingredientsArray = List<String>()
+    var imgUrlArray = List<String>()
     var intolerancesArray = List<String>() // possible values: dairy, egg, gluten, peanut, sesame, seafood, shellfish, soy, sulfite, tree nut, and wheat
     
     override static func primaryKey() -> String? {
