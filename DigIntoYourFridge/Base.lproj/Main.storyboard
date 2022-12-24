@@ -422,7 +422,7 @@
         <!--My FridgeVC-->
         <scene sceneID="kju-5b-eJK">
             <objects>
-                <viewController id="G1y-5z-DEg" customClass="myFridgeVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="myFridgeVC" id="G1y-5z-DEg" customClass="myFridgeVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kNC-9a-Zqy">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -8,6 +8,7 @@
 import UIKit
 import FacebookLogin
 import FacebookCore
+import FBSDKCoreKit 
 
 import Firebase
 import FirebaseCore
@@ -50,6 +51,7 @@ var ggRed = hexStringToUIColor(hex: "DB4437")
 class ViewController: UIViewController {
     
     var refUser: DatabaseReference!
+    var uemail = ""
     
     @IBOutlet weak var lbSignedIn: UILabel!
     
@@ -189,33 +191,47 @@ class ViewController: UIViewController {
                     print("Failed to get access token")
                     return
                 }
-                
+            
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
                 
                 // Perform login by calling Firebase APIs
-                Auth.auth().signIn(with: credential, completion: { (user, error) in
+                Auth.auth().signIn(with: credential, completion: { (res, error) in
                     if let error = error {
                         print("Firebase auth fails with error: \(error.localizedDescription)")
+                        
+                        let errAlert = UIAlertController(title: "Login Failed", message: error.localizedDescription, preferredStyle: .alert)
+                        let confirmed = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        errAlert.addAction(confirmed)
+                        
+                        self.present(errAlert, animated: true, completion: nil)
+                        
+                        return
+                        
                     } else if let result = result {
-                        print("Login success: \(result)")
+ 
+                        guard let providerData = res?.user.providerData else {
+                            print("err")
+                            return
+                        }
+                        
+                        for userInfo in providerData {
+                            self.uemail = String(userInfo.email ?? "")
+                        }
                         
                         // add user email to db if it doesn't exist
                         let realm = try! Realm()
                         let db = User()
+                        
+                        db.userEmail = self.uemail
 
-                        let email = String(FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found")
-                        db.userEmail = email
-
-                        let exist = realm.object(ofType: User.self, forPrimaryKey: email) // the result will be nil if the user does not exist
+                        let exist = realm.object(ofType: User.self, forPrimaryKey: self.uemail) // the result will be nil if the user does not exist
 
                         if exist == nil {
                             try! realm.write {
                                 realm.add(db)
                             }
-                            print("added: \(db)")
                         } else {
                             print("User already exists")
-                            print("db: \(db)")
                         }
                         
                         self.goToViewController(where: "mainPage")

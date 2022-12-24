@@ -64,10 +64,15 @@ class searchIngredientsVC: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
-        if FirebaseAuth.Auth.auth().currentUser != nil { // if user is logged in
-            //currentUserName()
-            print("test")
-        }
+//        if FirebaseAuth.Auth.auth().currentUser != nil { // if user is logged in
+//            //currentUserName()
+//        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.collectionView.reloadData()
     }
     
     func fetchData(completed: @escaping () -> ()) {
@@ -125,23 +130,6 @@ class searchIngredientsVC: UIViewController {
             }
         }.resume()
     }
-    
-    
-//    func currentUserName() {
-//        if let currentUser = Auth.auth().currentUser {
-//            let userName = currentUser.displayName ?? "Display Name Not Found"
-//            let registeredEmail = currentUser.email ?? "Email Not Found"
-//
-//            self.signinBtn.isHidden = true
-//            self.userEmail.isHidden = false
-//
-//            if currentUser.providerData[0].providerID == "password"{
-//                self.userEmail.text = "You're signed in with \(registeredEmail)"
-//            } else {
-//                self.userEmail.text = "Hi, \(userName)"
-//            }
-//        }
-//    }
 }
 
 extension searchIngredientsVC: UICollectionViewDelegate {
@@ -163,8 +151,12 @@ extension searchIngredientsVC: UICollectionViewDelegate {
                 print("User not found")
             } else {
                 if user.ingredientsArray.contains(selectedName) {
-                    print("Already exists!")
-                    // add alert
+                    let alert = UIAlertController(title: "Already exists", message: "This ingredient was already added in your fridge.", preferredStyle: .alert)
+                    let OK = UIAlertAction(title: "OK", style: .default) { (action) in
+                        print("Already exists")
+                    }
+                    alert.addAction(OK)
+                    self.present(alert, animated: false, completion: nil)
                 } else {
                     try! realm.write {
                         user.ingredientsArray.append(selectedName)

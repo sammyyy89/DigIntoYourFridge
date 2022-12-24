@@ -12,7 +12,6 @@ import Kingfisher
 
 // MARK: - Body
 
-
 class myFridgeVC: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
@@ -27,26 +26,10 @@ class myFridgeVC: UIViewController {
         self.collectionView.backgroundColor = myYellow
         
         collectionView.dataSource = self
-        
-        let currUser = FirebaseAuth.Auth.auth().currentUser?.email ?? "User not found"
+        collectionView.delegate = self
         
         self.view.backgroundColor = myYellow // set background color
-        if currUser == nil {
-            self.lbMain.isHidden = true
-            self.collectionView.isHidden = true
-            let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
-            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
-                self.goToViewController(where: "loginPage")
-            })
-            
-            alert.addAction(okay)
-            present(alert, animated: true, completion: nil)
-        }
-        else {
-            self.collectionView.isHidden = false
-            self.lbMain.isHidden = false
-            loadData()
-        }
+        checkLoginStatus()
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 120, height: 120)
@@ -57,8 +40,14 @@ class myFridgeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.collectionView.reloadData()
+        
+        checkLoginStatus()
+    }
+    
+    func checkLoginStatus() {
         let currUser = FirebaseAuth.Auth.auth().currentUser?.email
-        if currUser == nil {
+        
+        if currUser == nil { // anonymous user
             self.lbMain.isHidden = true
             self.collectionView.isHidden = true
             let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
@@ -68,75 +57,64 @@ class myFridgeVC: UIViewController {
             
             alert.addAction(okay)
             present(alert, animated: true, completion: nil)
-        }
-        else {
-            self.lbMain.isHidden = false 
+        } else {
+            self.lbMain.isHidden = false
             self.collectionView.isHidden = false
             loadData()
         }
     }
     
     func loadData() {
-        let currentUser = Auth.auth().currentUser?.email ?? "Not found"
-        
-        let realm = try! Realm()
-        let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first! // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
-        self.userHas = data.ingredientsArray
-        self.saved_images = data.imgUrlArray
-        let joined = userHas.joined(separator: ", ")
-        let img_joined = saved_images.joined(separator: ", ")
-    
-        print("User has: \(joined)")
-        print("imgs: \(img_joined)")
-        
+            let currentUser = Auth.auth().currentUser?.email ?? "Not found"
+            
+            let realm = try! Realm()
+            let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first! // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+            self.userHas = data.ingredientsArray
+            self.saved_images = data.imgUrlArray
+            let joined = userHas.joined(separator: ", ")
+            let img_joined = saved_images.joined(separator: ", ")
     }
-    
-//    func fetchData(completed: @escaping () -> ()) {
-//        
-//        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/search?query=yogurt")
-//        
-//        guard url != nil else {
-//                        print("Error creating url object")
-//                        let error = UIAlertController(title: "Error", message: "Error occured.", preferredStyle: .alert)
-//                        let okay = UIAlertAction(title: "OK", style: .default) { _ in
-//                
-//            }
-//                        error.addAction(okay)
-//                        self.present(error, animated: false, completion: nil)
-//                        return
-//                }
-//        
-//        var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy,
-//                                         timeoutInterval: 10.0)
-//        
-//        let header = ["X-RapidAPI-Key": "20a6998a90msh0516f8821cc4954p199178jsnf78c2b51a123",
-//                              "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"]
-//        
-//        request.allHTTPHeaderFields = header
-//        request.httpMethod = "GET"
-//        
-//        let session = URLSession.shared
-//        let task = session.dataTask(with: request) { (data, response, error) in
-//            
-//            guard let data = data else { return }
-//            
-//            do {
-//                self.igData = try JSONDecoder().decode([Ingredients].self, from: data)
-//                
-//                DispatchQueue.main.async {
-//                    completed()
-//                    }
-//            }
-//            catch {
-//                let error = error
-//                print(String(describing: error))
-//            }
-//        }.resume()
-//    }
     
     func goToViewController(where: String) {
         let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
         self.navigationController?.pushViewController(pushVC!, animated: true)
+    }
+}
+
+extension myFridgeVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedName = self.userHas[indexPath.row]
+        let selectedImg = self.saved_images[indexPath.row]
+
+        let realm = try! Realm()
+        let db = User()
+        let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
+        
+        let match = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+        
+        let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
+        
+        if exist == nil {
+            print("Error finding user")
+        } else {
+            
+            let confirm = UIAlertController(title: "Are you sure?", message: "Do you want to delete this ingredient from your fridge?", preferredStyle: .alert)
+            let yes = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                try! realm.write {
+                    match.ingredientsArray.remove(at: indexPath.row)
+                    match.imgUrlArray.remove(at: indexPath.row)
+                }
+                self.goToViewController(where: "myFridgeVC")
+            }
+            
+            let no = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                print("Cancelled")
+            }
+            confirm.addAction(no)
+            confirm.addAction(yes)
+            present(confirm, animated: true, completion: nil)
+        }
     }
 }
 

@@ -40,23 +40,6 @@ class homeVC: UIViewController {
         super.viewDidLoad()
         
         prepareCellSize()
-        fetchData {
-            self.collectionView.reloadData()
-            print("Success")
-        }
-        
-//        fetchData { (posts) in
-//
-//            for post in posts {
-//                print("ID: \(post.id!)")
-//                print("Dish: \(post.title)")
-//                print("image: \(post.image)")
-//                print("Image Type: \(post.imageType)")
-//                print("Used ingredients: \(post.usedIngredientCount)")
-//                print("Missed ingredients: \(post.missedIngredientCount)")
-//            }
-//
-//        }
         
         self.view.backgroundColor = myYellow // set background color
         UV.backgroundColor = myYellow
@@ -66,58 +49,34 @@ class homeVC: UIViewController {
         userEmail.font = UIFont(name: "Noteworthy", size: 14)
         userEmail.translatesAutoresizingMaskIntoConstraints = false
         userEmail.centerXAnchor.constraint(equalTo: UV.centerXAnchor).isActive = true
-        //userEmail.bottomAnchor.constraint(equalTo: lbMain.topAnchor, constant: 15).isActive = true
-        //userEmail.trailingAnchor.constraint(equalTo: UV.trailingAnchor, constant: 10).isActive = true
         userEmail.widthAnchor.constraint(equalToConstant: 300).isActive = true
         userEmail.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        if FirebaseAuth.Auth.auth().currentUser != nil { // if user is logged in
-            self.UV.isHidden = false 
-            currentUserName()
-        } else {
-            self.goToViewController(where: "regularRecipesPage")
-//                self.UV.isHidden = true
-//                let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
-//                let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
-//                    self.goToViewController(where: "loginPage")
-//                })
-//
-//                alert.addAction(okay)
-//                present(alert, animated: true, completion: nil)
-        }
-        
         collectionView.delegate = self
         collectionView.dataSource = self
-
+        
+        checkLoginStatus()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        checkLoginStatus()
+    }
+    
+    func checkLoginStatus() {
         let currUser = FirebaseAuth.Auth.auth().currentUser?.email
-        print(currUser)
-        
-        self.view.backgroundColor = myYellow // set background color
-        if currUser == nil {
+       
+        if currUser == nil { // anonymous user
+            self.UV.isHidden = true
             self.goToViewController(where: "regularRecipesPage")
-//            self.UV.isHidden = true
-//            let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
-//            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
-//                self.goToViewController(where: "loginPage")
-//            })
-//
-//            alert.addAction(okay)
-//            present(alert, animated: true, completion: nil)
-        }
-        else {
+        } else {
             self.UV.isHidden = false
             currentUserName()
             fetchData {
                 self.collectionView.reloadData()
-                print("page reloaded")
             }
         }
-        
     }
     
     func fetchData(completed: @escaping () -> ()) {
