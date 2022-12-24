@@ -16,7 +16,7 @@ struct Recipes: Codable {
     var missedIngredientCount: Int
     var missedIngredients: [Missed]
     var usedIngredients: [Used]
-    var likes: Int!
+    // var likes: Int!
 }
 
 struct Missed: Codable {

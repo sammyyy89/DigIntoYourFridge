@@ -26,6 +26,7 @@
 		844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9EB92916D02E00ABE852 /* homeVC.swift */; };
 		844E9EBD2916EC8400ABE852 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 844E9EBC2916EC8400ABE852 /* FacebookCore */; };
 		844E9EBF2916EC8400ABE852 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 844E9EBE2916EC8400ABE852 /* FacebookLogin */; };
+		845ACC6829568748007FBFA1 /* myFridgeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845ACC6729568748007FBFA1 /* myFridgeCollectionViewCell.swift */; };
 		8478B06029232C0D00CA6CC9 /* post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478B05F29232C0D00CA6CC9 /* post.swift */; };
 		8495C40129288599006FA047 /* searchIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8495C40029288599006FA047 /* searchIngredientsVC.swift */; };
 		8495CEE8294FB3D900107990 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 8495CEE7294FB3D900107990 /* Realm */; };
@@ -66,6 +67,7 @@
 		844E9EA82916BAB500ABE852 /* SF-Compact-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Bold.otf"; sourceTree = "<group>"; };
 		844E9EA92916BAB500ABE852 /* SF-Compact-Rounded-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Thin.otf"; sourceTree = "<group>"; };
 		844E9EB92916D02E00ABE852 /* homeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
+		845ACC6729568748007FBFA1 /* myFridgeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myFridgeCollectionViewCell.swift; sourceTree = "<group>"; };
 		8478B05F29232C0D00CA6CC9 /* post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = post.swift; sourceTree = "<group>"; };
 		8495C40029288599006FA047 /* searchIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchIngredientsVC.swift; sourceTree = "<group>"; };
 		84981ACB2953DC9300548D96 /* instCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instCell.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				84A3FBCF29342E600029E875 /* IG_CollectionViewCell.swift */,
 				84A3FBC42932E2630029E875 /* CollectionViewCell.swift */,
 				84981ACB2953DC9300548D96 /* instCell.swift */,
+				845ACC6729568748007FBFA1 /* myFridgeCollectionViewCell.swift */,
 				844E9E902916BA8000ABE852 /* Assets.xcassets */,
 				844E9E922916BA8000ABE852 /* LaunchScreen.storyboard */,
 				844E9E952916BA8000ABE852 /* Info.plist */,
@@ -274,6 +277,7 @@
 				84981ACC2953DC9300548D96 /* instCell.swift in Sources */,
 				844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */,
 				84AED7CA295130E7005E1BF2 /* instructionsVC.swift in Sources */,
+				845ACC6829568748007FBFA1 /* myFridgeCollectionViewCell.swift in Sources */,
 				84D936DE294F85390064286F /* settingsVC.swift in Sources */,
 				8478B06029232C0D00CA6CC9 /* post.swift in Sources */,
 				84A3FBD029342E600029E875 /* IG_CollectionViewCell.swift in Sources */,

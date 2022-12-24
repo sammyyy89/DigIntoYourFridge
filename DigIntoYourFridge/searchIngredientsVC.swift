@@ -61,14 +61,6 @@ class searchIngredientsVC: UIViewController {
         lbSub.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         lbSub.topAnchor.constraint(equalTo: lbMain.bottomAnchor, constant: 3).isActive = true
         
-//        searchBar.translatesAutoresizingMaskIntoConstraints = false
-//        searchBar.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-//        searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
-//
-//        btnGo.translatesAutoresizingMaskIntoConstraints = false
-//        btnGo.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-//        btnGo.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: 5).isActive = true
-        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
@@ -221,8 +213,8 @@ class User: Object {
     @objc dynamic var ingredient: String? = ""
     @objc dynamic var intolerance: String? = ""
     @objc dynamic var diet: String = "" // possible values: escetarian, lacto vegetarian, ovo vegetarian, vegan, paleo, primal, and vegetarian
-    let ingredientsArray = List<String>()
-    let intolerancesArray = List<String>() // possible values: dairy, egg, gluten, peanut, sesame, seafood, shellfish, soy, sulfite, tree nut, and wheat
+    var ingredientsArray = List<String>()
+    var intolerancesArray = List<String>() // possible values: dairy, egg, gluten, peanut, sesame, seafood, shellfish, soy, sulfite, tree nut, and wheat
     
     override static func primaryKey() -> String? {
         return "userEmail"

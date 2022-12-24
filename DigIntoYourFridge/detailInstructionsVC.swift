@@ -54,7 +54,7 @@ class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
         
         self.collectionView.dataSource = self
         if missedIgr.count == 0 {
-            unavailableIngredients.text = "Yay! You have every ingredient needed 😀"
+            unavailableIngredients.text = "Yay! You have every ingredient 😀"
             unavailableIngredients.textColor = .blue
         } else {
             unavailableIngredients.text = "🫤 \(missedIgr.joined(separator: ", ")) not in your fridge!"

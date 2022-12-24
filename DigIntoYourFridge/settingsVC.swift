@@ -138,7 +138,7 @@ class settingsVC: UIViewController {
             if user.diet == "" {
                 btnSelectDiet.setTitle("Select Diet", for: .normal)
             } else {
-                btnSelectDiet.setTitle("Diet: \(user.diet)", for: .normal)
+                btnSelectDiet.setTitle("🌱 Diet: \(user.diet)", for: .normal)
             }
         } else { // anonymous user
             self.lbMain.isHidden = true
