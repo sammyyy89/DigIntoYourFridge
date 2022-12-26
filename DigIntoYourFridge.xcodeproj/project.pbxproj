@@ -37,6 +37,7 @@
 		84A3FBD029342E600029E875 /* IG_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3FBCF29342E600029E875 /* IG_CollectionViewCell.swift */; };
 		84AED7CA295130E7005E1BF2 /* instructionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AED7C9295130E7005E1BF2 /* instructionsVC.swift */; };
 		84AED7CE29513EF2005E1BF2 /* detailInstructionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AED7CD29513EF1005E1BF2 /* detailInstructionsVC.swift */; };
+		84BA295829593737009BCE2C /* regularRecipesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA295729593737009BCE2C /* regularRecipesVC.swift */; };
 		84C5880329171C1C000F50DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84C5880229171C1C000F50DB /* GoogleService-Info.plist */; };
 		84D936DC294F832C0064286F /* myFridgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D936DB294F832C0064286F /* myFridgeVC.swift */; };
 		84D936DE294F85390064286F /* settingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D936DD294F85390064286F /* settingsVC.swift */; };
@@ -75,6 +76,7 @@
 		84A3FBCF29342E600029E875 /* IG_CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IG_CollectionViewCell.swift; sourceTree = "<group>"; };
 		84AED7C9295130E7005E1BF2 /* instructionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instructionsVC.swift; sourceTree = "<group>"; };
 		84AED7CD29513EF1005E1BF2 /* detailInstructionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailInstructionsVC.swift; sourceTree = "<group>"; };
+		84BA295729593737009BCE2C /* regularRecipesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = regularRecipesVC.swift; sourceTree = "<group>"; };
 		84C5880229171C1C000F50DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84D936DB294F832C0064286F /* myFridgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myFridgeVC.swift; sourceTree = "<group>"; };
 		84D936DD294F85390064286F /* settingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsVC.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				84AED7CD29513EF1005E1BF2 /* detailInstructionsVC.swift */,
 				84AED7C9295130E7005E1BF2 /* instructionsVC.swift */,
 				84D936DD294F85390064286F /* settingsVC.swift */,
+				84BA295729593737009BCE2C /* regularRecipesVC.swift */,
 				84D936DB294F832C0064286F /* myFridgeVC.swift */,
 				84A3FBCF29342E600029E875 /* IG_CollectionViewCell.swift */,
 				84A3FBC42932E2630029E875 /* CollectionViewCell.swift */,
@@ -276,6 +279,7 @@
 				84D936DC294F832C0064286F /* myFridgeVC.swift in Sources */,
 				84981ACC2953DC9300548D96 /* instCell.swift in Sources */,
 				844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */,
+				84BA295829593737009BCE2C /* regularRecipesVC.swift in Sources */,
 				84AED7CA295130E7005E1BF2 /* instructionsVC.swift in Sources */,
 				845ACC6829568748007FBFA1 /* myFridgeCollectionViewCell.swift in Sources */,
 				84D936DE294F85390064286F /* settingsVC.swift in Sources */,

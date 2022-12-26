@@ -38,7 +38,7 @@ class settingsVC: UIViewController {
         let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first
         
         if user == nil {
-            print("null user:")
+            print("no data")
         } else {
             try! realm.write {
                 user?.diet = selectedValue
@@ -50,10 +50,7 @@ class settingsVC: UIViewController {
             }
             addedAlert.addAction(okAction)
             self.present(addedAlert, animated: false, completion: nil)
-            
-            //self.view.layoutIfNeeded()
         }
-        
     }
     
     override func viewDidLoad() {

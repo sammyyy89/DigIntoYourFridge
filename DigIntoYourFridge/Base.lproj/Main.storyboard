@@ -1036,7 +1036,7 @@
         <!--SettingsVC-->
         <scene sceneID="sXG-wt-Dzq">
             <objects>
-                <viewController id="0G5-jE-OSb" customClass="settingsVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingsVC" id="0G5-jE-OSb" customClass="settingsVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="umw-vm-pFW">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1072,6 +1072,15 @@
                                     <action selector="saveBtn1Clicked:" destination="0G5-jE-OSb" eventType="touchUpInside" id="Wyu-o9-KoK"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRq-mj-l5x">
+                                <rect key="frame" x="176" y="353" width="75" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <connections>
+                                    <segue destination="p9R-Ui-fBS" kind="show" id="VkH-01-AQ6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QQa-6T-XZb"/>
                         <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1095,26 +1104,113 @@
             </objects>
             <point key="canvasLocation" x="3997" y="-1263"/>
         </scene>
-        <!--View Controller-->
+        <!--Regular RecipeVC-->
         <scene sceneID="OXK-7y-D2Y">
             <objects>
-                <viewController storyboardIdentifier="regularRecipesPage" id="p9R-Ui-fBS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="regularRecipesPage" id="p9R-Ui-fBS" customClass="regularRecipeVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Lj-xe-Drf">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Regular recipes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOd-uX-fzu">
-                                <rect key="frame" x="136" y="234" width="118" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBd-fZ-hn9">
+                                <rect key="frame" x="20" y="111.00000000000001" width="350" height="39.666666666666671"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Already a member? Sign in">
+                                    <fontDescription key="titleFontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="16"/>
+                                    <color key="baseForegroundColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="signInBtnClicked:" destination="p9R-Ui-fBS" eventType="touchUpInside" id="mUV-VU-8H9"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What are you craving?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBG-ZZ-tMt">
+                                <rect key="frame" x="75.666666666666686" y="173" width="239" height="40"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="25"/>
+                                <color key="textColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mBN-Bh-IyA">
+                                <rect key="frame" x="24" y="232" width="290" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="290" id="PmQ-Rh-ru0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xpa-jw-kdA">
+                                <rect key="frame" x="324" y="232" width="50" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Zxx-cI-o59"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Go">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </backgroundConfiguration>
+                                    <fontDescription key="titleFontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="15"/>
+                                    <color key="baseForegroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnClicked:" destination="fWa-Zt-rZN" eventType="touchUpInside" id="vMo-3D-fFb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uVE-G5-uBT">
+                                <rect key="frame" x="20" y="290" width="120" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="gVg-o7-0rp"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Choose Diet">
+                                    <fontDescription key="titleFontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="15"/>
+                                    <color key="baseBackgroundColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="chooseDietClicked:" destination="p9R-Ui-fBS" eventType="touchUpInside" id="jWT-vG-B9t"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcG-zJ-uea">
+                                <rect key="frame" x="194" y="290" width="120" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Uin-VS-W2c"/>
+                                    <constraint firstAttribute="width" constant="120" id="qYR-HG-G0M"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Choose Cuisine">
+                                    <fontDescription key="titleFontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="15"/>
+                                    <color key="baseBackgroundColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="chooseCuisineClicked:" destination="p9R-Ui-fBS" eventType="touchUpInside" id="js1-vX-3Kq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hR0-EV-55j"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="PBd-fZ-hn9" firstAttribute="centerX" secondItem="7Lj-xe-Drf" secondAttribute="centerX" id="0qn-RD-UZ3"/>
+                            <constraint firstItem="CcG-zJ-uea" firstAttribute="leading" secondItem="uVE-G5-uBT" secondAttribute="trailing" constant="54" id="I4P-xX-th5"/>
+                            <constraint firstItem="PBd-fZ-hn9" firstAttribute="top" secondItem="hR0-EV-55j" secondAttribute="top" constant="20" id="LAb-5Z-iNj"/>
+                            <constraint firstItem="mBN-Bh-IyA" firstAttribute="top" secondItem="hBG-ZZ-tMt" secondAttribute="bottom" constant="19" id="OEb-Tg-GIz"/>
+                            <constraint firstItem="mBN-Bh-IyA" firstAttribute="leading" secondItem="hR0-EV-55j" secondAttribute="leading" constant="24" id="aDP-nY-No4"/>
+                            <constraint firstItem="hR0-EV-55j" firstAttribute="trailing" secondItem="PBd-fZ-hn9" secondAttribute="trailing" constant="20" id="fBl-AF-m22"/>
+                            <constraint firstItem="hBG-ZZ-tMt" firstAttribute="top" secondItem="PBd-fZ-hn9" secondAttribute="bottom" constant="22.329999999999998" id="gaB-qq-tXw"/>
+                            <constraint firstItem="Xpa-jw-kdA" firstAttribute="leading" secondItem="mBN-Bh-IyA" secondAttribute="trailing" constant="10" id="o8W-YB-2qR"/>
+                            <constraint firstItem="PBd-fZ-hn9" firstAttribute="top" secondItem="hR0-EV-55j" secondAttribute="top" constant="20" id="qkU-5V-3Kg"/>
+                            <constraint firstItem="mBN-Bh-IyA" firstAttribute="top" secondItem="Xpa-jw-kdA" secondAttribute="top" id="utu-ed-WM5"/>
+                            <constraint firstItem="uVE-G5-uBT" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="vsx-kh-Jv7"/>
+                            <constraint firstItem="mBN-Bh-IyA" firstAttribute="bottom" secondItem="Xpa-jw-kdA" secondAttribute="bottom" id="wAA-IQ-dQW"/>
+                            <constraint firstItem="hBG-ZZ-tMt" firstAttribute="centerX" secondItem="7Lj-xe-Drf" secondAttribute="centerX" id="wbr-NN-485"/>
+                            <constraint firstItem="uVE-G5-uBT" firstAttribute="leading" secondItem="hR0-EV-55j" secondAttribute="leading" constant="20" id="xaF-tD-XaF"/>
+                            <constraint firstItem="CcG-zJ-uea" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="y76-0s-7gK"/>
+                            <constraint firstItem="hR0-EV-55j" firstAttribute="bottom" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="491" id="zVA-a7-TxD"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gZJ-GK-u67"/>
+                    <connections>
+                        <outlet property="btnChooseDiet" destination="uVE-G5-uBT" id="Ott-MG-hDO"/>
+                        <outlet property="btnSelectCuisine" destination="CcG-zJ-uea" id="0Fs-kG-1yx"/>
+                        <outlet property="lbSignIn" destination="PBd-fZ-hn9" id="our-fG-HMD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NmT-0q-Jsz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1179,6 +1275,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="VkH-01-AQ6"/>
         <segue reference="7J4-G1-FP0"/>
         <segue reference="Zcz-vY-AVg"/>
     </inferredMetricsTieBreakers>
