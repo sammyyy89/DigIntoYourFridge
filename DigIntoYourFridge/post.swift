@@ -19,6 +19,12 @@ struct Recipes: Codable {
     // var likes: Int!
 }
 
+struct RegularRecipes: Codable {
+    var id: Int
+    var title: String
+    var image: String
+}
+
 struct Missed: Codable {
     var id: Int
     var name: String

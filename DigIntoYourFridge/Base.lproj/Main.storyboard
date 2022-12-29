@@ -1155,9 +1155,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uVE-G5-uBT">
-                                <rect key="frame" x="20" y="290" width="120" height="38"/>
+                                <rect key="frame" x="10" y="290" width="170" height="38"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="gVg-o7-0rp"/>
+                                    <constraint firstAttribute="width" constant="170" id="qhb-7c-yao"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="yp2-cN-9Hd"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Choose Diet">
@@ -1169,10 +1170,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcG-zJ-uea">
-                                <rect key="frame" x="194" y="290" width="120" height="38"/>
+                                <rect key="frame" x="210" y="290" width="170" height="38"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Uin-VS-W2c"/>
-                                    <constraint firstAttribute="width" constant="120" id="qYR-HG-G0M"/>
+                                    <constraint firstAttribute="width" constant="170" id="dmO-5X-4h4"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Choose Cuisine">
@@ -1188,20 +1188,21 @@
                         <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PBd-fZ-hn9" firstAttribute="centerX" secondItem="7Lj-xe-Drf" secondAttribute="centerX" id="0qn-RD-UZ3"/>
-                            <constraint firstItem="CcG-zJ-uea" firstAttribute="leading" secondItem="uVE-G5-uBT" secondAttribute="trailing" constant="54" id="I4P-xX-th5"/>
+                            <constraint firstItem="uVE-G5-uBT" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="4nY-Yo-ffy"/>
                             <constraint firstItem="PBd-fZ-hn9" firstAttribute="top" secondItem="hR0-EV-55j" secondAttribute="top" constant="20" id="LAb-5Z-iNj"/>
+                            <constraint firstItem="CcG-zJ-uea" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="NQP-hX-zgo"/>
                             <constraint firstItem="mBN-Bh-IyA" firstAttribute="top" secondItem="hBG-ZZ-tMt" secondAttribute="bottom" constant="19" id="OEb-Tg-GIz"/>
+                            <constraint firstItem="hR0-EV-55j" firstAttribute="trailing" secondItem="CcG-zJ-uea" secondAttribute="trailing" constant="10" id="Oex-84-BmN"/>
+                            <constraint firstItem="uVE-G5-uBT" firstAttribute="leading" secondItem="hR0-EV-55j" secondAttribute="leading" constant="10" id="V7f-wW-pq4"/>
                             <constraint firstItem="mBN-Bh-IyA" firstAttribute="leading" secondItem="hR0-EV-55j" secondAttribute="leading" constant="24" id="aDP-nY-No4"/>
                             <constraint firstItem="hR0-EV-55j" firstAttribute="trailing" secondItem="PBd-fZ-hn9" secondAttribute="trailing" constant="20" id="fBl-AF-m22"/>
                             <constraint firstItem="hBG-ZZ-tMt" firstAttribute="top" secondItem="PBd-fZ-hn9" secondAttribute="bottom" constant="22.329999999999998" id="gaB-qq-tXw"/>
+                            <constraint firstItem="uVE-G5-uBT" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="hx1-MW-1h9"/>
                             <constraint firstItem="Xpa-jw-kdA" firstAttribute="leading" secondItem="mBN-Bh-IyA" secondAttribute="trailing" constant="10" id="o8W-YB-2qR"/>
                             <constraint firstItem="PBd-fZ-hn9" firstAttribute="top" secondItem="hR0-EV-55j" secondAttribute="top" constant="20" id="qkU-5V-3Kg"/>
                             <constraint firstItem="mBN-Bh-IyA" firstAttribute="top" secondItem="Xpa-jw-kdA" secondAttribute="top" id="utu-ed-WM5"/>
-                            <constraint firstItem="uVE-G5-uBT" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="vsx-kh-Jv7"/>
                             <constraint firstItem="mBN-Bh-IyA" firstAttribute="bottom" secondItem="Xpa-jw-kdA" secondAttribute="bottom" id="wAA-IQ-dQW"/>
                             <constraint firstItem="hBG-ZZ-tMt" firstAttribute="centerX" secondItem="7Lj-xe-Drf" secondAttribute="centerX" id="wbr-NN-485"/>
-                            <constraint firstItem="uVE-G5-uBT" firstAttribute="leading" secondItem="hR0-EV-55j" secondAttribute="leading" constant="20" id="xaF-tD-XaF"/>
-                            <constraint firstItem="CcG-zJ-uea" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="y76-0s-7gK"/>
                             <constraint firstItem="hR0-EV-55j" firstAttribute="bottom" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="491" id="zVA-a7-TxD"/>
                         </constraints>
                     </view>
@@ -1210,6 +1211,7 @@
                         <outlet property="btnChooseDiet" destination="uVE-G5-uBT" id="Ott-MG-hDO"/>
                         <outlet property="btnSelectCuisine" destination="CcG-zJ-uea" id="0Fs-kG-1yx"/>
                         <outlet property="lbSignIn" destination="PBd-fZ-hn9" id="our-fG-HMD"/>
+                        <outlet property="searchBar" destination="mBN-Bh-IyA" id="5G6-ke-IHJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NmT-0q-Jsz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

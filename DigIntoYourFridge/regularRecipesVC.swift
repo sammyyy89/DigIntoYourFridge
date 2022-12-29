@@ -8,19 +8,21 @@ import GoogleSignIn
 import FirebaseAuth
 
 import RealmSwift
+import Kingfisher
 
 // MARK: - Body
 
-class DietCellClass: UITableView { }
-class CuisineCellClass: UITableView{ }
+class DietCellClass: UITableViewCell { }
+class CuisineCellClass: UITableViewCell { }
 
 class regularRecipeVC: UIViewController {
     @IBOutlet weak var lbSignIn: UIButton!
     @IBOutlet weak var btnChooseDiet: UIButton!
     @IBOutlet weak var btnSelectCuisine: UIButton!
+    @IBOutlet weak var searchBar: UITextField!
     
     let transparentView = UIView()
-    let tableView = UITableView()
+    let tableView1 = UITableView()
     
     let transparentView2 = UIView()
     let tableView2 = UITableView()
@@ -34,6 +36,8 @@ class regularRecipeVC: UIViewController {
     var selectedDietValue = ""
     var selectedCuisineValue = ""
     
+    private var recipeData = [RegularRecipes]()
+    
     @IBAction func signInBtnClicked(_ sender: Any) {
         self.goToViewController(where: "loginPage")
     }
@@ -43,12 +47,12 @@ class regularRecipeVC: UIViewController {
         transparentView.frame = window?.frame ?? self.view.frame
         self.view.addSubview(transparentView)
         
-        tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
-        self.view.addSubview(tableView)
-        tableView.layer.cornerRadius = 5
+        tableView1.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
+        self.view.addSubview(tableView1)
+        tableView1.layer.cornerRadius = 5
         
         transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
-        tableView.reloadData()
+        tableView1.reloadData()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(removeTransparentView))
         transparentView.addGestureRecognizer(tapGesture)
@@ -56,7 +60,7 @@ class regularRecipeVC: UIViewController {
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0.5
-            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: 200)
+            self.tableView1.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + 5, width: frames.width, height: 200)
         }, completion: nil)
     }
     
@@ -64,7 +68,7 @@ class regularRecipeVC: UIViewController {
         let frames = selectedDietBtn.frame
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = 0
-            self.tableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
+            self.tableView1.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height, width: frames.width, height: 0)
         }, completion: nil)
     }
     
@@ -116,13 +120,13 @@ class regularRecipeVC: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = myYellow // set background color
-        tableView.delegate = self
-        tableView2.delegate = self
+        tableView1.delegate = self
+        tableView1.dataSource = self
         
-        tableView.dataSource = self
+        tableView2.delegate = self
         tableView2.dataSource = self
         
-        tableView.register(DietCellClass.self, forCellReuseIdentifier: "dietCell")
+        tableView1.register(DietCellClass.self, forCellReuseIdentifier: "Cell")
         tableView2.register(CuisineCellClass.self, forCellReuseIdentifier: "cuisineCell")
         
         checkLoginStatus()
@@ -165,24 +169,91 @@ class regularRecipeVC: UIViewController {
         let pushVC = self.storyboard?.instantiateViewController(withIdentifier: `where`)
         self.navigationController?.pushViewController(pushVC!, animated: true)
     }
+    
+    func fetchData(completed: @escaping () -> ()) {
+        let currUser = FirebaseAuth.Auth.auth().currentUser?.email
+        let realm = try! Realm()
+        let user = realm.objects(User.self).filter("userEmail == %@", currUser).first
+        
+        var url = URL(string: "")
+        
+        if currUser == nil {
+            url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=\(self.searchBar.text)&cuisine=\(self.selectedCuisineValue)&diet=\(self.selectedDietValue)&sortDirection=asc")
+        } else {
+            url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=\(self.searchBar.text)&cuisine=\(self.selectedCuisineValue)&diet=\(user?.diet ?? "")&sortDirection=asc")
+        }
+        
+        guard url != nil else {
+            print("Error creating url object")
+            let error = UIAlertController(title: "Error", message: "Error occured. Try again with a different ingredient", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "OK", style: .default) { _ in
+                
+            }
+            error.addAction(okay)
+            self.present(error, animated: false, completion: nil)
+            return
+        }
+        
+        var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy,
+                                 timeoutInterval: 10.0)
+        
+        let header = ["X-RapidAPI-Key": "20a6998a90msh0516f8821cc4954p199178jsnf78c2b51a123",
+                      "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"]
+        
+        request.allHTTPHeaderFields = header
+        request.httpMethod = "GET"
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            guard let data = data else { return }
+            
+            do {
+                self.recipeData = try JSONDecoder().decode([RegularRecipes].self, from: data)
+                
+                DispatchQueue.main.async {
+                    completed()
+                }
+            }
+            catch {
+                let error = error
+                print(String(describing: error))
+            }
+        }.resume()
+    }
 }
 
 extension regularRecipeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSourceforDiet.count
+        if tableView == tableView1 {
+            return dataSourceforDiet.count
+        } else {
+            return dataSourceforCuisine.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "dietCell", for: indexPath)
-        cell.textLabel?.text = dataSourceforDiet[indexPath.row]
-        return cell
+        if tableView == tableView1 {
+            let dietCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            dietCell.textLabel?.text = dataSourceforDiet[indexPath.row]
+            return dietCell
+        } else {
+            let cuisineCell = tableView2.dequeueReusableCell(withIdentifier: "cuisineCell", for: indexPath)
+            cuisineCell.textLabel?.text = dataSourceforCuisine[indexPath.row]
+            return cuisineCell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedDietValue = dataSourceforDiet[indexPath.row]
-        
-        selectedDietBtn.setTitle(dataSourceforDiet[indexPath.row], for: .normal)
-        removeTransparentView()
+        if tableView == tableView1 {
+            selectedDietValue = dataSourceforDiet[indexPath.row]
+            selectedDietBtn.setTitle(dataSourceforDiet[indexPath.row], for: .normal)
+            removeTransparentView()
+        } else {
+            selectedCuisineValue = dataSourceforCuisine[indexPath.row]
+            selectedCuisineBtn.setTitle(dataSourceforCuisine[indexPath.row], for: .normal)
+            removeTransparentView2()
+        }
     }
 }
 
