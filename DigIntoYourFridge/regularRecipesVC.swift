@@ -8,19 +8,13 @@ import GoogleSignIn
 import FirebaseAuth
 
 import RealmSwift
-import Kingfisher
 
 // MARK: - Body
 
 class DietCellClass: UITableViewCell { }
 class CuisineCellClass: UITableViewCell { }
 
-class regularRecipeVC: UIViewController {
-    @IBOutlet weak var lbSignIn: UIButton!
-    @IBOutlet weak var btnChooseDiet: UIButton!
-    @IBOutlet weak var btnSelectCuisine: UIButton!
-    @IBOutlet weak var searchBar: UITextField!
-    
+class regularRecipesVC: UIViewController {
     let transparentView = UIView()
     let tableView1 = UITableView()
     
@@ -37,6 +31,26 @@ class regularRecipeVC: UIViewController {
     var selectedCuisineValue = ""
     
     private var recipeData = [RegularRecipes]()
+    private let screenSize = UIScreen.main.bounds
+    private var cellSize: CGSize!
+    private var userInput = ""
+    
+    @IBOutlet weak var lbSignIn: UIButton!
+    @IBOutlet weak var btnChooseDiet: UIButton!
+    @IBOutlet weak var btnSelectCuisine: UIButton!
+    @IBOutlet weak var searchBar: UITextField!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var btnGo: UIButton!
+    
+    @IBAction func btnClicked(_ sender: Any) {
+        userInput = searchBar.text ?? ""
+        
+        fetchData {
+            self.collectionView.reloadData()
+        }
+    }
+    
     
     @IBAction func signInBtnClicked(_ sender: Any) {
         self.goToViewController(where: "loginPage")
@@ -116,8 +130,16 @@ class regularRecipeVC: UIViewController {
         addTransparentView2(frames: btnSelectCuisine.frame)
     }
     
+    fileprivate func prepareCellSize() {
+        let width = ((screenSize.width-32)/2) * 0.9
+        let height = width * 1.4
+        cellSize = CGSize(width: width, height: height)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        prepareCellSize()
         
         self.view.backgroundColor = myYellow // set background color
         tableView1.delegate = self
@@ -128,6 +150,9 @@ class regularRecipeVC: UIViewController {
         
         tableView1.register(DietCellClass.self, forCellReuseIdentifier: "Cell")
         tableView2.register(CuisineCellClass.self, forCellReuseIdentifier: "cuisineCell")
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         checkLoginStatus()
     }
@@ -160,9 +185,16 @@ class regularRecipeVC: UIViewController {
                 alert.addAction(okay)
                 present(alert, animated: true, completion: nil)
             } else {
-                self.btnChooseDiet.setTitle("🌱 \(user?.diet ?? "")", for: .normal)
+                self.btnChooseDiet.setTitle("🌱 \(user?.diet ?? "None of Above")", for: .normal)
+                self.selectedDietValue = user?.diet ?? ""
+                print("diet value: \(self.selectedDietValue)")
             }
         }
+    }
+    
+    func urlEncode(encodedString: String) -> String {
+        let allowedChars = encodedString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "\"#%/<>?@,\\^`{|} ").inverted) ?? ""
+        return allowedChars
     }
     
     func goToViewController(where: String) {
@@ -171,17 +203,17 @@ class regularRecipeVC: UIViewController {
     }
     
     func fetchData(completed: @escaping () -> ()) {
-        let currUser = FirebaseAuth.Auth.auth().currentUser?.email
-        let realm = try! Realm()
-        let user = realm.objects(User.self).filter("userEmail == %@", currUser).first
+        let currentUser = Auth.auth().currentUser?.email ?? "Not found"
         
-        var url = URL(string: "")
+        let encodedInput = self.urlEncode(encodedString: self.userInput)
         
-        if currUser == nil {
-            url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=\(self.searchBar.text)&cuisine=\(self.selectedCuisineValue)&diet=\(self.selectedDietValue)&sortDirection=asc")
-        } else {
-            url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=\(self.searchBar.text)&cuisine=\(self.selectedCuisineValue)&diet=\(user?.diet ?? "")&sortDirection=asc")
-        }
+        let encodedDiet = self.urlEncode(encodedString: self.selectedDietValue)
+        
+        let encodedCuisine = self.urlEncode(encodedString: self.selectedCuisineValue)
+
+        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=\(encodedInput)&cuisine=\(encodedCuisine)&diet=\(encodedDiet)&sortDirection=asc")
+        
+        print("input: \(self.userInput), cui: \(self.selectedCuisineValue), diet: \(self.selectedDietValue), url: \(url)")
         
         guard url != nil else {
             print("Error creating url object")
@@ -212,6 +244,7 @@ class regularRecipeVC: UIViewController {
                 self.recipeData = try JSONDecoder().decode([RegularRecipes].self, from: data)
                 
                 DispatchQueue.main.async {
+                    print("data test: \(self.recipeData)")
                     completed()
                 }
             }
@@ -223,7 +256,7 @@ class regularRecipeVC: UIViewController {
     }
 }
 
-extension regularRecipeVC: UITableViewDelegate, UITableViewDataSource {
+extension regularRecipesVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tableView1 {
             return dataSourceforDiet.count
@@ -257,4 +290,32 @@ extension regularRecipeVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+//extension regularRecipesVC: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        
+//    }
+//}
 
+extension regularRecipesVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return recipeData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! regularCollectionViewCell
+        
+        cell.recipe = recipeData[indexPath.row]
+        return cell
+    }
+}
+
+extension regularRecipesVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return cellSize
+    }
+}
+
+
+// typeMismatch(Swift.Array<Any>, Swift.DecodingError.Context(codingPath: [], debugDescription: "Expected to decode Array<Any> but found a dictionary instead.", underlyingError: nil)) 에러 해결
+// what to do: display data, instruction page
+// none of above 선택 시 처리, cuisine 안 골랐을 시 처리 -> 둘다 빈칸으로 처리

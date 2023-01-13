@@ -626,13 +626,13 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nq1-4p-aWM">
-                                                                    <rect key="frame" x="7.9999999999999982" y="209.33333333333334" width="26.333333333333329" height="12"/>
+                                                                    <rect key="frame" x="7.9999999999999982" y="209" width="26.333333333333329" height="12"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                     <color key="textColor" systemColor="systemBlueColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qr-Xi-iXM">
-                                                                    <rect key="frame" x="7.9999999999999982" y="221.33333333333334" width="26.333333333333329" height="12"/>
+                                                                    <rect key="frame" x="7.9999999999999982" y="221" width="26.333333333333329" height="12"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                     <color key="textColor" systemColor="systemRedColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1104,10 +1104,10 @@
             </objects>
             <point key="canvasLocation" x="3997" y="-1263"/>
         </scene>
-        <!--Regular RecipeVC-->
+        <!--Regular RecipesVC-->
         <scene sceneID="OXK-7y-D2Y">
             <objects>
-                <viewController storyboardIdentifier="regularRecipesPage" id="p9R-Ui-fBS" customClass="regularRecipeVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="regularRecipesPage" id="p9R-Ui-fBS" customClass="regularRecipesVC" customModule="DigIntoYourFridge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Lj-xe-Drf">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1151,6 +1151,7 @@
                                     <color key="baseForegroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="btnClicked:" destination="p9R-Ui-fBS" eventType="touchUpInside" id="JhD-62-Ir6"/>
                                     <action selector="btnClicked:" destination="fWa-Zt-rZN" eventType="touchUpInside" id="vMo-3D-fFb"/>
                                 </connections>
                             </button>
@@ -1183,13 +1184,59 @@
                                     <action selector="chooseCuisineClicked:" destination="p9R-Ui-fBS" eventType="touchUpInside" id="js1-vX-3Kq"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IPz-Xc-YLe">
+                                <rect key="frame" x="8" y="358" width="374" height="395"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3Rf-kd-e8g">
+                                    <size key="itemSize" width="374" height="190"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="zoS-4A-iFj" customClass="regularCollectionViewCell" customModule="DigIntoYourFridge" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="190"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="g7r-ts-bAN">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="190"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sjy-E9-wAd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="140"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMf-xw-rcj">
+                                                    <rect key="frame" x="170.33333333333334" y="150" width="33.333333333333343" height="27.333333333333343"/>
+                                                    <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Sjy-E9-wAd" firstAttribute="leading" secondItem="g7r-ts-bAN" secondAttribute="leading" id="9c6-tf-El4"/>
+                                                <constraint firstAttribute="bottom" secondItem="Sjy-E9-wAd" secondAttribute="bottom" constant="50" id="HuJ-mq-XxM"/>
+                                                <constraint firstItem="Sjy-E9-wAd" firstAttribute="centerX" secondItem="g7r-ts-bAN" secondAttribute="centerX" id="YJq-I2-OhH"/>
+                                                <constraint firstItem="JMf-xw-rcj" firstAttribute="centerX" secondItem="g7r-ts-bAN" secondAttribute="centerX" id="bGl-LV-woe"/>
+                                                <constraint firstItem="JMf-xw-rcj" firstAttribute="top" secondItem="Sjy-E9-wAd" secondAttribute="bottom" constant="10" id="rab-mv-NMH"/>
+                                                <constraint firstItem="Sjy-E9-wAd" firstAttribute="top" secondItem="g7r-ts-bAN" secondAttribute="top" id="sVg-qR-lMM"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="374" height="190"/>
+                                        <connections>
+                                            <outlet property="imageView" destination="Sjy-E9-wAd" id="n3b-gt-ccI"/>
+                                            <outlet property="lbTitle" destination="JMf-xw-rcj" id="Tng-ff-cIC"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hR0-EV-55j"/>
                         <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PBd-fZ-hn9" firstAttribute="centerX" secondItem="7Lj-xe-Drf" secondAttribute="centerX" id="0qn-RD-UZ3"/>
                             <constraint firstItem="uVE-G5-uBT" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="4nY-Yo-ffy"/>
+                            <constraint firstItem="IPz-Xc-YLe" firstAttribute="leading" secondItem="hR0-EV-55j" secondAttribute="leading" constant="8" id="54a-TN-E1m"/>
                             <constraint firstItem="PBd-fZ-hn9" firstAttribute="top" secondItem="hR0-EV-55j" secondAttribute="top" constant="20" id="LAb-5Z-iNj"/>
+                            <constraint firstItem="hR0-EV-55j" firstAttribute="bottom" secondItem="IPz-Xc-YLe" secondAttribute="bottom" constant="8" id="Mt7-mq-pFC"/>
                             <constraint firstItem="CcG-zJ-uea" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="NQP-hX-zgo"/>
                             <constraint firstItem="mBN-Bh-IyA" firstAttribute="top" secondItem="hBG-ZZ-tMt" secondAttribute="bottom" constant="19" id="OEb-Tg-GIz"/>
                             <constraint firstItem="hR0-EV-55j" firstAttribute="trailing" secondItem="CcG-zJ-uea" secondAttribute="trailing" constant="10" id="Oex-84-BmN"/>
@@ -1198,9 +1245,11 @@
                             <constraint firstItem="hR0-EV-55j" firstAttribute="trailing" secondItem="PBd-fZ-hn9" secondAttribute="trailing" constant="20" id="fBl-AF-m22"/>
                             <constraint firstItem="hBG-ZZ-tMt" firstAttribute="top" secondItem="PBd-fZ-hn9" secondAttribute="bottom" constant="22.329999999999998" id="gaB-qq-tXw"/>
                             <constraint firstItem="uVE-G5-uBT" firstAttribute="top" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="20" id="hx1-MW-1h9"/>
+                            <constraint firstItem="hR0-EV-55j" firstAttribute="trailing" secondItem="IPz-Xc-YLe" secondAttribute="trailing" constant="8" id="lgw-iF-caa"/>
                             <constraint firstItem="Xpa-jw-kdA" firstAttribute="leading" secondItem="mBN-Bh-IyA" secondAttribute="trailing" constant="10" id="o8W-YB-2qR"/>
                             <constraint firstItem="PBd-fZ-hn9" firstAttribute="top" secondItem="hR0-EV-55j" secondAttribute="top" constant="20" id="qkU-5V-3Kg"/>
                             <constraint firstItem="mBN-Bh-IyA" firstAttribute="top" secondItem="Xpa-jw-kdA" secondAttribute="top" id="utu-ed-WM5"/>
+                            <constraint firstItem="IPz-Xc-YLe" firstAttribute="top" secondItem="uVE-G5-uBT" secondAttribute="bottom" constant="30" id="v3K-Es-esE"/>
                             <constraint firstItem="mBN-Bh-IyA" firstAttribute="bottom" secondItem="Xpa-jw-kdA" secondAttribute="bottom" id="wAA-IQ-dQW"/>
                             <constraint firstItem="hBG-ZZ-tMt" firstAttribute="centerX" secondItem="7Lj-xe-Drf" secondAttribute="centerX" id="wbr-NN-485"/>
                             <constraint firstItem="hR0-EV-55j" firstAttribute="bottom" secondItem="mBN-Bh-IyA" secondAttribute="bottom" constant="491" id="zVA-a7-TxD"/>
@@ -1208,8 +1257,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="gZJ-GK-u67"/>
                     <connections>
-                        <outlet property="btnChooseDiet" destination="uVE-G5-uBT" id="Ott-MG-hDO"/>
+                        <outlet property="btnChooseDiet" destination="uVE-G5-uBT" id="Kcj-4c-78g"/>
+                        <outlet property="btnGo" destination="Xpa-jw-kdA" id="exp-Zn-jx6"/>
                         <outlet property="btnSelectCuisine" destination="CcG-zJ-uea" id="0Fs-kG-1yx"/>
+                        <outlet property="collectionView" destination="IPz-Xc-YLe" id="xzV-XI-0Gu"/>
                         <outlet property="lbSignIn" destination="PBd-fZ-hn9" id="our-fG-HMD"/>
                         <outlet property="searchBar" destination="mBN-Bh-IyA" id="5G6-ke-IHJ"/>
                     </connections>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8403DC662917FF1400B49087 /* signupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403DC652917FF1400B49087 /* signupVC.swift */; };
+		8447E5DC295D2DEA008C1945 /* regularCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447E5DB295D2DEA008C1945 /* regularCollectionViewCell.swift */; };
 		844E9E882916BA7F00ABE852 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9E872916BA7F00ABE852 /* AppDelegate.swift */; };
 		844E9E8A2916BA7F00ABE852 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9E892916BA7F00ABE852 /* SceneDelegate.swift */; };
 		844E9E8C2916BA7F00ABE852 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E9E8B2916BA7F00ABE852 /* ViewController.swift */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		8403DC652917FF1400B49087 /* signupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signupVC.swift; sourceTree = "<group>"; };
+		8447E5DB295D2DEA008C1945 /* regularCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = regularCollectionViewCell.swift; sourceTree = "<group>"; };
 		844E9E842916BA7F00ABE852 /* DigIntoYourFridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DigIntoYourFridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844E9E872916BA7F00ABE852 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844E9E892916BA7F00ABE852 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				84A3FBC42932E2630029E875 /* CollectionViewCell.swift */,
 				84981ACB2953DC9300548D96 /* instCell.swift */,
 				845ACC6729568748007FBFA1 /* myFridgeCollectionViewCell.swift */,
+				8447E5DB295D2DEA008C1945 /* regularCollectionViewCell.swift */,
 				844E9E902916BA8000ABE852 /* Assets.xcassets */,
 				844E9E922916BA8000ABE852 /* LaunchScreen.storyboard */,
 				844E9E952916BA8000ABE852 /* Info.plist */,
@@ -281,6 +284,7 @@
 				844E9EBA2916D02E00ABE852 /* homeVC.swift in Sources */,
 				84BA295829593737009BCE2C /* regularRecipesVC.swift in Sources */,
 				84AED7CA295130E7005E1BF2 /* instructionsVC.swift in Sources */,
+				8447E5DC295D2DEA008C1945 /* regularCollectionViewCell.swift in Sources */,
 				845ACC6829568748007FBFA1 /* myFridgeCollectionViewCell.swift in Sources */,
 				84D936DE294F85390064286F /* settingsVC.swift in Sources */,
 				8478B06029232C0D00CA6CC9 /* post.swift in Sources */,

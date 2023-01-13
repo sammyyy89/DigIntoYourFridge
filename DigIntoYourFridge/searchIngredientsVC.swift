@@ -64,9 +64,6 @@ class searchIngredientsVC: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
-//        if FirebaseAuth.Auth.auth().currentUser != nil { // if user is logged in
-//            //currentUserName()
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,9 +72,16 @@ class searchIngredientsVC: UIViewController {
         self.collectionView.reloadData()
     }
     
+    func urlEncode(encodedString: String) -> String {
+        let allowedChars = encodedString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "\"#%/<>?@,\\^`{|} ").inverted) ?? ""
+        return allowedChars
+    }
+    
     func fetchData(completed: @escaping () -> ()) {
         
-        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/autocomplete?query=\(self.userInput)&number=100&intolerances=\(self.intolerances)")
+        let encodedInput = self.urlEncode(encodedString: self.userInput)
+        
+        let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/autocomplete?query=\(encodedInput)&number=100&intolerances=\(self.intolerances)")
         
         guard url != nil else {
                         print("Error creating url object")
