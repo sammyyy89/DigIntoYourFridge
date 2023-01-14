@@ -46,8 +46,30 @@ class regularRecipesVC: UIViewController {
     @IBAction func btnClicked(_ sender: Any) {
         userInput = searchBar.text ?? ""
         
-        fetchData {
-            self.collectionView.reloadData()
+        if userInput == "" || userInput == nil {
+            let alert = UIAlertController(title: "Required field missing", message: "Please enter the name of the dish.", preferredStyle: .alert)
+            
+            let OK = UIAlertAction(title: "OK", style: .default) { (action) in
+                
+            }
+            
+            alert.addAction(OK)
+            self.present(alert, animated: false, completion: nil)
+        } else if selectedCuisineValue == "" || selectedCuisineValue == nil {
+            let alert2 = UIAlertController(title: "Required field missing", message: "Please choose cuisine.", preferredStyle: .alert)
+            
+            let OK = UIAlertAction(title: "OK", style: .default) { (action) in
+                
+            }
+            
+            alert2.addAction(OK)
+            self.present(alert2, animated: false, completion: nil)
+        }
+        
+        else {
+            fetchData {
+                self.collectionView.reloadData()
+            }
         }
     }
     
@@ -208,43 +230,44 @@ class regularRecipesVC: UIViewController {
         let encodedInput = self.urlEncode(encodedString: self.userInput)
         
         let encodedDiet = self.urlEncode(encodedString: self.selectedDietValue)
-        
+     
         let encodedCuisine = self.urlEncode(encodedString: self.selectedCuisineValue)
 
         let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=\(encodedInput)&cuisine=\(encodedCuisine)&diet=\(encodedDiet)&sortDirection=asc")
-        
-        print("input: \(self.userInput), cui: \(self.selectedCuisineValue), diet: \(self.selectedDietValue), url: \(url)")
-        
+            print(url)
+
         guard url != nil else {
             print("Error creating url object")
-            let error = UIAlertController(title: "Error", message: "Error occured. Try again with a different ingredient", preferredStyle: .alert)
+            let error = UIAlertController(title: "Error", message:"Error occured. Try again with a different ingredient", preferredStyle: .alert)
             let okay = UIAlertAction(title: "OK", style: .default) { _ in
-                
-            }
+                    
+                }
             error.addAction(okay)
             self.present(error, animated: false, completion: nil)
             return
         }
-        
-        var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy,
-                                 timeoutInterval: 10.0)
+            
+        var request = URLRequest(url: url!, cachePolicy:.useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
         
         let header = ["X-RapidAPI-Key": "20a6998a90msh0516f8821cc4954p199178jsnf78c2b51a123",
-                      "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"]
-        
+                        "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"]
+            
         request.allHTTPHeaderFields = header
-        request.httpMethod = "GET"
+        request.httpMethod = "GET" // 31.50
         
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
-            
+                
             guard let data = data else { return }
-            
+                
             do {
-                self.recipeData = try JSONDecoder().decode([RegularRecipes].self, from: data)
+                let response = try JSONDecoder().decode(Results.self, from: data)
+                
+                self.recipeData = response.results
                 
                 DispatchQueue.main.async {
-                    print("data test: \(self.recipeData)")
+                    //print("data test: \(self.recipeData)")
                     completed()
                 }
             }

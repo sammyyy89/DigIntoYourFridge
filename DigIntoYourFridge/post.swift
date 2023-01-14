@@ -19,6 +19,10 @@ struct Recipes: Codable {
     // var likes: Int!
 }
 
+struct Results: Codable {
+    var results: [RegularRecipes]
+}
+
 struct RegularRecipes: Codable {
     var id: Int
     var title: String

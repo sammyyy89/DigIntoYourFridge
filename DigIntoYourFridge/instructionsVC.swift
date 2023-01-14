@@ -58,7 +58,7 @@ class instructionsVC: UIViewController {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self.lbTitle.text = "Noneee"
+                        self.lbTitle.text = "None"
                     }
                 }
             }

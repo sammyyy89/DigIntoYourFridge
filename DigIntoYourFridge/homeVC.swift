@@ -92,6 +92,7 @@ class homeVC: UIViewController {
             let joined = userHas?.joined(separator: ",")
 
             let strEncoded = self.urlEncode(encodedString: "\(joined)") // comma = %2C, blank = %20
+            print("str: \(strEncoded)")
 
             let url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=\(strEncoded)&number=50&ignorePantry=false&ranking=2")
             // ignorePantry = Whether to ignore pantry ingredients such as water, salt, flour, etc.
