@@ -1050,7 +1050,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvJ-ip-MVJ">
                                 <rect key="frame" x="30" y="212.33333333333334" width="330" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Select Diet">
+                                <buttonConfiguration key="configuration" style="plain" title="🌿 Select Diet">
                                     <backgroundConfiguration key="background">
                                         <color key="backgroundColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </backgroundConfiguration>
@@ -1060,11 +1060,10 @@
                                     <action selector="selectDietClicked:" destination="0G5-jE-OSb" eventType="touchUpInside" id="A4O-Qf-tCV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCh-q4-b5K">
-                                <rect key="frame" x="176" y="271" width="61" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCh-q4-b5K">
+                                <rect key="frame" x="147" y="267.33333333333331" width="96" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Save">
+                                <buttonConfiguration key="configuration" style="filled" title="Save Diet">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" red="1" green="0.7725490196" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
@@ -1072,37 +1071,135 @@
                                     <action selector="saveBtn1Clicked:" destination="0G5-jE-OSb" eventType="touchUpInside" id="Wyu-o9-KoK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRq-mj-l5x">
-                                <rect key="frame" x="176" y="353" width="75" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRq-mj-l5x">
+                                <rect key="frame" x="30" y="721" width="330" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="330" id="ch0-rc-s29"/>
+                                    <constraint firstAttribute="height" constant="35" id="toW-R2-UGs"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="🍔 Search for Recipes">
+                                    <color key="baseForegroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="baseBackgroundColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <segue destination="p9R-Ui-fBS" kind="show" id="VkH-01-AQ6"/>
                                 </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🙅🏻‍♀️ Intolerances (Choose all that apply!)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvc-2b-TEU">
+                                <rect key="frame" x="30" y="307.33333333333331" width="280" height="27.333333333333314"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="17"/>
+                                <color key="textColor" red="0.97647058819999999" green="0.5568627451" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WU6-GX-eF1">
+                                <rect key="frame" x="0.0" y="342.66666666666674" width="390" height="283.33333333333326"/>
+                                <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XXw-6z-IW1">
+                                    <size key="itemSize" width="157" height="102"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MultipleSelection_ColCell" id="isG-Hu-bYL" customClass="MultipleSelection_ColCell" customModule="DigIntoYourFridge" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="157" height="102"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qqm-4V-Em7">
+                                            <rect key="frame" x="0.0" y="0.0" width="157" height="102"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NzV-Yn-zoz">
+                                                    <rect key="frame" x="0.0" y="0.0" width="157" height="102"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dairy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkI-53-svl">
+                                                            <rect key="frame" x="0.0" y="0.0" width="157" height="102"/>
+                                                            <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="NkI-53-svl" secondAttribute="bottom" id="UAa-uP-d4J"/>
+                                                        <constraint firstItem="NkI-53-svl" firstAttribute="leading" secondItem="NzV-Yn-zoz" secondAttribute="leading" id="bMf-md-urL"/>
+                                                        <constraint firstAttribute="trailing" secondItem="NkI-53-svl" secondAttribute="trailing" id="tJI-aj-ghe"/>
+                                                        <constraint firstItem="NkI-53-svl" firstAttribute="top" secondItem="NzV-Yn-zoz" secondAttribute="top" id="vsd-hX-MG3"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="NzV-Yn-zoz" secondAttribute="bottom" id="9KH-2v-bqK"/>
+                                                <constraint firstItem="NzV-Yn-zoz" firstAttribute="leading" secondItem="qqm-4V-Em7" secondAttribute="leading" id="ejh-Uz-uCA"/>
+                                                <constraint firstAttribute="trailing" secondItem="NzV-Yn-zoz" secondAttribute="trailing" id="erF-LT-yQ1"/>
+                                                <constraint firstItem="NzV-Yn-zoz" firstAttribute="top" secondItem="qqm-4V-Em7" secondAttribute="top" id="s6m-mP-OlR"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <size key="customSize" width="157" height="102"/>
+                                        <connections>
+                                            <outlet property="lbOption" destination="NkI-53-svl" id="CEg-Z4-hvP"/>
+                                            <outlet property="viewForSelection" destination="NzV-Yn-zoz" id="elP-lm-SoS"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="0G5-jE-OSb" id="CAD-5H-DWf"/>
+                                    <outlet property="delegate" destination="0G5-jE-OSb" id="MwO-sp-DHe"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DNR-gG-2bc">
+                                <rect key="frame" x="30" y="656" width="330" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="330" id="4aZ-kf-D29"/>
+                                    <constraint firstAttribute="height" constant="35" id="KoH-OB-JPB"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Save Intolerances">
+                                    <color key="baseBackgroundColor" red="1" green="0.7725490196" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QQa-6T-XZb"/>
                         <color key="backgroundColor" red="1" green="0.97254901959999995" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Eld-mB-ech" firstAttribute="top" secondItem="QQa-6T-XZb" secondAttribute="top" constant="30" id="7jj-o7-B2y"/>
+                            <constraint firstItem="QQa-6T-XZb" firstAttribute="trailing" secondItem="WU6-GX-eF1" secondAttribute="trailing" id="7qa-cQ-fFv"/>
+                            <constraint firstAttribute="trailing" secondItem="uRq-mj-l5x" secondAttribute="trailing" constant="30" id="9vh-oU-6LW"/>
                             <constraint firstItem="Eld-mB-ech" firstAttribute="centerX" secondItem="umw-vm-pFW" secondAttribute="centerX" id="EJL-ie-0Fm"/>
+                            <constraint firstItem="QQa-6T-XZb" firstAttribute="trailing" secondItem="WU6-GX-eF1" secondAttribute="trailing" id="EfY-bV-yfj"/>
+                            <constraint firstItem="QQa-6T-XZb" firstAttribute="trailing" secondItem="DNR-gG-2bc" secondAttribute="trailing" constant="30" id="G6k-xg-7lH"/>
+                            <constraint firstItem="lCh-q4-b5K" firstAttribute="centerX" secondItem="umw-vm-pFW" secondAttribute="centerX" id="Gbl-bU-iYk"/>
                             <constraint firstItem="nvJ-ip-MVJ" firstAttribute="leading" secondItem="QQa-6T-XZb" secondAttribute="leading" constant="30" id="I6z-tY-ysO"/>
+                            <constraint firstItem="uRq-mj-l5x" firstAttribute="leading" secondItem="umw-vm-pFW" secondAttribute="leading" constant="30" id="KKt-tJ-mzK"/>
+                            <constraint firstItem="WU6-GX-eF1" firstAttribute="leading" secondItem="QQa-6T-XZb" secondAttribute="leading" id="LaL-1t-YVc"/>
+                            <constraint firstItem="uvc-2b-TEU" firstAttribute="top" secondItem="nvJ-ip-MVJ" secondAttribute="bottom" constant="60" id="PFC-20-Ggi"/>
+                            <constraint firstItem="QQa-6T-XZb" firstAttribute="bottom" secondItem="WU6-GX-eF1" secondAttribute="bottom" constant="135" id="XeB-hN-cjR"/>
+                            <constraint firstItem="DNR-gG-2bc" firstAttribute="top" secondItem="WU6-GX-eF1" secondAttribute="bottom" constant="30" id="ZfR-4W-neT"/>
+                            <constraint firstItem="uvc-2b-TEU" firstAttribute="leading" secondItem="QQa-6T-XZb" secondAttribute="leading" constant="30" id="avh-Bb-ySK"/>
+                            <constraint firstItem="DNR-gG-2bc" firstAttribute="leading" secondItem="QQa-6T-XZb" secondAttribute="leading" constant="30" id="cnF-Aj-AzG"/>
+                            <constraint firstItem="lCh-q4-b5K" firstAttribute="top" secondItem="nvJ-ip-MVJ" secondAttribute="bottom" constant="20" id="eQh-Eo-ASm"/>
+                            <constraint firstItem="WU6-GX-eF1" firstAttribute="top" secondItem="uvc-2b-TEU" secondAttribute="bottom" constant="8" id="j0g-nJ-dGS"/>
                             <constraint firstItem="nvJ-ip-MVJ" firstAttribute="centerX" secondItem="umw-vm-pFW" secondAttribute="centerX" id="jwv-yc-KZe"/>
                             <constraint firstItem="nvJ-ip-MVJ" firstAttribute="top" secondItem="Eld-mB-ech" secondAttribute="bottom" constant="40" id="oaM-3T-P1a"/>
                             <constraint firstItem="QQa-6T-XZb" firstAttribute="trailing" secondItem="nvJ-ip-MVJ" secondAttribute="trailing" constant="30" id="sGB-NQ-NYw"/>
+                            <constraint firstItem="WU6-GX-eF1" firstAttribute="top" secondItem="uvc-2b-TEU" secondAttribute="bottom" constant="8" id="uel-1A-uhP"/>
+                            <constraint firstItem="WU6-GX-eF1" firstAttribute="leading" secondItem="QQa-6T-XZb" secondAttribute="leading" id="wTD-yG-Fp6"/>
+                            <constraint firstItem="uRq-mj-l5x" firstAttribute="top" secondItem="DNR-gG-2bc" secondAttribute="bottom" constant="30" id="yRl-sX-ffN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0zM-0d-OGU"/>
                     <connections>
                         <outlet property="btnSave1" destination="lCh-q4-b5K" id="qUp-IN-ee0"/>
                         <outlet property="btnSelectDiet" destination="nvJ-ip-MVJ" id="Qg0-xZ-d9D"/>
+                        <outlet property="intolerancesCollectionView" destination="WU6-GX-eF1" id="8Ea-tZ-XSH"/>
                         <outlet property="lbMain" destination="Eld-mB-ech" id="AeM-67-grQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LUz-11-LrS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3997" y="-1263"/>
+            <point key="canvasLocation" x="3996.9230769230767" y="-1263.2701421800948"/>
         </scene>
         <!--Regular RecipesVC-->
         <scene sceneID="OXK-7y-D2Y">

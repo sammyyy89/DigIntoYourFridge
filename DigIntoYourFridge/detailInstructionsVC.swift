@@ -18,18 +18,20 @@ class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
     var name = ""
     var missedIgr = [String]()
     var usedIgr = [String]()
+    var from = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
          
         self.collectionView.dataSource = self
-        print("id: \(id)")
-//        print("Users don't have : \(missedIgr.joined(separator: ", "))")
         
-        if missedIgr.count == 0 {
-            unavailableIngredients.text = "Yay! You have every ingredient needed 😀"
+        if missedIgr.count == 0 && from != "regular" {
+            unavailableIngredients.text = "Yay! You have every ingredient 😀"
             unavailableIngredients.textColor = .blue
-        } else {
+        } else if missedIgr.count == 0 && from == "regular" {
+            unavailableIngredients.text = " "
+        }
+        else {
             unavailableIngredients.text = "🫤 \(missedIgr.joined(separator: ", ")) not in your fridge!"
             unavailableIngredients.textColor = .red
         }
@@ -53,10 +55,13 @@ class detailInstructionsVC: UIViewController, UICollectionViewDataSource {
         super.viewWillAppear(animated)
         
         self.collectionView.dataSource = self
-        if missedIgr.count == 0 {
+        if missedIgr.count == 0 && from != "regular" {
             unavailableIngredients.text = "Yay! You have every ingredient 😀"
             unavailableIngredients.textColor = .blue
-        } else {
+        } else if missedIgr.count == 0 && from == "regular" {
+            unavailableIngredients.text = " "
+        }
+        else {
             unavailableIngredients.text = "🫤 \(missedIgr.joined(separator: ", ")) not in your fridge!"
             unavailableIngredients.textColor = .red
         }

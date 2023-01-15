@@ -15,7 +15,15 @@ class CellClass: UITableViewCell {
     
 }
 
+class MultipleSelection_ColCell: UICollectionViewCell {
+    
+    @IBOutlet weak var viewForSelection: UIView!
+    @IBOutlet weak var lbOption: UILabel!
+}
+
 class settingsVC: UIViewController {
+    
+    @IBOutlet weak var intolerancesCollectionView: UICollectionView!
     
     @IBOutlet weak var btnSelectDiet: UIButton!
     //var myOptionBG = hexStringToUIColor(hex: "#FFC5A5")
@@ -46,12 +54,16 @@ class settingsVC: UIViewController {
             }
             let addedAlert = UIAlertController(title: "Success", message: "Successfully saved!", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                print("diet added")
+
             }
             addedAlert.addAction(okAction)
             self.present(addedAlert, animated: false, completion: nil)
         }
     }
+    
+    var intolerances = ["Dairy", "Egg", "Gluten", "Peanut", "Sesame", "Seafood", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"]
+    var selectedIndex = [-1]
+    var selectedIntolerances = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,6 +170,61 @@ extension settingsVC: UITableViewDelegate, UITableViewDataSource {
     
         selectedButton.setTitle(dataSource[indexPath.row], for: .normal)
         removeTransparentView()
+    }
+}
+
+extension settingsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return intolerances.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = intolerancesCollectionView.dequeueReusableCell(withReuseIdentifier: "MultipleSelection_ColCell", for: indexPath) as! MultipleSelection_ColCell
+        
+        cell.lbOption.text = intolerances[indexPath.row]
+        
+        if selectedIndex.contains(indexPath.item) {
+            cell.viewForSelection.backgroundColor = myOrange
+            cell.lbOption.textColor = myYellow
+        } else {
+            cell.viewForSelection.backgroundColor = myYellow
+            cell.lbOption.textColor = .black
+        }
+        cell.layoutIfNeeded()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.intolerancesCollectionView.frame.width / 5 - 5, height: 30)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if selectedIndex.contains(indexPath.item) {
+            if let index = selectedIndex.firstIndex(of: indexPath.item) {
+                selectedIndex.remove(at: index)
+                
+                let itemToRemove = intolerances[indexPath.item]
+                while selectedIntolerances.contains(itemToRemove) {
+                    if let idx = selectedIntolerances.firstIndex(of: itemToRemove) {
+                        selectedIntolerances.remove(at: idx)
+                    }
+                }
+            }
+        } else {
+            selectedIndex.append(indexPath.item)
+            selectedIntolerances.append(intolerances[indexPath.item])
+        }
+        intolerancesCollectionView.reloadData()
+        let joined = selectedIntolerances.joined(separator: ",")
+        print("joined: \(joined)")
     }
 }
 

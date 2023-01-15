@@ -313,11 +313,17 @@ extension regularRecipesVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//extension regularRecipesVC: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        
-//    }
-//}
+extension regularRecipesVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let destVC = storyboard?.instantiateViewController(withIdentifier: "detailInstructionsVC") as? detailInstructionsVC
+        destVC?.id = String(recipeData[indexPath.row].id)
+        destVC?.name = recipeData[indexPath.row].title
+        destVC?.foodImgUrl = recipeData[indexPath.row].image
+        destVC?.from = "regular"
+        self.navigationController?.pushViewController(destVC!, animated: true)
+    }
+}
 
 extension regularRecipesVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -339,6 +345,6 @@ extension regularRecipesVC: UICollectionViewDelegateFlowLayout {
 }
 
 
-// typeMismatch(Swift.Array<Any>, Swift.DecodingError.Context(codingPath: [], debugDescription: "Expected to decode Array<Any> but found a dictionary instead.", underlyingError: nil)) 에러 해결
-// what to do: display data, instruction page
+
+// what to do: instruction page
 // none of above 선택 시 처리, cuisine 안 골랐을 시 처리 -> 둘다 빈칸으로 처리

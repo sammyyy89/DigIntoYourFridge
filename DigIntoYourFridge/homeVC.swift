@@ -162,9 +162,6 @@ class homeVC: UIViewController {
 
 extension homeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("id: \(String(recipeData[indexPath.row].id))") 
-//        print("title: \(recipeData[indexPath.row].title)")
-//        print("image url: \(recipeData[indexPath.row].image)")
         
         self.missed = [String]()
         self.used = [String]()
@@ -187,6 +184,7 @@ extension homeVC: UICollectionViewDelegate {
         destVC?.foodImgUrl = recipeData[indexPath.row].image
         destVC?.missedIgr = self.missed
         destVC?.usedIgr = self.used
+
         self.navigationController?.pushViewController(destVC!, animated: true)
     }
 }
