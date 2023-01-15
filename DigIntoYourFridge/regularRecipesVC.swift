@@ -30,6 +30,8 @@ class regularRecipesVC: UIViewController {
     var selectedDietValue = ""
     var selectedCuisineValue = ""
     
+    var userIntolerances = ""
+    
     private var recipeData = [RegularRecipes]()
     private let screenSize = UIScreen.main.bounds
     private var cellSize: CGSize!

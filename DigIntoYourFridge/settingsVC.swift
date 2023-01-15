@@ -23,6 +23,8 @@ class MultipleSelection_ColCell: UICollectionViewCell {
 
 class settingsVC: UIViewController {
     
+    @IBOutlet weak var usersIntolerances: UILabel!
+    
     @IBOutlet weak var intolerancesCollectionView: UICollectionView!
     
     @IBOutlet weak var btnSelectDiet: UIButton!
@@ -112,6 +114,46 @@ class settingsVC: UIViewController {
         addTransparentView(frames: btnSelectDiet.frame)
     }
     
+    @IBOutlet weak var saveIntBtn: UIButton!
+    @IBAction func saveIntBtnClicked(_ sender: Any) {
+        for value in selectedIntolerances {
+            let realm = try! Realm()
+            let db = User()
+            let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
+            
+            let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+            print("user: \(user)")
+            
+            let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
+            
+            if exist == nil {
+                print("error")
+            } else {
+                for value in selectedIntolerances {
+                    if user.intolerancesArray.contains(value) {
+                        print("Already added")
+                    } else {
+                        try! realm.write {
+                            user.intolerancesArray.append(value)
+                            realm.add(db, update: .all)
+                        }
+                        let addedAlert = UIAlertController(title: "Intolerances added", message: "Intolerances successfully added!", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default) {
+                            (action) in
+                            print(user.intolerancesArray)
+                        }
+                        addedAlert.addAction(okAction)
+                        self.present(addedAlert, animated: false, completion: nil)
+                        
+//                        let destVC = storyboard?.instantiateViewController(withIdentifier: "regularRecipesPage") as? regularRecipesVC
+//                        
+//                        destVC?.userIntolerances = 
+                    }
+                }
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -139,12 +181,15 @@ class settingsVC: UIViewController {
             let realm = try! Realm()
             let user = realm.objects(User.self).filter("userEmail == %@", currUser).first
             
+            let allergicTo = user?.intolerancesArray
+            self.usersIntolerances.text = "Exclude \(allergicTo!.joined(separator: ", ")))"
+            
             if (user?.diet == "") || (user?.diet == nil) {
                 btnSelectDiet.setTitle("🌱 Select Diet", for: .normal)
             } else {
                 btnSelectDiet.setTitle("🌱 Diet: \(user?.diet ?? "")", for: .normal)
             }
-
+            
         }
     }
     
@@ -224,7 +269,6 @@ extension settingsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         }
         intolerancesCollectionView.reloadData()
         let joined = selectedIntolerances.joined(separator: ",")
-        print("joined: \(joined)")
     }
 }
 
