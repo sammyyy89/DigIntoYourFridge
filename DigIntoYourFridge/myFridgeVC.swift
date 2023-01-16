@@ -82,8 +82,6 @@ class myFridgeVC: UIViewController {
             let joined = userHas.joined(separator: ", ")
             let img_joined = saved_images.joined(separator: ", ")
         }
-            
-        
     }
     
     func goToViewController(where: String) {

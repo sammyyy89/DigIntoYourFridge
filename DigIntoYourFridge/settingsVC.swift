@@ -109,7 +109,7 @@ class settingsVC: UIViewController {
     }
     
     @IBAction func selectDietClicked(_ sender: Any) {
-        dataSource = ["Pescetarian", "Lacto vegetarian", "Ovo vegetarian", "Vegan", "Paleo", "Primal", "Vegetarian", "None of above"]
+        dataSource = ["Pescetarian", "Lacto vegetarian", "Ovo vegetarian", "Vegan", "Paleo", "Primal", "Vegetarian", "None"]
         selectedButton = btnSelectDiet
         addTransparentView(frames: btnSelectDiet.frame)
     }

@@ -36,6 +36,8 @@ class homeVC: UIViewController {
         cellSize = CGSize(width: width, height: height)
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

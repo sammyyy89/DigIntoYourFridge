@@ -323,6 +323,37 @@ class ViewController: UIViewController {
 //        }
     }
     
+    @IBAction func resetPassword(_ sender: Any) {
+        var email = UITextField()
+        
+        let alert = UIAlertController(title: "Find Password", message: "Enter the email address associated with Dig into Your FRIDGE.", preferredStyle: .alert)
+        alert.addTextField{ alertTextField in
+            alertTextField.placeholder = "example@example.com"
+            email = alertTextField
+        }
+        
+        let action = UIAlertAction(title: "Submit", style: .default) { action in
+            let userEmail = email.text!
+            // send email
+            Auth.auth().sendPasswordReset(withEmail: userEmail) { (error) in
+                if let error = error {
+                    if let errorCode: AuthErrorCode = AuthErrorCode(rawValue: error._code) {
+                        print("Error: \(error.localizedDescription), Code: \(errorCode.rawValue)")
+                    }
+                } else {
+                    let success = UIAlertController(title: "Link Sent", message: "A link to reset your password was sent to your email.", preferredStyle: .alert)
+                    let okay = UIAlertAction(title: "OK", style: .default){
+                        UIAlertAction in
+                    }
+                    success.addAction(okay)
+                    self.present(success, animated: true, completion: nil)
+                }
+            }
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
     @objc private func signOutBtnClicked() {
         do {
             try FirebaseAuth.Auth.auth().signOut()

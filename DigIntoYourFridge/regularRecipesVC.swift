@@ -283,9 +283,19 @@ class regularRecipesVC: UIViewController {
                 
                 self.recipeData = response.results
                 
-                DispatchQueue.main.async {
-                    //print("data test: \(self.recipeData)")
-                    completed()
+                if self.recipeData.count > 0 {
+                    DispatchQueue.main.async {
+                        completed()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "No Data", message: "No recipe found. Please try again with another dish name.", preferredStyle: .alert)
+                        let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
+                            self.searchBar.text = ""
+                        })
+                        alert.addAction(okay)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
             }
             catch {
