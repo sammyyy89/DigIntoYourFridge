@@ -68,14 +68,22 @@ class myFridgeVC: UIViewController {
     }
     
     func loadData() {
-            let currentUser = Auth.auth().currentUser?.email ?? "Not found"
-    
-            let realm = try! Realm()
-            let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first! // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+        let currentUser = Auth.auth().currentUser?.email ?? "Not found"
+        let realm = try! Realm()
+        let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first! // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+        
+        let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
+        
+        if exist == nil {
+            print("not found")
+        } else {
             self.userHas = data.ingredientsArray
             self.saved_images = data.imgUrlArray
             let joined = userHas.joined(separator: ", ")
             let img_joined = saved_images.joined(separator: ", ")
+        }
+            
+        
     }
     
     func goToViewController(where: String) {
@@ -101,7 +109,6 @@ extension myFridgeVC: UICollectionViewDelegate {
         if exist == nil {
             print("Error finding user")
         } else {
-            
             let confirm = UIAlertController(title: "Are you sure?", message: "Do you want to delete this ingredient from your fridge?", preferredStyle: .alert)
             let yes = UIAlertAction(title: "Delete", style: .destructive) { _ in
                 try! realm.write {

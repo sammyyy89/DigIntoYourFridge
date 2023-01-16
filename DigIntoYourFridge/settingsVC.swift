@@ -122,7 +122,6 @@ class settingsVC: UIViewController {
             let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
             
             let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
-            print("user: \(user)")
             
             let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
             
@@ -140,17 +139,47 @@ class settingsVC: UIViewController {
                         let addedAlert = UIAlertController(title: "Intolerances added", message: "Intolerances successfully added!", preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "OK", style: .default) {
                             (action) in
-                            print(user.intolerancesArray)
+                            self.intolerancesCollectionView.reloadData()
+                            self.viewDidLoad()
                         }
                         addedAlert.addAction(okAction)
                         self.present(addedAlert, animated: false, completion: nil)
-                        
-//                        let destVC = storyboard?.instantiateViewController(withIdentifier: "regularRecipesPage") as? regularRecipesVC
-//                        
-//                        destVC?.userIntolerances = 
                     }
                 }
             }
+        }
+    }
+    
+    @IBAction func detBtnClicked(_ sender: Any) {
+        let realm = try! Realm()
+        let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
+            
+        let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+            
+        let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
+            
+        if exist == nil {
+            print("noting found")
+        } else {
+            let confirm = UIAlertController(title: "Are you sure?", message: "Do you want to delete every intolerance?", preferredStyle: .alert)
+            
+            let yes = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                if user.intolerancesArray.count > 0 {
+                    try! realm.write {
+                        user.intolerancesArray.removeAll()
+                        self.viewDidLoad()
+                    }
+                } else {
+                    print("already empty")
+                }
+            }
+            let no = UIAlertAction(title: "Cancel", style: .cancel) {
+                _ in
+                print("Cancelled")
+            }
+            confirm.addAction(no)
+            confirm.addAction(yes)
+            present(confirm, animated: true, completion: nil)
         }
     }
     
@@ -181,8 +210,14 @@ class settingsVC: UIViewController {
             let realm = try! Realm()
             let user = realm.objects(User.self).filter("userEmail == %@", currUser).first
             
-            let allergicTo = user?.intolerancesArray
-            self.usersIntolerances.text = "Exclude \(allergicTo!.joined(separator: ", ")))"
+            if user?.intolerancesArray == nil {
+                self.usersIntolerances.text = "Your intolerances: "
+            } else {
+                let allergicTo = user?.intolerancesArray
+                self.usersIntolerances.text = "Your intolerances:  \(allergicTo!.joined(separator: ", "))"
+            }
+            
+            
             
             if (user?.diet == "") || (user?.diet == nil) {
                 btnSelectDiet.setTitle("🌱 Select Diet", for: .normal)
@@ -227,6 +262,11 @@ extension settingsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         let cell = intolerancesCollectionView.dequeueReusableCell(withReuseIdentifier: "MultipleSelection_ColCell", for: indexPath) as! MultipleSelection_ColCell
         
         cell.lbOption.text = intolerances[indexPath.row]
+        
+//        let realm = try! Realm()
+//        let db = User()
+//        let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
+//        let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
         
         if selectedIndex.contains(indexPath.item) {
             cell.viewForSelection.backgroundColor = myOrange
