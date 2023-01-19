@@ -70,17 +70,21 @@ class myFridgeVC: UIViewController {
     func loadData() {
         let currentUser = Auth.auth().currentUser?.email ?? "Not found"
         let realm = try! Realm()
-        let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first! // Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+        let data = realm.objects(User.self).filter("userEmail == %@", currentUser).first
         
-        let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
-        
-        if exist == nil {
-            print("not found")
+        if data == nil {
+            print("No data")
         } else {
-            self.userHas = data.ingredientsArray
-            self.saved_images = data.imgUrlArray
-            let joined = userHas.joined(separator: ", ")
-            let img_joined = saved_images.joined(separator: ", ")
+            let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
+            
+            if exist == nil {
+                print("not found")
+            } else {
+                self.userHas = data!.ingredientsArray
+                self.saved_images = data!.imgUrlArray
+                let joined = userHas.joined(separator: ", ")
+                let img_joined = saved_images.joined(separator: ", ")
+            }
         }
     }
     

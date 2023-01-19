@@ -31,6 +31,8 @@ class settingsVC: UIViewController {
     //var myOptionBG = hexStringToUIColor(hex: "#FFC5A5")
     
     @IBOutlet weak var lbMain: UILabel!
+    @IBOutlet weak var topBtn: UIButton!
+    @IBOutlet weak var lbIntolerances: UILabel!
     
     let transparentView = UIView()
     let tableView = UITableView()
@@ -150,6 +152,7 @@ class settingsVC: UIViewController {
         }
     }
     
+    @IBOutlet weak var resetBtn: UIButton!
     @IBAction func detBtnClicked(_ sender: Any) {
         let realm = try! Realm()
         let currentUser = FirebaseAuth.Auth.auth().currentUser!.email ?? "Not found"
@@ -196,6 +199,12 @@ class settingsVC: UIViewController {
             self.lbMain.isHidden = true
             self.btnSelectDiet.isHidden = true
             self.btnSave1.isHidden = true
+            self.intolerancesCollectionView.isHidden = true
+            self.topBtn.isHidden = true
+            self.lbIntolerances.isHidden = true
+            self.usersIntolerances.isHidden = true
+            self.saveIntBtn.isHidden = true
+            self.resetBtn.isHidden = true
             let alert = UIAlertController(title: "Alert", message: "Please login for additional features.", preferredStyle: .alert)
             let okay = UIAlertAction(title: "Okay", style: .default, handler: { (action) -> Void in
                 self.goToViewController(where: "loginPage")
@@ -207,6 +216,12 @@ class settingsVC: UIViewController {
             self.lbMain.isHidden = false
             self.btnSelectDiet.isHidden = false
             self.btnSave1.isHidden = false
+            self.intolerancesCollectionView.isHidden = false
+            self.topBtn.isHidden = false
+            self.lbIntolerances.isHidden = false
+            self.lbIntolerances.isHidden = false
+            self.saveIntBtn.isHidden = false
+            self.resetBtn.isHidden = false
             let realm = try! Realm()
             let user = realm.objects(User.self).filter("userEmail == %@", currUser).first
             

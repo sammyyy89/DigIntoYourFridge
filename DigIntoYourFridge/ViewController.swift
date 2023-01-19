@@ -338,7 +338,13 @@ class ViewController: UIViewController {
             Auth.auth().sendPasswordReset(withEmail: userEmail) { (error) in
                 if let error = error {
                     if let errorCode: AuthErrorCode = AuthErrorCode(rawValue: error._code) {
-                        print("Error: \(error.localizedDescription), Code: \(errorCode.rawValue)")
+//                        print("Error: \(error.localizedDescription), Code: \(errorCode.rawValue)")
+                        let error = UIAlertController(title: "Error Code: \(errorCode.rawValue)", message: error.localizedDescription, preferredStyle: .alert)
+                        let okay = UIAlertAction(title: "OK", style: .default){
+                            UIAlertAction in
+                        }
+                        error.addAction(okay)
+                        self.present(error, animated: true, completion: nil)
                     }
                 } else {
                     let success = UIAlertController(title: "Link Sent", message: "A link to reset your password was sent to your email.", preferredStyle: .alert)

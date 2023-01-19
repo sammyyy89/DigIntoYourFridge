@@ -236,16 +236,16 @@ class regularRecipesVC: UIViewController {
         let encodedCuisine = self.urlEncode(encodedString: self.selectedCuisineValue)
         
         let realm = try! Realm()
-        let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first!
+        let user = realm.objects(User.self).filter("userEmail == %@", currentUser).first
         let exist = realm.object(ofType: User.self, forPrimaryKey: currentUser)
         
         var url = URL(string: "")
         var userIntolerances = [String]()
         
-        if exist == nil {
+        if exist == nil || currentUser == nil {
             url = URL(string: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=\(encodedInput)&cuisine=\(encodedCuisine)&diet=\(encodedDiet)&sortDirection=asc")
         } else {
-            for intolerance in user.intolerancesArray {
+            for intolerance in user!.intolerancesArray {
                 userIntolerances.append(intolerance)
             }
             let encodedIntolerances = userIntolerances.joined(separator: ",")
